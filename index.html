@@ -301,7 +301,8 @@
 <script type="module">
 (async function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce) return; // keep CSS fallback render
+  var touch  = matchMedia('(hover: none), (pointer: coarse)').matches;
+  if(reduce || touch) return; // mobile/reduced-motion keep the lighter CSS render
   var canvas=document.getElementById('gl');
   var THREE;
   try { THREE = await import('three'); } catch(e){ console.warn('three load failed → CSS fallback',e); return; }
