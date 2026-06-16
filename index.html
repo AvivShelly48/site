@@ -94,7 +94,7 @@
     background-image:radial-gradient(1.4px 1.4px at 12% 18%,#fff,transparent),radial-gradient(1.2px 1.2px at 28% 32%,#fff,transparent),radial-gradient(1.6px 1.6px at 42% 12%,#fff,transparent),radial-gradient(1.1px 1.1px at 57% 26%,#fff,transparent),radial-gradient(1.5px 1.5px at 68% 16%,#fff,transparent),radial-gradient(1.2px 1.2px at 78% 34%,#fff,transparent),radial-gradient(1.3px 1.3px at 88% 22%,#fff,transparent),radial-gradient(1.1px 1.1px at 8% 40%,#fff,transparent),radial-gradient(1.4px 1.4px at 35% 46%,#fff,transparent),radial-gradient(1.2px 1.2px at 63% 42%,#fff,transparent);}
   /* the high-resolution building — constant and sharp */
   .bld{position:absolute;bottom:-2vh;left:0;right:auto;height:108vh;will-change:transform;
-    transform:translateX(-46%);transform-origin:40% 82%;filter:drop-shadow(0 40px 64px rgba(8,12,24,.42));}
+    transform:translateX(-46%);transform-origin:42% 90%;filter:drop-shadow(0 40px 64px rgba(8,12,24,.42));}
   .bld img{height:100%;width:auto;display:block;}
   .bld .bld-night{position:absolute;top:0;left:0;right:auto;opacity:0;will-change:opacity;}
   /* final chapter: walking up to the building and stepping into the lit lobby */
@@ -413,8 +413,9 @@
     <!-- 5 · Lobby (inside) -->
     <div class="cchap" data-ch="4">
       <div class="cpanel">
-        <div class="dnum">קומת הכניסה</div>
-        <h2>ברוכים הבאים <em>הביתה.</em></h2>
+        <div class="dnum">הלובי · קומת הכניסה</div>
+        <h2>הגעתם <em>הביתה.</em></h2>
+        <p class="ctext">ברוכים הבאים הביתה — כאן מתחילים החיים החדשים שלכם.</p>
         <a href="#projects" class="ccta" data-hot><span class="ln2"></span> כנסו לפרויקטים</a>
       </div>
     </div>
@@ -640,10 +641,11 @@
   var scrollEl=document.getElementById('cinoScroll');
   var lobby=document.getElementById('cinoLobby');
   var SCENES=chapters.length;            // 5 scenes
-  var SCREENS=6;                         // total scroll length, in viewport-heights
-  /* per-chapter scroll boundaries (fractions of total). Day is short; the
-     closing "welcome home" chapter is long so the walk up to the lobby breathes. */
-  var STOPS=[0, 0.10, 0.26, 0.44, 0.60, 1.0];
+  var SCREENS=4;                         // total scroll length, in viewport-heights (tighter scrub)
+  /* per-chapter scroll boundaries (fractions of total). The day + outdoor
+     chapters are brief; the lobby arrival comes early and holds, so the
+     "you're home" moment is what the visitor lingers on. */
+  var STOPS=[0, 0.07, 0.18, 0.29, 0.40, 1.0];
 
   /* gate the loader on the two building images */
   var need=2, ready=0;
@@ -691,14 +693,14 @@
     stars.style.opacity=starOp;
     /* approach: the camera walks toward the building and zooms into the
        entrance through the closing chapters, simulating arriving at the lobby. */
-    var ap=smooth(STOPS[3],1,p);                 // 0 before the approach → 1 at the door
-    var panX=lerp(-52,-30,smooth(0,0.5,p));
-    var scale=1+ap*0.95;                         // push in toward the entrance
+    var ap=smooth(STOPS[2],0.78,p);              // approach starts early; reaches the door by ~78%
+    var panX=lerp(-52,-30,smooth(0,0.32,p));
+    var scale=1+ap*1.25;                          // push deeper toward the entrance / lobby glass
     bld.style.transform='translateX('+panX+'%) scale('+scale+')';
     /* building stays sharp — its windows light up toward evening, fully lit by the lobby */
-    bldNight.style.opacity=smooth(0.28,0.56,p);
+    bldNight.style.opacity=smooth(0.20,0.42,p);
     /* warm lobby light + doorway vignette bloom in as we step inside */
-    if(lobby) lobby.style.opacity=smooth(0.66,0.98,p);
+    if(lobby) lobby.style.opacity=smooth(0.46,0.80,p);
     /* captions POP in: only the active chapter is "live" */
     var active=i;
     if(active!==activeScene){
