@@ -93,10 +93,10 @@
   .sky-stars{position:absolute;inset:0;opacity:0;will-change:opacity;
     background-image:radial-gradient(1.4px 1.4px at 12% 18%,#fff,transparent),radial-gradient(1.2px 1.2px at 28% 32%,#fff,transparent),radial-gradient(1.6px 1.6px at 42% 12%,#fff,transparent),radial-gradient(1.1px 1.1px at 57% 26%,#fff,transparent),radial-gradient(1.5px 1.5px at 68% 16%,#fff,transparent),radial-gradient(1.2px 1.2px at 78% 34%,#fff,transparent),radial-gradient(1.3px 1.3px at 88% 22%,#fff,transparent),radial-gradient(1.1px 1.1px at 8% 40%,#fff,transparent),radial-gradient(1.4px 1.4px at 35% 46%,#fff,transparent),radial-gradient(1.2px 1.2px at 63% 42%,#fff,transparent);}
   /* the high-resolution building — constant and sharp */
-  .bld{position:absolute;bottom:-2vh;inset-inline-end:3vw;height:94vh;will-change:transform;
-    filter:drop-shadow(0 40px 60px rgba(8,12,24,.4));}
+  .bld{position:absolute;bottom:-2vh;left:0;right:auto;height:108vh;will-change:transform;
+    transform:translateX(-46%);filter:drop-shadow(0 40px 64px rgba(8,12,24,.42));}
   .bld img{height:100%;width:auto;display:block;}
-  .bld .bld-night{position:absolute;inset-block:0;inset-inline-end:0;opacity:0;will-change:opacity;}
+  .bld .bld-night{position:absolute;top:0;left:0;right:auto;opacity:0;will-change:opacity;}
 
   .cino-chapters{position:absolute;inset:0;pointer-events:none;color:#fff;}
   .cino-chapters.on-light{color:#1b1922;}
@@ -267,9 +267,8 @@
     .nav-links,.nav-cta{display:none;}
     .nav-toggle{display:block;}
     .cino-rail{inset-inline-end:14px;gap:10px;}
-    .bld{height:64vh;inset-inline-end:auto;left:50%;transform:translateX(-50%);bottom:-1vh;}
-    .bld .bld-night{inset-inline-end:auto;left:0;}
-    .cpanel{inset-inline:clamp(18px,6vw,40px);max-width:none;top:11vh;transform:none;}
+    .bld{height:74vh;left:0;right:auto;bottom:-1vh;}
+    .cpanel{inset-inline:clamp(18px,6vw,40px);max-width:none;top:10vh;transform:none;}
     .cino-count{display:none;}
     .feat{grid-template-columns:1fr;min-height:0;}
     .feat .feat-img{aspect-ratio:16/11;}
@@ -576,6 +575,7 @@
   var skyBg=document.getElementById('skyBg');
   var sun=document.getElementById('skySun');
   var stars=document.getElementById('skyStars');
+  var bld=document.getElementById('bld');
   var bldNight=document.getElementById('bldNight');
   var bldDay=document.getElementById('bldDay');
   var chapters=[].slice.call(document.querySelectorAll('.cchap'));
@@ -620,6 +620,8 @@
     sun.style.left=sx+'vw'; sun.style.top=sy+'vh'; sun.style.opacity=so;
     sun.style.background='radial-gradient(circle,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',.95) 0%,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',.45) 26%,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',0) 62%)';
     stars.style.opacity=starOp;
+    /* building sits half off the left edge; scrolling pans it in to reveal more */
+    bld.style.transform='translateX('+lerp(-52,-22,p)+'%)';
     /* building stays constant & sharp — its windows simply light up toward evening */
     bldNight.style.opacity=smooth(0.55,0.82,p);
     /* captions POP in: only the active scene is "live" */
