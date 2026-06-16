@@ -648,11 +648,11 @@
   var entrance=document.getElementById('cinoEntrance');
   var lobbyImg=document.getElementById('cinoLobbyImg');
   var SCENES=chapters.length;            // 5 scenes
-  var SCREENS=3.5;                       // total scroll length, in viewport-heights (tight scrub)
-  /* per-chapter scroll boundaries (fractions of total). The exterior chapters
-     are brief; the back half cross-fades through the glass entrance into the
-     real lobby footage and holds on the "welcome home" moment. */
-  var STOPS=[0, 0.10, 0.22, 0.36, 0.50, 1.0];
+  var SCREENS=4.5;                       // total scroll length, in viewport-heights (room to feel each beat)
+  /* per-chapter scroll boundaries (fractions of total). Each chapter holds one
+     clear, resolved image; the cross-fades happen across the boundaries so the
+     transitions are felt and never land mid-dissolve on a caption. */
+  var STOPS=[0, 0.14, 0.30, 0.50, 0.68, 1.0];
 
   /* gate the loader on the two building images */
   var need=2, ready=0;
@@ -699,22 +699,25 @@
     sun.style.background='radial-gradient(circle,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',.95) 0%,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',.45) 26%,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',0) 62%)';
     stars.style.opacity=starOp;
     /* approach: nudge the exterior in, then cross-fade through the glass
-       entrance into the real lobby footage. */
-    var ap=smooth(0.06,0.30,p);
-    var panX=lerp(-52,-32,smooth(0,0.30,p));
-    var scale=1+ap*0.55;                          // gentle push toward the glass before the handoff
+       entrance into the real lobby footage. Each shot holds fully before the
+       next dissolve begins, so no caption lands on a muddy 50% blend. */
+    var ap=smooth(0.06,0.34,p);
+    var panX=lerp(-52,-30,smooth(0,0.34,p));
+    var scale=1+ap*0.42;                          // gentle push toward the glass before the handoff
     bld.style.transform='translateX('+panX+'%) scale('+scale+')';
-    bld.style.opacity=1-smooth(0.22,0.34,p);
+    bld.style.opacity=1-smooth(0.26,0.40,p);      // exterior holds, then fades by the entrance
     /* building windows light up toward evening before we step inside */
-    bldNight.style.opacity=smooth(0.10,0.30,p);
-    /* glass entrance fades in and holds, then hands off to the lobby interior */
-    var entOut=smooth(0.42,0.52,p);
-    if(entrance){ entrance.style.opacity=smooth(0.22,0.32,p)*(1-entOut);
-      entrance.style.transform='scale('+(1.05+0.12*smooth(0.22,0.52,p)).toFixed(4)+')'; }
-    if(lobbyImg){ lobbyImg.style.opacity=smooth(0.42,0.54,p);
-      lobbyImg.style.transform='scale('+(1.04+0.14*smooth(0.46,1,p)).toFixed(4)+')'; }
+    bldNight.style.opacity=smooth(0.10,0.28,p);
+    /* glass entrance: fade in across the ch1→ch2 boundary, hold clear through
+       ch2, then hand off to the lobby across the ch3 boundary */
+    var entOut=smooth(0.54,0.66,p);
+    if(entrance){ entrance.style.opacity=smooth(0.28,0.40,p)*(1-entOut);
+      entrance.style.transform='scale('+(1.05+0.12*smooth(0.28,0.66,p)).toFixed(4)+')'; }
+    /* lobby interior: holds clear through ch4 with a slow push-in for the wow */
+    if(lobbyImg){ lobbyImg.style.opacity=smooth(0.54,0.66,p);
+      lobbyImg.style.transform='scale('+(1.05+0.16*smooth(0.58,1,p)).toFixed(4)+')'; }
     /* legibility scrim + vignette bloom once we're inside */
-    if(lobby) lobby.style.opacity=smooth(0.40,0.60,p);
+    if(lobby) lobby.style.opacity=smooth(0.44,0.66,p);
     /* captions POP in: only the active chapter is "live" */
     var active=i;
     if(active!==activeScene){
