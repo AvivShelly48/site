@@ -167,7 +167,7 @@
   .feat .feat-copy .more{margin-top:30px;display:inline-flex;align-items:center;gap:13px;font-size:13.5px;letter-spacing:.05em;color:#fff;}
   .feat .feat-copy .more .ln2{width:42px;height:1px;background:var(--led);transition:width .4s;}
   .feat:hover .feat-copy .more .ln2{width:70px;}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,24px);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(14px,1.8vw,24px);}
   .card{position:relative;border-radius:5px;overflow:hidden;cursor:pointer;background:var(--char);aspect-ratio:4/5;}
   .card img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1),filter .6s;filter:saturate(.92);}
   .card:hover img{transform:scale(1.07);filter:saturate(1.05);}
@@ -194,7 +194,42 @@
   .lb-card .lb-body p{color:var(--ink-dim);font-size:15px;margin-top:20px;line-height:1.7;}
   .lb-card .lb-body .lb-cta{margin-top:30px;align-self:flex-start;border:1px solid var(--ink);padding:11px 22px;border-radius:2px;font-size:13.5px;transition:.3s;}
   .lb-card .lb-body .lb-cta:hover{background:var(--green);border-color:var(--green);color:#fff;}
-  .lb-close{position:absolute;top:14px;inset-inline-end:14px;z-index:2;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.92);border:none;display:grid;place-items:center;font-size:20px;color:var(--ink);box-shadow:0 6px 20px -8px rgba(0,0,0,.4);}
+  .lb-close{position:absolute;top:14px;inset-inline-end:14px;z-index:3;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.92);border:none;display:grid;place-items:center;font-size:20px;color:var(--ink);box-shadow:0 6px 20px -8px rgba(0,0,0,.4);}
+  /* animated category overlay on the image (differs for renewal vs marketing) */
+  .lb-img{overflow:hidden;}
+  .catanim{position:absolute;top:16px;inset-inline-start:16px;z-index:2;display:inline-flex;align-items:center;gap:9px;
+    padding:9px 15px;border-radius:100px;font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#fff;
+    backdrop-filter:blur(6px);background:rgba(20,18,24,.42);border:1px solid rgba(255,255,255,.22);overflow:hidden;}
+  .catanim .ca-lab{position:relative;z-index:2;}
+  .catanim.renewal{border-color:rgba(132,191,82,.55);}
+  .catanim.renewal::before{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(120deg,transparent 20%,rgba(132,191,82,.55) 50%,transparent 80%);
+    transform:translateX(-120%);animation:sweep 2.4s ease-in-out infinite;}
+  @keyframes sweep{0%{transform:translateX(-120%)}55%,100%{transform:translateX(120%)}}
+  .catanim.renewal .ca-ba{position:relative;z-index:2;display:inline-flex;align-items:center;gap:5px;font-size:11px;opacity:.92;}
+  .catanim.renewal .ca-ba b{font-weight:700;}
+  .catanim.renewal .ca-ba .ar{opacity:.7;}
+  .catanim.sale .ca-dot{position:relative;z-index:2;width:9px;height:9px;border-radius:50%;background:var(--led);box-shadow:0 0 0 0 rgba(243,214,160,.7);animation:pulse 1.6s ease-out infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(243,214,160,.6)}70%{box-shadow:0 0 0 11px rgba(243,214,160,0)}100%{box-shadow:0 0 0 0 rgba(243,214,160,0)}}
+  .catanim.build .ca-dot{width:8px;height:8px;border-radius:1px;background:var(--green-bright);transform:rotate(45deg);}
+
+  .lb-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .lb-meta .lb-sale{font-size:11px;letter-spacing:.1em;font-weight:600;color:var(--green-deep);border:1px solid rgba(95,156,54,.4);border-radius:2px;padding:3px 9px;}
+  /* fact icons row */
+  .lb-facts{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;}
+  .lb-facts .fact{flex:1 1 0;min-width:88px;border:1px solid var(--hair-soft);border-radius:6px;padding:13px 12px;background:#fff;}
+  .lb-facts .fact svg{width:20px;height:20px;stroke:var(--green);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  .lb-facts .fact b{display:block;font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.1;margin-top:8px;color:var(--ink);}
+  .lb-facts .fact span{display:block;font-size:11.5px;color:var(--ink-dim);margin-top:2px;letter-spacing:.02em;}
+  /* status progress: רישוי → ביצוע → אכלוס */
+  .lb-status{margin-top:26px;}
+  .lb-status .lb-track{position:relative;height:3px;border-radius:3px;background:var(--hair);overflow:hidden;}
+  .lb-status .lb-track i{position:absolute;inset-block:0;inset-inline-start:0;width:0;background:linear-gradient(90deg,var(--green),var(--green-bright));border-radius:3px;}
+  .lb-status .lb-steps{display:flex;justify-content:space-between;margin-top:11px;}
+  .lb-status .lb-steps span{position:relative;font-size:12px;color:var(--ink-faint);letter-spacing:.04em;padding-top:14px;flex:1;text-align:center;transition:color .4s;}
+  .lb-status .lb-steps span::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:var(--bg);border:1.5px solid var(--hair);transition:.4s;}
+  .lb-status .lb-steps span.on{color:var(--ink);font-weight:500;}
+  .lb-status .lb-steps span.on::before{background:var(--green);border-color:var(--green);box-shadow:0 0 0 4px rgba(95,156,54,.14);}
 
   /* SCENE 05 — EXECUTION */
   #execution{padding-block:clamp(80px,13vw,160px);background:linear-gradient(180deg,var(--bg) 0%,#ecebe5 100%);border-top:1px solid var(--hair-soft);}
@@ -286,7 +321,7 @@
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     .reveal{opacity:1;transform:none;transition:none;}
-    .grain,.cino-cue span{animation:none;}
+    .grain,.cino-cue span,.catanim.renewal::before,.catanim.sale .ca-dot{animation:none;}
   }
 </style>
 </head>
@@ -504,12 +539,17 @@
 <div class="lb" id="lb">
   <div class="lb-card">
     <button class="lb-close" id="lbClose" aria-label="סגירה">×</button>
-    <div class="lb-img"><img id="lbImg" src="" alt="" /></div>
+    <div class="lb-img"><img id="lbImg" src="" alt="" /><div id="lbCatWrap"></div></div>
     <div class="lb-body">
-      <span class="st" id="lbStatus"></span>
+      <div class="lb-meta"><span class="st" id="lbCat"></span><span class="lb-sale" id="lbSale"></span></div>
       <h3 id="lbTitle"></h3>
       <div class="loc" id="lbLoc"></div>
       <p id="lbDesc"></p>
+      <div class="lb-facts" id="lbFacts"></div>
+      <div class="lb-status">
+        <div class="lb-track"><i id="lbFill"></i></div>
+        <div class="lb-steps"><span data-s="1">רישוי</span><span data-s="2">ביצוע</span><span data-s="3">אכלוס</span></div>
+      </div>
       <a class="lb-cta" href="#contact" id="lbCta" data-hot>תיאום סיור / פרטים</a>
     </div>
   </div>
@@ -653,22 +693,30 @@
 (function(){
   /* Projects data — shape matches the planned Base44 `Project` entity.
      Go live by replacing PROJECTS with: await base44.entities.Project.list(); */
+  /* cat: renewal=התחדשות עירונית · sale=מחיר למשתכן · build=בנייה למגורים
+     stage: 1=רישוי · 2=ביצוע · 3=אכלוס.  Data sourced from shellyurban.co.il */
+  var CAT={renewal:"התחדשות עירונית", sale:"מחיר למשתכן", build:"בנייה למגורים"};
   var PROJECTS = [
-    { title:"הלילך 7", location:"יבנה", status:"בשיווק", image:"assets/proj-lilac.jpg",
-      description:"מגדל מגורים חדש במתחם הלילך — דירות מרווחות בגימור עכשווי, קרוב לכל מה שצריך." },
-    { title:"הלילך 5", location:"יבנה", status:"בבנייה", image:"assets/proj-lilac3.jpg",
-      description:"השלב הבא במתחם הלילך — בנייה בעיצומה, עם אכלוס מתוכנן בקרוב." },
-    { title:"הלילך 3", location:"יבנה", status:"בתכנון", image:"assets/proj-lilac5.jpg",
-      description:"הרחבת המתחם — תכנון אדריכלי מתקדם לקראת שיווק." },
-    { title:"הציונות 10 · סיטי פארק", location:"אשדוד", status:"בשיווק", image:"assets/proj-142.jpg",
-      description:"פרויקט מגורים מרכזי בלב אשדוד — שילוב של נוחות עירונית ואיכות חיים." },
-    { title:"קרן היסוד · מתחם הצעירים", location:"אשדוד", status:"בבנייה", image:"assets/proj-keren.jpg",
-      description:"מתחם דיור לצעירים — דירות במחיר נגיש בלב העיר, עם דגש על קהילה." },
-    { title:"העצמאות 28–32", location:"אשדוד", status:"פינוי-בינוי", image:"assets/proj-independence.jpg",
-      description:"התחדשות עירונית — הופכים מתחם ותיק לשכונה חדשה, עם ליווי דיירים מלא." }
+    { title:"קרן היסוד · מתחם הצעירים", location:"אשדוד", cat:"renewal", sale:"בשיווק", stage:2,
+      image:"assets/proj-keren.jpg",
+      facts:[{k:"units",v:"144",l:"יח״ד חדשות"},{k:"floors",v:"7",l:"קומות"},{k:"renew",v:"144",l:"דירות מתחדשות"}],
+      description:"מתחם התחדשות עירונית בלב אשדוד — 144 יחידות דיור חדשות לצד 144 דירות ותיקות המתחדשות, בבניין בן 7 קומות. דיור איכותי ונגיש לצעירים, עם מרחב ציבורי וקהילתי מתחדש." },
+    { title:"הציונות 10 · סיטי פארק", location:"אשדוד", cat:"sale", sale:"בשיווק", stage:2,
+      image:"assets/proj-142.jpg",
+      facts:[{k:"floors",v:"9",l:"קומות"},{k:"build",v:"3",l:"בנייני מגורים"},{k:"park",v:"2",l:"מפלסי חניה"}],
+      description:"פרויקט 'מחיר למשתכן' ייחודי בלב אשדוד — שלושה בנייני מגורים בני 9 קומות מעל שני מפלסי חניה תת-קרקעית. נגישות עירונית, חניה נוחה ואיכות חיים גבוהה." },
+    { title:"הלילך", location:"יבנה", cat:"renewal", sale:"בשיווק", stage:2,
+      image:"assets/proj-lilac.jpg",
+      facts:[{k:"renew",v:"תמ״א",l:"פינוי-בינוי"},{k:"floors",v:"מגורים",l:"בנייה חדשה"},{k:"key",v:"ליווי",l:"דיירים מלא"}],
+      description:"פרויקט התחדשות עירונית במרכז יבנה — חידוש מתחם מגורים ותיק לכדי בניין חדש ומודרני, עם ליווי דיירים מלא לאורך כל הדרך, מהתכנון ועד המסירה." },
+    { title:"שערי העיר · רובע 9", location:"אשדוד", cat:"build", sale:"בתכנון", stage:1,
+      image:"assets/proj-independence.jpg",
+      facts:[{k:"units",v:"כ-240",l:"יח״ד"},{k:"build",v:"מגורים",l:"+ תעסוקה"},{k:"park",v:"מסחר",l:"ומשרדים"}],
+      description:"מתחם מגורים ותעסוקה ברובע 9 באשדוד — כ-240 יחידות דיור לצד פארק תעסוקה עם משרדים ומסחר. שכונה חדשה שמשלבת מגורים, עבודה ופנאי תחת קורת גג אחת." }
   ];
-  var FEATURED = { title:"הר אביטל", location:"מגדל מגורים בוטיק", status:"בשיווק",
+  var FEATURED = { title:"הר אביטל", location:"מגדל מגורים בוטיק", cat:"build", sale:"בשיווק", stage:2,
     image:"assets/har-avital/day-web.jpg",
+    facts:[{k:"floors",v:"9",l:"קומות"},{k:"build",v:"בוטיק",l:"מגדל מגורים"},{k:"key",v:"LED",l:"חזית מוארת"}],
     description:"פרויקט הדגל שלנו — חזית פחם אלגנטית, עמוד עץ חם ומרפסות מרחפות. תאורת LED לינארית מדגישה כל קומה; בלילה הבניין זוהר. שפה אדריכלית עכשווית, מהתכנון ועד מסירת המפתח." };
 
   var grid=document.getElementById('projGrid');
@@ -677,7 +725,7 @@
       var d=i%3===1?'d1':(i%3===2?'d2':'');
       return '<article class="card reveal '+d+'" data-hot tabindex="0">'+
         '<img src="'+p.image+'" alt="'+p.title+'" loading="lazy" />'+
-        '<span class="plus"></span><div class="ov"><span class="st">'+p.status+'</span>'+
+        '<span class="plus"></span><div class="ov"><span class="st">'+(p.sale||CAT[p.cat]||'')+'</span>'+
         '<div class="ct">'+p.title+'</div><div class="cl">'+p.location+'</div></div></article>';
     }).join('');
     grid.querySelectorAll('.card').forEach(function(el,i){
@@ -687,13 +735,51 @@
     });
   }
   var lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbTitle=document.getElementById('lbTitle'),
-      lbLoc=document.getElementById('lbLoc'),lbDesc=document.getElementById('lbDesc'),lbStatus=document.getElementById('lbStatus');
-  function openLB(p){lbImg.src=p.image;lbImg.alt=p.title;lbTitle.textContent=p.title;lbLoc.textContent=p.location;
-    lbDesc.textContent=p.description;lbStatus.textContent=p.status;lb.classList.add('on');document.body.style.overflow='hidden';}
+      lbLoc=document.getElementById('lbLoc'),lbDesc=document.getElementById('lbDesc'),
+      lbCat=document.getElementById('lbCat'),lbSale=document.getElementById('lbSale'),
+      lbFacts=document.getElementById('lbFacts'),lbFill=document.getElementById('lbFill'),
+      lbCatWrap=document.getElementById('lbCatWrap'),
+      lbSteps=[].slice.call(document.querySelectorAll('.lb-status .lb-steps span'));
+  var ICONS={
+    units:'<svg viewBox="0 0 24 24"><path d="M4 21V5l8-3 8 3v16"/><path d="M9 21v-5h6v5"/><path d="M8 8h.01M12 8h.01M16 8h.01M8 12h.01M16 12h.01"/></svg>',
+    floors:'<svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/></svg>',
+    renew:'<svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>',
+    build:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>',
+    park:'<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="8" rx="2"/><path d="M6 11V8a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3"/></svg>',
+    key:'<svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="4"/><path d="M11 11l9 9M17 17l2-2"/></svg>'
+  };
+  var curCat='';
+  function openLB(p){
+    lbImg.src=p.image;lbImg.alt=p.title;lbTitle.textContent=p.title;lbLoc.textContent=p.location;lbDesc.textContent=p.description;
+    curCat=CAT[p.cat]||'';
+    lbCat.textContent=curCat;
+    lbSale.textContent=p.sale||''; lbSale.style.display=p.sale?'':'none';
+    /* animated category overlay — renewal sweeps old→new, marketing pulses */
+    var cw;
+    if(p.cat==='renewal') cw='<div class="catanim renewal"><span class="ca-lab">'+CAT.renewal+'</span><span class="ca-ba"><b>ישן</b><span class="ar">→</span><b>חדש</b></span></div>';
+    else if(p.cat==='sale') cw='<div class="catanim sale"><span class="ca-dot"></span><span class="ca-lab">בשיווק · מחיר למשתכן</span></div>';
+    else cw='<div class="catanim build"><span class="ca-dot"></span><span class="ca-lab">'+CAT.build+'</span></div>';
+    lbCatWrap.innerHTML=cw;
+    /* fact icons */
+    lbFacts.innerHTML=(p.facts||[]).map(function(f){return '<div class="fact">'+(ICONS[f.k]||ICONS.build)+'<b>'+f.v+'</b><span>'+f.l+'</span></div>';}).join('');
+    /* status bar: רישוי → ביצוע → אכלוס (animate fill on open) */
+    var st=p.stage||1;
+    lbFill.style.transition='none'; lbFill.style.width='0'; void lbFill.offsetWidth;
+    lbFill.style.transition='width 1s cubic-bezier(.2,.8,.2,1) .15s';
+    lbFill.style.width=(st/3*100)+'%';
+    lbSteps.forEach(function(s){ s.classList.toggle('on',(+s.getAttribute('data-s'))<=st); });
+    lb.classList.add('on');document.body.style.overflow='hidden';
+  }
   function closeLB(){lb.classList.remove('on');document.body.style.overflow='';}
   document.getElementById('lbClose').addEventListener('click',closeLB);
   lb.addEventListener('click',function(e){if(e.target===lb)closeLB();});
   addEventListener('keydown',function(e){if(e.key==='Escape')closeLB();});
+  var lbCta=document.getElementById('lbCta');
+  if(lbCta) lbCta.addEventListener('click',function(){
+    var sel=document.getElementById('lf-project');
+    if(sel&&curCat){for(var o=0;o<sel.options.length;o++){if(sel.options[o].text===curCat){sel.selectedIndex=o;break;}}}
+    closeLB();
+  });
   var featEl=document.querySelector('.feat[data-project="feat"]');
   if(featEl) featEl.addEventListener('click',function(){openLB(FEATURED);});
   renderProjects(PROJECTS);
