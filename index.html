@@ -94,9 +94,14 @@
     background-image:radial-gradient(1.4px 1.4px at 12% 18%,#fff,transparent),radial-gradient(1.2px 1.2px at 28% 32%,#fff,transparent),radial-gradient(1.6px 1.6px at 42% 12%,#fff,transparent),radial-gradient(1.1px 1.1px at 57% 26%,#fff,transparent),radial-gradient(1.5px 1.5px at 68% 16%,#fff,transparent),radial-gradient(1.2px 1.2px at 78% 34%,#fff,transparent),radial-gradient(1.3px 1.3px at 88% 22%,#fff,transparent),radial-gradient(1.1px 1.1px at 8% 40%,#fff,transparent),radial-gradient(1.4px 1.4px at 35% 46%,#fff,transparent),radial-gradient(1.2px 1.2px at 63% 42%,#fff,transparent);}
   /* the high-resolution building — constant and sharp */
   .bld{position:absolute;bottom:-2vh;left:0;right:auto;height:108vh;will-change:transform;
-    transform:translateX(-46%);filter:drop-shadow(0 40px 64px rgba(8,12,24,.42));}
+    transform:translateX(-46%);transform-origin:40% 82%;filter:drop-shadow(0 40px 64px rgba(8,12,24,.42));}
   .bld img{height:100%;width:auto;display:block;}
   .bld .bld-night{position:absolute;top:0;left:0;right:auto;opacity:0;will-change:opacity;}
+  /* final chapter: walking up to the building and stepping into the lit lobby */
+  .cino-lobby{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;will-change:opacity;
+    background:
+      radial-gradient(56% 50% at 42% 80%, rgba(255,201,138,.62) 0%, rgba(255,172,98,.20) 40%, rgba(255,172,98,0) 70%),
+      radial-gradient(125% 120% at 50% 46%, rgba(8,6,14,0) 48%, rgba(8,6,14,.82) 100%);}
 
   .cino-chapters{position:absolute;inset:0;pointer-events:none;color:#fff;}
   .cino-chapters.on-light{color:#1b1922;}
@@ -370,6 +375,7 @@
     <img class="bld-day" id="bldDay" src="assets/building/day.webp" alt="הר אביטל — הדמיה" />
     <img class="bld-night" id="bldNight" src="assets/building/night.webp" alt="" />
   </div>
+  <div class="cino-lobby" id="cinoLobby"></div>
 
   <div class="cino-chapters" id="cinoChapters">
     <!-- 1 · Day -->
@@ -632,7 +638,12 @@
   var counter=document.getElementById('cinoCount');
   var cue=document.getElementById('cinoCue');
   var scrollEl=document.getElementById('cinoScroll');
+  var lobby=document.getElementById('cinoLobby');
   var SCENES=chapters.length;            // 5 scenes
+  var SCREENS=6;                         // total scroll length, in viewport-heights
+  /* per-chapter scroll boundaries (fractions of total). Day is short; the
+     closing "welcome home" chapter is long so the walk up to the lobby breathes. */
+  var STOPS=[0, 0.10, 0.26, 0.44, 0.60, 1.0];
 
   /* gate the loader on the two building images */
   var need=2, ready=0;
@@ -641,12 +652,12 @@
   window.__seqProgress=function(){return Math.min(1, ready/need);};
   Object.defineProperty(window,'__seqReady',{get:function(){return ready>=1;}});
 
-  scrollEl.style.height=(SCENES*100)+'svh';
+  scrollEl.style.height=(SCREENS*100)+'svh';
 
   /* time-of-day palettes: top / mid / horizon sky, sun colour+pos+opacity, stars */
   var P=[
     {t:[74,134,196],  m:[150,190,221], h:[226,237,242], sc:[255,250,235], sx:80, sy:18, so:.85, st:0},
-    {t:[92,142,191],  m:[176,201,221], h:[241,233,214], sc:[255,243,212], sx:71, sy:30, so:.95, st:0},
+    {t:[96,138,186],  m:[198,198,196], h:[246,228,190], sc:[255,236,196], sx:68, sy:36, so:1,   st:0},
     {t:[104,118,168], m:[227,176,120], h:[247,216,166], sc:[255,224,168], sx:60, sy:50, so:1,   st:.05},
     {t:[66,58,104],   m:[214,116,84],  h:[244,162,96],  sc:[255,148,88],  sx:49, sy:70, so:.95, st:.25},
     {t:[18,28,58],    m:[42,56,94],    h:[92,102,140],  sc:[255,140,92],  sx:43, sy:90, so:.35, st:1}
@@ -658,23 +669,38 @@
   function smooth(e0,e1,x){var t=clamp((x-e0)/(e1-e0),0,1);return t*t*(3-2*t);}
 
   var activeScene=-1;
-  function progress(){ var s=window.scrollY||window.pageYOffset||0; return clamp(s/(SCENES*innerHeight),0,1); }
+  function progress(){ var s=window.scrollY||window.pageYOffset||0; return clamp(s/(SCREENS*innerHeight),0,1); }
+  /* which chapter is p in, and how far through it (0..1) — honours STOPS */
+  function chapterAt(p){
+    var ci=0; while(ci<SCENES-1 && p>=STOPS[ci+1]) ci++;
+    var seg=STOPS[ci+1]-STOPS[ci];
+    return {ci:ci, k:seg>0?clamp((p-STOPS[ci])/seg,0,1):0};
+  }
 
   function render(){
     var p=progress();
-    var f=p*(P.length-1), i=Math.min(P.length-2, Math.floor(f)), k=f-i, a=P[i], b=P[i+1];
+    /* time-of-day tracks the chapters: each palette stop is reached at its
+       chapter boundary, so the short day chapter means daylight passes quickly,
+       and night is fully set by the time we reach the lobby. */
+    var c=chapterAt(p), i=c.ci, k=c.k, a=P[i], b=P[Math.min(i+1,P.length-1)];
     var top=mix(a.t,b.t,k), mid=mix(a.m,b.m,k), hor=mix(a.h,b.h,k), sclr=mix(a.sc,b.sc,k);
     skyBg.style.background='linear-gradient(180deg,'+rgb(top)+' 0%,'+rgb(mid)+' 50%,'+rgb(hor)+' 100%)';
     var sx=lerp(a.sx,b.sx,k), sy=lerp(a.sy,b.sy,k), so=lerp(a.so,b.so,k), starOp=lerp(a.st,b.st,k);
     sun.style.left=sx+'vw'; sun.style.top=sy+'vh'; sun.style.opacity=so;
     sun.style.background='radial-gradient(circle,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',.95) 0%,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',.45) 26%,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',0) 62%)';
     stars.style.opacity=starOp;
-    /* building sits half off the left edge; scrolling pans it in to reveal more */
-    bld.style.transform='translateX('+lerp(-52,-22,p)+'%)';
-    /* building stays constant & sharp — its windows simply light up toward evening */
-    bldNight.style.opacity=smooth(0.55,0.82,p);
-    /* captions POP in: only the active scene is "live" */
-    var active=clamp(Math.floor(p*SCENES + 0.0001),0,SCENES-1);
+    /* approach: the camera walks toward the building and zooms into the
+       entrance through the closing chapters, simulating arriving at the lobby. */
+    var ap=smooth(STOPS[3],1,p);                 // 0 before the approach → 1 at the door
+    var panX=lerp(-52,-30,smooth(0,0.5,p));
+    var scale=1+ap*0.95;                         // push in toward the entrance
+    bld.style.transform='translateX('+panX+'%) scale('+scale+')';
+    /* building stays sharp — its windows light up toward evening, fully lit by the lobby */
+    bldNight.style.opacity=smooth(0.28,0.56,p);
+    /* warm lobby light + doorway vignette bloom in as we step inside */
+    if(lobby) lobby.style.opacity=smooth(0.66,0.98,p);
+    /* captions POP in: only the active chapter is "live" */
+    var active=i;
     if(active!==activeScene){
       activeScene=active;
       chapters.forEach(function(c,j){ c.classList.toggle('live', j===active); });
