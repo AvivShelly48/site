@@ -781,8 +781,36 @@
     closeLB();
   });
   var featEl=document.querySelector('.feat[data-project="feat"]');
-  if(featEl) featEl.addEventListener('click',function(){openLB(FEATURED);});
-  renderProjects(PROJECTS);
+
+  /* ---- Base44 data layer (graceful: falls back to the static data offline) ----
+     When the Base44 SDK is present (window.base44), projects load from the
+     `Project` entity and the featured card from a record flagged `featured:true`.
+     See /base44 for entity schemas, seed data and the integration guide. */
+  function normalizeProject(r){
+    var facts=r.facts;
+    if(typeof facts==='string'){ try{ facts=JSON.parse(facts); }catch(e){ facts=[]; } }
+    return { title:r.title, location:r.location, cat:r.cat, sale:r.sale, stage:+r.stage||1,
+             image:r.image, description:r.description, facts:facts||[], featured:!!r.featured, order:+r.order||0 };
+  }
+  function loadProjects(){
+    if(window.base44 && base44.entities && base44.entities.Project){
+      return base44.entities.Project.list().then(function(items){
+        if(!items || !items.length) return null;
+        var all=items.map(normalizeProject).sort(function(a,b){return a.order-b.order;});
+        var feat=all.filter(function(p){return p.featured;})[0];
+        return { list:all.filter(function(p){return !p.featured;}), featured:feat||FEATURED };
+      }).catch(function(){ return null; });
+    }
+    return Promise.resolve(null);
+  }
+  function initProjects(){
+    loadProjects().then(function(data){
+      if(data){ if(data.featured) FEATURED=data.featured; renderProjects(data.list.length?data.list:PROJECTS); }
+      else { renderProjects(PROJECTS); }
+      if(featEl) featEl.onclick=function(){openLB(FEATURED);};
+    });
+  }
+  initProjects();
 
   var statIO=new IntersectionObserver(function(es){es.forEach(function(e){
     if(!e.isIntersecting)return;statIO.unobserve(e.target);
@@ -798,12 +826,24 @@
 
   var MAIL_TO="Office@shellyurban.co.il";
   var form=document.getElementById('leadForm');
-  if(form) form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var name=form.name.value.trim(),phone=form.phone.value.trim(),project=form.project.value,msg=form.message.value.trim();
+  function mailtoLead(name,phone,project,msg){
     var subject=encodeURIComponent("פנייה מהאתר — "+project+(name?(" · "+name):""));
     var body=encodeURIComponent("שם: "+name+"\nטלפון: "+phone+"\nתחום מעניין: "+project+"\n\nהודעה:\n"+msg);
     window.location.href="mailto:"+MAIL_TO+"?subject="+subject+"&body="+body;
+  }
+  if(form) form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=form.name.value.trim(),phone=form.phone.value.trim(),project=form.project.value,msg=form.message.value.trim();
+    var btn=form.querySelector('.submit');
+    /* Base44: save a Lead record; otherwise fall back to opening the mail client */
+    if(window.base44 && base44.entities && base44.entities.Lead){
+      if(btn){btn.disabled=true;btn.textContent="שולח…";}
+      base44.entities.Lead.create({name:name,phone:phone,project:project,message:msg,source:"website"})
+        .then(function(){ if(btn){btn.textContent="נשלח ✓";} form.reset(); setTimeout(function(){if(btn){btn.disabled=false;btn.textContent="שליחה";}},2600); })
+        .catch(function(){ if(btn){btn.disabled=false;btn.textContent="שליחה";} mailtoLead(name,phone,project,msg); });
+    } else {
+      mailtoLead(name,phone,project,msg);
+    }
   });
   document.getElementById('yr').textContent=new Date().getFullYear();
 })();

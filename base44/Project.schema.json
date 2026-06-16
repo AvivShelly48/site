@@ -1,0 +1,21 @@
+{
+  "name": "Project",
+  "type": "object",
+  "description": "פרויקט נדל\"ן המוצג בגריד ובליד באתר שלי אורבן",
+  "properties": {
+    "title":       { "type": "string", "description": "שם הפרויקט, למשל: קרן היסוד · מתחם הצעירים" },
+    "location":    { "type": "string", "description": "עיר / מיקום, למשל: אשדוד" },
+    "cat":         { "type": "string", "enum": ["renewal", "sale", "build"], "description": "קטגוריה: renewal=התחדשות עירונית · sale=מחיר למשתכן · build=בנייה למגורים" },
+    "sale":        { "type": "string", "description": "תווית שיווק: בשיווק / בתכנון / למכירה" },
+    "stage":       { "type": "number", "description": "סטטוס בנייה: 1=רישוי · 2=ביצוע · 3=אכלוס" },
+    "image":       { "type": "string", "description": "URL לתמונת הפרויקט (העלו ל-File Storage של Base44)" },
+    "description": { "type": "string", "description": "תיאור הפרויקט" },
+    "facts":       { "type": "array", "description": "עד 3 נתוני אייקון", "items": { "type": "object", "properties": {
+                       "k": { "type": "string", "enum": ["units","floors","renew","build","park","key"], "description": "סוג אייקון" },
+                       "v": { "type": "string", "description": "ערך, למשל 144" },
+                       "l": { "type": "string", "description": "תווית, למשל יח\"ד חדשות" } } } },
+    "featured":    { "type": "boolean", "description": "האם זהו כרטיס הדגל הגדול (מוצג למעלה)" },
+    "order":       { "type": "number", "description": "סדר הצגה (קטן→ראשון)" }
+  },
+  "required": ["title", "location", "cat", "stage", "image"]
+}

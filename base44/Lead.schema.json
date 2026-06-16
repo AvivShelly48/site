@@ -1,0 +1,13 @@
+{
+  "name": "Lead",
+  "type": "object",
+  "description": "פנייה מטופס יצירת הקשר באתר",
+  "properties": {
+    "name":    { "type": "string", "description": "שם מלא" },
+    "phone":   { "type": "string", "description": "טלפון" },
+    "project": { "type": "string", "description": "תחום / פרויקט מעניין" },
+    "message": { "type": "string", "description": "תוכן ההודעה" },
+    "source":  { "type": "string", "default": "website", "description": "מקור הפנייה" }
+  },
+  "required": ["name", "phone"]
+}
