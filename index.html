@@ -457,8 +457,8 @@
         <h2 class="reveal d1">יש לכם מגרש,<br>בניין או <em>חלום?</em></h2>
         <p class="lead reveal d2">השאירו פרטים ונחזור אליכם — או דברו איתנו ישירות. כל פנייה מקבלת ליווי אישי.</p>
         <div class="contact-ch reveal d2">
-          <a class="chan wa" href="https://wa.me/972500000000" data-hot target="_blank" rel="noopener">וואטסאפ</a>
-          <a class="chan" href="tel:+972500000000" data-hot>חייגו אלינו</a>
+          <a class="chan wa" href="mailto:Office@shellyurban.co.il" data-hot>שלחו מייל</a>
+          <a class="chan" href="tel:+97288623366" data-hot>08-862-3366</a>
         </div>
       </div>
       <form class="contact-form reveal d1" id="leadForm">
@@ -477,7 +477,7 @@
         <label class="fl" for="lf-msg">הודעה</label>
         <textarea id="lf-msg" name="message" placeholder="ספרו לנו במה נוכל לעזור…"></textarea>
         <button class="submit" type="submit" data-hot>שליחה</button>
-        <div class="note">השליחה פותחת וואטסאפ עם הפרטים. *מספר הטלפון הוא זמני — להחלפה.</div>
+        <div class="note">השליחה פותחת את תוכנת המייל עם הפרטים, מוכנים לשליחה ל-Office@shellyurban.co.il</div>
       </form>
     </div>
   </section>
@@ -491,7 +491,7 @@
       <div class="fcols">
         <div><h5>ניווט</h5><a href="#projects">פרויקטים</a><a href="#execution">מהשטח</a><a href="#stats">ניסיון</a><a href="#contact">צור קשר</a></div>
         <div><h5>תחומים</h5><a href="#projects">התחדשות עירונית</a><a href="#projects">מחיר למשתכן</a><a href="#projects">בנייה למגורים</a></div>
-        <div><h5>קשר</h5><a href="tel:+972500000000">חייגו אלינו</a><a href="https://wa.me/972500000000" target="_blank" rel="noopener">וואטסאפ</a></div>
+        <div><h5>קשר</h5><a href="tel:+97288623366">08-862-3366</a><a href="mailto:Office@shellyurban.co.il">Office@shellyurban.co.il</a></div>
       </div>
     </div>
     <div class="foot-bot">
@@ -712,13 +712,14 @@
   var stepEl=document.querySelector('.exec-steps');
   if(stepEl){var sIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');sIO.unobserve(e.target);}});},{threshold:.5});sIO.observe(stepEl);}
 
-  var WA_NUMBER="972500000000"; // TODO: replace with the real business number
+  var MAIL_TO="Office@shellyurban.co.il";
   var form=document.getElementById('leadForm');
   if(form) form.addEventListener('submit',function(e){
     e.preventDefault();
     var name=form.name.value.trim(),phone=form.phone.value.trim(),project=form.project.value,msg=form.message.value.trim();
-    var text="שלום, אני "+name+" ("+phone+").%0Aמתעניין/ת ב: "+project+(msg?("%0A"+encodeURIComponent(msg)):"");
-    window.open("https://wa.me/"+WA_NUMBER+"?text="+text,"_blank");
+    var subject=encodeURIComponent("פנייה מהאתר — "+project+(name?(" · "+name):""));
+    var body=encodeURIComponent("שם: "+name+"\nטלפון: "+phone+"\nתחום מעניין: "+project+"\n\nהודעה:\n"+msg);
+    window.location.href="mailto:"+MAIL_TO+"?subject="+subject+"&body="+body;
   });
   document.getElementById('yr').textContent=new Date().getFullYear();
 })();
