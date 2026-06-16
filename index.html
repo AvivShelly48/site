@@ -81,40 +81,57 @@
   .eyebrow{font-size:12px;letter-spacing:.32em;color:var(--green);font-weight:600;display:flex;align-items:center;gap:12px;}
   .eyebrow::before{content:"";width:26px;height:1px;background:var(--green);display:inline-block;}
 
-  /* ============ CINEMA — scroll-scrubbed video (image sequence on canvas) ============ */
+  /* ============ CINEMA — scrubbed video panel + sky matched to the video ============ */
   .cinema{position:fixed;inset:0;z-index:5;overflow:hidden;pointer-events:none;background:#0c1018;
-    opacity:0;transition:opacity 1s ease;}
+    opacity:0;transition:opacity 1s ease;--acc:#f3d6a0;}
   body.ready .cinema{opacity:1;}
-  #seqCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
-  .cino-scrim{position:absolute;inset-inline:0;bottom:0;height:62vh;pointer-events:none;
-    background:linear-gradient(0deg,rgba(7,9,18,.82) 0%,rgba(7,9,18,.35) 42%,rgba(7,9,18,0) 82%);}
+  /* sky fills the viewport; its colours are sampled from the current video frame */
+  .sky-bg{position:absolute;inset:0;background:linear-gradient(180deg,#9ec3e6 0%,#cfe0ea 55%,#e9eef0 100%);
+    transition:background .2s linear;}
+  .sky-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(125% 85% at 64% 16%,transparent 52%,rgba(8,10,20,.26));}
+  /* the reduced video panel (16:9, no crop → the lobby is always fully visible) */
+  .seq-wrap{position:absolute;top:50%;inset-inline-end:5.5vw;transform:translateY(-50%);
+    width:min(55vw,calc(76vh*16/9));aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#0c1018;
+    box-shadow:0 54px 110px -34px rgba(8,10,22,.62),0 0 0 1px rgba(255,255,255,.16);}
+  #seqCanvas{width:100%;height:100%;display:block;}
 
-  .cino-chapters{position:absolute;inset:0;pointer-events:none;color:#f5f3ec;}
-  .cchap{position:absolute;inset:0;opacity:0;will-change:opacity,transform;}
+  .cino-chapters{position:absolute;inset:0;pointer-events:none;color:#fff;}
+  .cino-chapters.on-light{color:#1b1922;}
+  .cchap{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;}
+  .cchap.live{opacity:1;}
   .cchap a,.cchap button{pointer-events:auto;}
-  .cpanel{position:absolute;inset-inline-start:clamp(20px,7vw,120px);bottom:16vh;max-width:min(640px,84vw);
-    text-shadow:0 2px 28px rgba(0,0,0,.62);}
+  /* captions sit on the sky beside the video and POP in on scroll */
+  .cpanel{position:absolute;inset-inline-start:clamp(20px,7vw,110px);top:50%;transform:translateY(-50%);max-width:min(40vw,460px);}
+  .cino-chapters:not(.on-light) .cpanel{text-shadow:0 2px 24px rgba(0,0,0,.45);}
+  .cpanel>*{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.85,.25,1),transform .8s cubic-bezier(.2,.85,.25,1);}
+  .cchap.live .cpanel>*{opacity:1;transform:none;}
+  .cchap.live .cpanel>*:nth-child(1){transition-delay:.05s}
+  .cchap.live .cpanel>*:nth-child(2){transition-delay:.13s}
+  .cchap.live .cpanel>*:nth-child(3){transition-delay:.21s}
+  .cchap.live .cpanel>*:nth-child(4){transition-delay:.29s}
   .cpanel .ce{margin-bottom:18px;}
-  .cpanel h1{font-family:var(--serif);font-weight:500;line-height:1.04;font-size:clamp(40px,6vw,86px);letter-spacing:-.01em;}
-  .cpanel h1 em,.cpanel h2 em,.cpanel .big b{font-style:normal;color:var(--green-bright);}
-  .cpanel h2{font-family:var(--serif);font-weight:500;line-height:1.1;font-size:clamp(28px,4.2vw,54px);}
-  .cpanel .big{font-family:var(--serif);font-weight:400;line-height:1.2;font-size:clamp(26px,4.2vw,52px);}
-  .cpanel .ctext{margin-top:20px;color:#f5f3ec;opacity:.92;font-size:clamp(15px,1.5vw,18px);max-width:44ch;}
-  .cpanel .ccta{margin-top:30px;display:inline-flex;align-items:center;gap:13px;font-size:14px;letter-spacing:.05em;color:#fff;}
-  .cpanel .ccta .ln2{width:46px;height:1px;background:var(--led);transition:width .4s;}
+  .cpanel h1{font-family:var(--serif);font-weight:500;line-height:1.04;font-size:clamp(34px,4.6vw,76px);letter-spacing:-.01em;}
+  .cpanel h1 em,.cpanel h2 em,.cpanel .big b{font-style:normal;color:var(--acc);}
+  .cpanel h2{font-family:var(--serif);font-weight:500;line-height:1.1;font-size:clamp(26px,3.4vw,48px);}
+  .cpanel .big{font-family:var(--serif);font-weight:400;line-height:1.2;font-size:clamp(24px,3.2vw,46px);}
+  .cpanel .ctext{margin-top:20px;color:inherit;opacity:.92;font-size:clamp(15px,1.4vw,17px);max-width:40ch;}
+  .cpanel .ctext b{color:var(--acc)!important;}
+  .cpanel .ccta{margin-top:30px;display:inline-flex;align-items:center;gap:13px;font-size:14px;letter-spacing:.05em;color:inherit;}
+  .cpanel .ccta .ln2{width:46px;height:1px;background:var(--acc);transition:width .4s;}
   .cpanel .ccta:hover .ln2{width:74px;}
-  .cpanel .dnum{font-family:var(--serif);font-size:13px;letter-spacing:.3em;color:var(--led);margin-bottom:14px;}
+  .cpanel .dnum{font-family:var(--serif);font-size:13px;letter-spacing:.3em;color:var(--acc);margin-bottom:14px;}
   .cpanel .led-bars{display:flex;gap:6px;margin-top:20px;max-width:240px;}
-  .cpanel .led-bars i{height:2px;flex:1;background:var(--led);opacity:.85;}
+  .cpanel .led-bars i{height:2px;flex:1;background:var(--acc);opacity:.85;}
 
   .cino-rail{position:absolute;inset-inline-end:24px;top:50%;transform:translateY(-50%);z-index:6;display:flex;flex-direction:column;gap:13px;}
-  .cino-rail i{width:7px;height:7px;border-radius:50%;border:1px solid rgba(255,255,255,.7);opacity:.45;transition:.35s;}
-  .cino-rail i.on{opacity:1;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.18);}
-  .cino-count{position:absolute;inset-inline-start:clamp(20px,7vw,120px);top:clamp(86px,13vh,128px);z-index:6;
-    font-family:var(--serif);font-size:13px;letter-spacing:.34em;color:rgba(255,255,255,.7);text-shadow:0 1px 10px rgba(0,0,0,.5);}
-  .cino-count b{color:var(--led);font-weight:500;}
+  .cino-rail i{width:7px;height:7px;border-radius:50%;border:1px solid currentColor;opacity:.4;transition:.35s;color:#fff;}
+  .cino-chapters.on-light ~ .cino-rail i{color:#1b1922;}
+  .cino-rail i.on{opacity:1;background:currentColor;}
+  .cino-count{position:absolute;inset-inline-start:clamp(20px,7vw,110px);top:clamp(86px,13vh,128px);z-index:6;
+    font-family:var(--serif);font-size:13px;letter-spacing:.34em;color:#fff;opacity:.8;text-shadow:0 1px 10px rgba(0,0,0,.4);}
+  .cino-count b{color:var(--acc);font-weight:500;}
   .cino-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:9px;
-    font-size:10px;letter-spacing:.28em;color:rgba(255,255,255,.75);transition:opacity .5s;}
+    font-size:10px;letter-spacing:.28em;color:#fff;opacity:.8;transition:opacity .5s;}
   .cino-cue span{width:1px;height:38px;background:linear-gradient(#fff,transparent);animation:cue 2.4s ease-in-out infinite;}
   @keyframes cue{0%,100%{opacity:.3;transform:scaleY(.55);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
 
@@ -247,7 +264,9 @@
     .nav-links,.nav-cta{display:none;}
     .nav-toggle{display:block;}
     .cino-rail{inset-inline-end:14px;gap:10px;}
-    .cpanel{inset-inline:clamp(18px,6vw,40px);max-width:none;bottom:14vh;}
+    .seq-wrap{top:11vh;inset-inline:4vw;transform:none;width:auto;}
+    .cpanel{inset-inline:clamp(18px,6vw,40px);max-width:none;top:auto;bottom:6vh;transform:none;}
+    .cino-count,.cino-cue{display:none;}
     .feat{grid-template-columns:1fr;min-height:0;}
     .feat .feat-img{aspect-ratio:16/11;}
     .grid,.exec-grid{grid-template-columns:1fr 1fr;}
@@ -298,8 +317,8 @@
 
 <!-- ============ CINEMA — scroll-scrubbed video ============ -->
 <div class="cinema" id="cinema">
-  <canvas id="seqCanvas"></canvas>
-  <div class="cino-scrim"></div>
+  <div class="sky-bg" id="skyBg"></div>
+  <div class="seq-wrap"><canvas id="seqCanvas"></canvas></div>
 
   <div class="cino-chapters" id="cinoChapters">
     <!-- 1 · Day -->
@@ -547,6 +566,8 @@
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canvas=document.getElementById('seqCanvas'), ctx=canvas.getContext('2d',{alpha:false});
   var chaptersEl=document.getElementById('cinoChapters');
+  var cinema=document.getElementById('cinema');
+  var skyBg=document.getElementById('skyBg');
   var chapters=[].slice.call(document.querySelectorAll('.cchap'));
   var rail=[].slice.call(document.querySelectorAll('#cinoRail i'));
   var counter=document.getElementById('cinoCount');
@@ -560,7 +581,7 @@
   var imgs=new Array(FRAMES), loaded=0;
   for(var k=0;k<FRAMES;k++){(function(i){
     var im=new Image();
-    im.onload=function(){loaded++; if(i===0) drawAt(currentIdx); requestRender();};
+    im.onload=function(){loaded++; if(i===currentIdx){ drawAt(i); updateSky(i); } requestRender();};
     im.onerror=function(){loaded++;};
     im.src='assets/seq/f'+pad(i+1)+'.webp';
     imgs[i]=im;
@@ -572,13 +593,12 @@
   sizeSpacer();
   addEventListener('resize',function(){ sizeSpacer(); resizeCanvas(); requestRender(); });
 
-  /* canvas sizing (DPR-aware) */
+  /* canvas sized to its 16:9 panel (no crop → the lobby frame is always fully visible) */
   var cw=0, ch=0;
   function resizeCanvas(){
     var dpr=Math.min(devicePixelRatio||1, 2);
-    cw=innerWidth; ch=innerHeight;
+    cw=canvas.clientWidth||16; ch=canvas.clientHeight||9;
     canvas.width=Math.round(cw*dpr); canvas.height=Math.round(ch*dpr);
-    canvas.style.width=cw+'px'; canvas.style.height=ch+'px';
     ctx.setTransform(dpr,0,0,dpr,0,0);
   }
   resizeCanvas();
@@ -594,33 +614,44 @@
   }
   function drawAt(idx){
     var im=nearest(idx); if(!im) return;
-    var ir=im.naturalWidth/im.naturalHeight, cr=cw/ch, dw,dh;
-    if(cr>ir){ dw=cw; dh=cw/ir; } else { dh=ch; dw=ch*ir; }
-    ctx.drawImage(im,(cw-dw)/2,(ch-dh)/2,dw,dh);
+    ctx.drawImage(im,0,0,cw,ch); // panel is 16:9 like the source → fills exactly
+  }
+
+  /* sample the frame to colour the surrounding sky + pick a readable text tone */
+  var sc=document.createElement('canvas'); sc.width=16; sc.height=9; var sctx=sc.getContext('2d');
+  var lastSkyIdx=-1;
+  function avg(d,y0,y1){var r=0,g=0,b=0,n=0;for(var y=y0;y<y1;y++)for(var x=0;x<16;x++){var k=(y*16+x)*4;r+=d[k];g+=d[k+1];b+=d[k+2];n++;}return [Math.round(r/n),Math.round(g/n),Math.round(b/n)];}
+  function updateSky(idx){
+    var im=nearest(idx); if(!im) return;
+    try{ sctx.drawImage(im,0,0,16,9); }catch(e){ return; }
+    var d=sctx.getImageData(0,0,16,9).data;
+    var top=avg(d,0,3), mid=avg(d,3,6), bot=avg(d,6,9);
+    skyBg.style.background='linear-gradient(180deg,rgb('+top.join(',')+') 0%,rgb('+mid.join(',')+') 56%,rgb('+bot.join(',')+') 100%)';
+    var lum=(0.299*mid[0]+0.587*mid[1]+0.114*mid[2])/255;
+    chaptersEl.classList.toggle('on-light', lum>0.55);
+    cinema.style.setProperty('--acc', lum>0.55 ? '#3c6322' : '#f3d6a0');
   }
 
   function clamp(v,a,b){return v<a?a:v>b?b:v;}
-  var currentIdx=0;
+  var currentIdx=-1, activeScene=-1;
 
   function progress(){
-    var sc=window.scrollY||window.pageYOffset||0;
-    return clamp(sc/(SCENES*innerHeight),0,1);
+    var s=window.scrollY||window.pageYOffset||0;
+    return clamp(s/(SCENES*innerHeight),0,1);
   }
-
   function render(){
     var p=progress();
-    currentIdx=Math.round(p*(FRAMES-1));
-    drawAt(currentIdx);
-    /* caption cross-fade */
-    var fc=p*SCENES;
-    chapters.forEach(function(c,i){
-      var o=clamp(1-Math.abs(fc-(i+0.5))/0.6,0,1);
-      c.style.opacity=o.toFixed(3);
-      c.style.transform='translateY('+((fc-(i+0.5))*-2.2)+'vh)';
-    });
-    var active=clamp(Math.floor(p*SCENES),0,SCENES-1);
-    rail.forEach(function(d,i){d.classList.toggle('on',i===active);});
-    if(counter) counter.textContent=('0'+(active+1)).slice(-2);
+    var idx=Math.round(p*(FRAMES-1));
+    if(idx!==currentIdx){ currentIdx=idx; drawAt(idx); }
+    if(idx!==lastSkyIdx){ lastSkyIdx=idx; updateSky(idx); }
+    /* captions POP in: only the active scene is "live" */
+    var active=clamp(Math.floor(p*SCENES + 0.0001),0,SCENES-1);
+    if(active!==activeScene){
+      activeScene=active;
+      chapters.forEach(function(c,i){ c.classList.toggle('live', i===active); });
+      rail.forEach(function(d,i){ d.classList.toggle('on', i===active); });
+      if(counter) counter.textContent=('0'+(active+1)).slice(-2);
+    }
     if(cue) cue.style.opacity=p<0.05?1:0;
   }
 
@@ -629,7 +660,7 @@
 
   if(reduce){
     scrollEl.style.height='0';
-    chapters.forEach(function(c,i){c.style.opacity=i===0?1:0;c.style.transform='none';});
+    chapters.forEach(function(c,i){c.classList.toggle('live', i===0);});
     return;
   }
   addEventListener('scroll',requestRender,{passive:true});
