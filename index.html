@@ -97,9 +97,9 @@
     transform:translateX(-46%);transform-origin:48% 78%;filter:drop-shadow(0 40px 64px rgba(8,12,24,.42));}
   .bld img{height:100%;width:auto;display:block;}
   .bld .bld-night{position:absolute;top:0;left:0;right:auto;opacity:0;will-change:opacity;}
-  /* real footage stills that cross-fade in: glass entrance, then the lobby */
-  .cino-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;
-    opacity:0;will-change:opacity,transform;}
+  /* live footage: walking in through the glass entrance, scrubbed by scroll */
+  .cino-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;
+    opacity:0;will-change:opacity;pointer-events:none;}
   /* legibility scrim + soft vignette over the bright lobby, behind the caption */
   .cino-lobby{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;will-change:opacity;
     background:
@@ -378,8 +378,10 @@
     <img class="bld-day" id="bldDay" src="assets/building/day.webp" alt="הר אביטל — הדמיה" />
     <img class="bld-night" id="bldNight" src="assets/building/night.webp" alt="" />
   </div>
-  <img class="cino-shot" id="cinoEntrance" src="assets/uploads/lobby-entrance.jpg" alt="כניסת הזכוכית ללובי" />
-  <img class="cino-shot" id="cinoLobbyImg" src="assets/uploads/lobby-interior.jpg" alt="לובי הבניין" />
+  <video class="cino-video" id="cinoVideo" muted playsinline preload="auto"
+         poster="assets/uploads/lobby-entrance.jpg" aria-hidden="true">
+    <source src="assets/uploads/lobby-walk.mp4" type="video/mp4" />
+  </video>
   <div class="cino-lobby" id="cinoLobby"></div>
 
   <div class="cino-chapters" id="cinoChapters">
@@ -645,8 +647,23 @@
   var cue=document.getElementById('cinoCue');
   var scrollEl=document.getElementById('cinoScroll');
   var lobby=document.getElementById('cinoLobby');
-  var entrance=document.getElementById('cinoEntrance');
-  var lobbyImg=document.getElementById('cinoLobbyImg');
+  var video=document.getElementById('cinoVideo');
+  var vidReady=false, vidDur=0, vidUnlocked=false;
+  if(video){
+    video.addEventListener('loadedmetadata',function(){ vidDur=video.duration||0; });
+    video.addEventListener('canplay',function(){ vidReady=true; requestRender(); });
+  }
+  /* iOS/Safari won't let us seek a video until it has been "activated" by a
+     gesture — unlock it on the first interaction so scroll-scrubbing works. */
+  function unlockVideo(){
+    if(vidUnlocked||!video) return; vidUnlocked=true;
+    var pr=video.play();
+    if(pr&&pr.then){ pr.then(function(){ video.pause(); }).catch(function(){}); }
+    else { try{ video.pause(); }catch(e){} }
+  }
+  ['touchstart','pointerdown','wheel','keydown'].forEach(function(ev){
+    addEventListener(ev,unlockVideo,{passive:true,once:true});
+  });
   var SCENES=chapters.length;            // 5 scenes
   var SCREENS=4.5;                       // total scroll length, in viewport-heights (room to feel each beat)
   /* per-chapter scroll boundaries (fractions of total). Each chapter holds one
@@ -708,14 +725,15 @@
     bld.style.opacity=1-smooth(0.26,0.40,p);      // exterior holds, then fades by the entrance
     /* building windows light up toward evening before we step inside */
     bldNight.style.opacity=smooth(0.10,0.28,p);
-    /* glass entrance: fade in across the ch1→ch2 boundary, hold clear through
-       ch2, then hand off to the lobby across the ch3 boundary */
-    var entOut=smooth(0.54,0.66,p);
-    if(entrance){ entrance.style.opacity=smooth(0.28,0.40,p)*(1-entOut);
-      entrance.style.transform='scale('+(1.05+0.12*smooth(0.28,0.66,p)).toFixed(4)+')'; }
-    /* lobby interior: holds clear through ch4 with a slow push-in for the wow */
-    if(lobbyImg){ lobbyImg.style.opacity=smooth(0.54,0.66,p);
-      lobbyImg.style.transform='scale('+(1.05+0.16*smooth(0.58,1,p)).toFixed(4)+')'; }
+    /* live footage scrubs from the glass entrance into the lobby; it fades in
+       across the ch1→ch2 boundary and the scroll drives its playback head */
+    if(video){
+      video.style.opacity=smooth(0.30,0.44,p);
+      if(vidReady && vidDur){
+        var vt=clamp((p-0.34)/(1-0.34),0,1)*vidDur;
+        if(Math.abs(vt-video.currentTime)>0.02){ try{ video.currentTime=vt; }catch(e){} }
+      }
+    }
     /* legibility scrim + vignette bloom once we're inside */
     if(lobby) lobby.style.opacity=smooth(0.44,0.66,p);
     /* captions POP in: only the active chapter is "live" */
