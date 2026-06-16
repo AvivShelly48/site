@@ -116,9 +116,16 @@
   .cino-warm{position:absolute;left:50%;top:50%;width:80vmin;height:80vmin;transform:translate(-50%,-50%);
     border-radius:50%;background:radial-gradient(circle,rgba(243,214,160,.55),rgba(243,214,160,0) 60%);filter:blur(10px);opacity:0;}
   .cino-build{position:relative;height:min(82vh,64vw);aspect-ratio:1360/1439;transform-style:preserve-3d;
-    will-change:transform;filter:drop-shadow(0 30px 38px rgba(18,16,28,.42));}
+    will-change:transform,opacity;filter:drop-shadow(0 30px 38px rgba(18,16,28,.42));}
   .cino-build .bl{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backface-visibility:hidden;}
-  .cino-build .bl.night{opacity:0;}
+  .cino-build .bl.side,.cino-build .bl.night{opacity:0;}
+
+  /* lobby — the camera "enters" on the final scroll */
+  .cino-lobby{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:opacity;}
+  .cino-lobby img{width:100%;height:100%;object-fit:cover;transform:scale(1.28);transform-origin:50% 42%;will-change:transform;}
+  .cino-lobby::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(125% 95% at 50% 38%, rgba(10,8,14,0) 42%, rgba(10,8,14,.55) 100%);}
+  .lobby-panel{text-shadow:0 2px 24px rgba(0,0,0,.55);}
 
   .cino-scrim{position:absolute;inset-inline:0;bottom:0;height:44vh;display:none;pointer-events:none;
     background:linear-gradient(0deg,rgba(8,10,22,.52) 4%,rgba(8,10,22,0) 58%);}
@@ -378,14 +385,19 @@
     <div class="cino-glow" id="cinoGlow"></div>
     <div class="cino-warm" id="cinoWarm"></div>
     <div class="cino-build" id="cinoBuild">
-      <img class="bl lit"   id="blLit"   src="assets/har-avital/cut/side.webp"  alt="הר אביטל" />
+      <img class="bl day"   id="blDay"   src="assets/har-avital/cut/day.webp"   alt="הר אביטל — חזית" />
+      <img class="bl side"  id="blSide"  src="assets/har-avital/cut/side.webp"  alt="הר אביטל — צד" />
       <img class="bl night" id="blNight" src="assets/har-avital/cut/night.webp" alt="הר אביטל — לילה" />
     </div>
   </div>
+
+  <!-- lobby layer (camera enters on the final scroll) -->
+  <div class="cino-lobby" id="cinoLobby"><img src="assets/har-avital/cut/lobby.webp" alt="לובי הכניסה" /></div>
+
   <div class="cino-scrim"></div>
 
   <div class="cino-chapters" id="cinoChapters">
-    <!-- 0 · Hero -->
+    <!-- 0 · Hero (front) -->
     <div class="cchap" data-ch="0">
       <div class="cpanel pos-hero">
         <div class="eyebrow ce">נדל״ן · התחדשות עירונית · בנייה</div>
@@ -394,42 +406,37 @@
         <a href="#projects" class="ccta" data-hot><span class="ln2"></span> גלו את הפרויקטים</a>
       </div>
     </div>
-    <!-- 1 · Statement -->
+    <!-- 1 · Statement (orbit → side) -->
     <div class="cchap" data-ch="1">
       <div class="cpanel pos-center">
         <p class="big">בית טוב לא נמדד ביום המסירה —<br><b>אלא בעשרים השנה שאחריו.</b></p>
       </div>
     </div>
-    <!-- 2 · Domain A -->
+    <!-- 2 · Domains (orbit → other side, dusk) -->
     <div class="cchap" data-ch="2">
       <div class="cpanel pos-right">
-        <div class="dnum">א׳ · תחום ראשון</div>
-        <h2>התחדשות <em>עירונית</em></h2>
-        <p class="ctext">פינוי-בינוי ותמ״א — הופכים מתחמים ותיקים לשכונות חדשות, עם ליווי הדיירים בכל שלב ושקיפות מלאה.</p>
+        <div class="dnum">שלושה תחומים · בית אחד</div>
+        <h2>שלוש דרכים <em>לבנות בית.</em></h2>
+        <p class="ctext">
+          <b style="color:var(--green)">התחדשות עירונית</b> — פינוי-בינוי ותמ״א.<br>
+          <b style="color:var(--green)">מחיר למשתכן</b> — דירה ראשונה לזוגות צעירים.<br>
+          <b style="color:var(--green)">בנייה למגורים</b> — מגדלי בוטיק חדשים.
+        </p>
         <div class="led-bars"><i></i><i></i><i></i><i></i><i></i></div>
       </div>
     </div>
-    <!-- 3 · Domain B -->
+    <!-- 3 · Lobby (enter the building) -->
     <div class="cchap" data-ch="3">
-      <div class="cpanel pos-left">
-        <div class="dnum">ב׳ · תחום שני</div>
-        <h2>מחיר <em>למשתכן</em></h2>
-        <p class="ctext">מימוש מכרזי המדינה לדירה ראשונה — מלווים זוגות צעירים ומשפחות מההגרלה ועד קבלת המפתח.</p>
-        <div class="led-bars"><i></i><i></i><i></i><i></i><i></i></div>
-      </div>
-    </div>
-    <!-- 4 · Domain C -->
-    <div class="cchap" data-ch="4">
-      <div class="cpanel pos-bottom">
-        <div class="dnum">ג׳ · תחום שלישי</div>
-        <h2>בנייה <em>למגורים</em></h2>
-        <p class="ctext">מגדלי בוטיק ופרויקטים חדשים בשפה אדריכלית עכשווית — מהתכנון, דרך הביצוע, ועד המסירה.</p>
+      <div class="cpanel pos-center lobby-panel">
+        <div class="dnum" style="color:var(--led)">קומת הכניסה</div>
+        <h2>ברוכים הבאים <em style="color:#fff">הביתה.</em></h2>
+        <a href="#projects" class="ccta" data-hot style="color:#fff"><span class="ln2" style="background:var(--led)"></span> כנסו לפרויקטים</a>
       </div>
     </div>
   </div>
 
-  <div class="cino-rail" id="cinoRail"><i></i><i></i><i></i><i></i><i></i></div>
-  <div class="cino-count">פרק <b id="cinoCount">01</b> · 05</div>
+  <div class="cino-rail" id="cinoRail"><i></i><i></i><i></i><i></i></div>
+  <div class="cino-count">פרק <b id="cinoCount">01</b> · 04</div>
   <div class="cino-cue" id="cinoCue"><span></span>גלילה</div>
 </div>
 
@@ -635,9 +642,10 @@
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var build  = document.getElementById('cinoBuild');
-  var blLit=document.getElementById('blLit'), blNight=document.getElementById('blNight');
+  var blDay=document.getElementById('blDay'), blSide=document.getElementById('blSide'), blNight=document.getElementById('blNight');
   var glow=document.getElementById('cinoGlow'), warm=document.getElementById('cinoWarm');
   var stage=document.getElementById('cinoStage');
+  var lobby=document.getElementById('cinoLobby'), lobbyImg=lobby.querySelector('img');
   var skySunset=document.getElementById('skySunset'), skyNight=document.getElementById('skyNight');
   var sun=document.getElementById('sun'), stars=document.getElementById('stars');
   var chaptersEl=document.getElementById('cinoChapters');
@@ -646,23 +654,21 @@
   var counter=document.getElementById('cinoCount');
   var cue=document.getElementById('cinoCue');
   var scrollEl=document.getElementById('cinoScroll');
-  var N=chapters.length;                 // cinematic chapters (5)
+  var N=chapters.length;                 // 4 chapters: front · side · other side · lobby
 
   function sizeSpacer(){ scrollEl.style.height=(N*100)+'svh'; }
   sizeSpacer();
-  if(reduce){ scrollEl.style.height='0'; return; } // reduced-motion: chapters stack via CSS
+  if(reduce){ scrollEl.style.height='0'; return; }
 
-  /* transform-only camera states (index 0..N; N = exit). x,y vw/vh · rx/ry/rz deg · s scale.
-     Sky, sun and the day→night building cross-fade are derived from overall progress. */
+  /* camera ORBIT states (index 0..N). Mostly rotateY (turn around the building),
+     minimal vertical motion; the final leg dollies in toward the lobby. */
   var S=[
-    {x:-4, y:-3, rx:4,  ry:-15, rz:-1, s:1.00}, // 0 hero
-    {x: 3, y: 9, rx:8,  ry:  3, rz: 1, s:0.84}, // 1 statement (descend)
-    {x:-15,y: 2, rx:6,  ry:-30, rz:-3, s:0.74}, // 2 domain A (turn left)
-    {x: 15,y: 4, rx:6,  ry: 30, rz: 3, s:0.74}, // 3 domain B (turn right)
-    {x: 0, y: 6, rx:-4, ry:  4, rz: 0, s:0.98}, // 4 domain C (face forward, night)
-    {x: 0, y:22, rx:-10,ry:  6, rz: 0, s:1.12}  // 5 exit (descend & fade)
+    {ry:-12, rx:5, s:1.00}, // 0 front
+    {ry: 30, rx:7, s:0.99}, // 1 swing to the side
+    {ry:-30, rx:7, s:0.99}, // 2 swing to the other side (dusk)
+    {ry:  0, rx:2, s:1.06}, // 3 face front, begin approach
+    {ry:  0, rx:0, s:1.12}  // 4 exit
   ];
-
   var mob = matchMedia('(max-width:980px)').matches;
   addEventListener('resize',function(){ mob=matchMedia('(max-width:980px)').matches; sizeSpacer(); });
 
@@ -672,64 +678,72 @@
   var DARK=[23,21,26], LIGHT=[244,242,236];
   function mix(c1,c2,t){return [Math.round(lerp(c1[0],c2[0],t)),Math.round(lerp(c1[1],c2[1],t)),Math.round(lerp(c1[2],c2[2],t))];}
 
-  var disp={x:-4,y:-3,rx:4,ry:-15,rz:-1,s:1.12};
-  var tgt ={x:-4,y:-3,rx:4,ry:-15,rz:-1,s:1.0};
+  var disp={ry:-12,rx:5,s:1.12}, tgt={ry:-12,rx:5,s:1.0};
   var t0=performance.now(), running=false;
 
   function compute(){
-    var sc = window.scrollY||window.pageYOffset||0;
-    var p  = clamp(sc/(N*innerHeight),0,1);
-    var f  = p*N, seg=clamp(Math.floor(f),0,S.length-2), t=smooth(clamp(f-seg,0,1));
+    var sc=window.scrollY||window.pageYOffset||0;
+    var p=clamp(sc/(N*innerHeight),0,1);
+    var f=p*N, seg=clamp(Math.floor(f),0,S.length-2), t=smooth(clamp(f-seg,0,1));
     var a=S[seg], b=S[seg+1];
-    var xS=mob?0.55:1, ryS=mob?0.6:1;
-    tgt.x=lerp(a.x,b.x,t)*xS;
-    tgt.y=lerp(a.y,b.y,t)+(mob?-6:0);
+    tgt.ry=lerp(a.ry,b.ry,t)*(mob?0.62:1);
     tgt.rx=lerp(a.rx,b.rx,t);
-    tgt.ry=lerp(a.ry,b.ry,t)*ryS;
-    tgt.rz=lerp(a.rz,b.rz,t);
-    tgt.s=lerp(a.s,b.s,t)*(mob?0.94:1);
+    tgt.s =lerp(a.s,b.s,t)*(mob?0.9:1);
 
-    /* ---- day → sunset → night ---- */
-    var nightW =clamp((p-0.6)/0.34,0,1);
-    var sunsetW=clamp(1-Math.abs(p-0.52)/0.36,0,1);
-    skySunset.style.opacity=sunsetW.toFixed(3);
-    skyNight.style.opacity =nightW.toFixed(3);
-    stars.style.opacity    =nightW.toFixed(3);
-    var sunP=clamp(p/0.62,0,1);
-    sun.style.top=lerp(16,86,sunP).toFixed(1)+'%';
-    sun.style.opacity=clamp(1-Math.max(0,(p-0.5)/0.18),0,1).toFixed(3);
-    /* building lights up at night */
+    /* face cross-fade: front → side → night, as the camera circles */
+    var dayW  =clamp(1-p/0.24,0,1);
+    var nightW=clamp((p-0.40)/0.30,0,1);
+    var sideW =clamp(1-dayW-nightW,0,1);
+    blDay.style.opacity=dayW.toFixed(3);
+    blSide.style.opacity=sideW.toFixed(3);
     blNight.style.opacity=nightW.toFixed(3);
-    blLit.style.opacity=(1-nightW*0.96).toFixed(3);
-    warm.style.opacity=(nightW*0.7).toFixed(3);
-    glow.style.opacity=(0.03+nightW*0.07).toFixed(3);
-    /* adaptive text colour (desktop; mobile uses a fixed light tone over the scrim) */
-    if(!mob){ var c=mix(DARK,LIGHT,clamp((p-0.5)/0.32,0,1)); chaptersEl.style.color='rgb('+c[0]+','+c[1]+','+c[2]+')'; }
+
+    /* sky day → sunset → night */
+    var skyNightW=clamp((p-0.46)/0.28,0,1);
+    var sunsetW=clamp(1-Math.abs(p-0.40)/0.34,0,1);
+    skySunset.style.opacity=sunsetW.toFixed(3);
+    skyNight.style.opacity =skyNightW.toFixed(3);
+    stars.style.opacity    =skyNightW.toFixed(3);
+    var sunP=clamp(p/0.5,0,1);
+    sun.style.top=lerp(16,88,sunP).toFixed(1)+'%';
+    sun.style.opacity=clamp(1-Math.max(0,(p-0.4)/0.16),0,1).toFixed(3);
+    warm.style.opacity=(skyNightW*0.65).toFixed(3);
+    glow.style.opacity=(0.03+skyNightW*0.06).toFixed(3);
+
+    /* lobby entry — camera passes through the doors on the final leg */
+    var lobbyW=clamp((p-0.74)/0.24,0,1), ls=smooth(lobbyW);
+    lobby.style.opacity=lobbyW.toFixed(3);
+    lobbyImg.style.transform='scale('+lerp(1.28,1.0,ls).toFixed(3)+')';
+    build.style.opacity=(1-lobbyW).toFixed(3);
+    tgt.s=tgt.s*(1+lobbyW*1.4); // dolly the building toward us as we enter
+
+    /* adaptive text colour (lobby chapter text is already light via inline styles) */
+    if(!mob){ var c=mix(DARK,LIGHT,clamp((p-0.34)/0.28,0,1)); chaptersEl.style.color='rgb('+c[0]+','+c[1]+','+c[2]+')'; }
 
     /* chapter text cross-fade */
     var fc=p*N;
     chapters.forEach(function(ch,i){
       var o=clamp(1-Math.abs(fc-(i+0.5))/0.6,0,1);
       ch.style.opacity=o.toFixed(3);
-      ch.style.transform='translateY('+((fc-(i+0.5))*-2.4)+'vh)';
+      ch.style.transform='translateY('+((fc-(i+0.5))*-2.2)+'vh)';
     });
     var active=clamp(Math.floor(p*N),0,N-1);
     rail.forEach(function(d,i){d.classList.toggle('on',i===active);});
     if(counter) counter.textContent=('0'+(active+1)).slice(-2);
     if(cue) cue.style.opacity = p<0.06?1:0;
-    stage.style.opacity = (p<0.92?1:clamp(1-(p-0.92)/0.08,0,1)).toFixed(3);
+    stage.style.opacity = (p<0.94?1:clamp(1-(p-0.94)/0.06,0,1)).toFixed(3);
     return p;
   }
 
   function frame(now){
     var p=compute();
-    var e=mob?0.16:0.11, settled=true;
-    ['x','y','rx','ry','rz','s'].forEach(function(k){
+    var e=mob?0.16:0.10, settled=true;
+    ['ry','rx','s'].forEach(function(k){
       disp[k]=lerp(disp[k],tgt[k],e); if(Math.abs(disp[k]-tgt[k])>0.001) settled=false;
     });
-    var time=(now-t0)/1000, bobY=Math.sin(time*0.8)*0.5, bobR=Math.sin(time*0.5)*1.0;
-    build.style.transform='perspective(1500px) translate3d('+disp.x.toFixed(3)+'vw,'+(disp.y+bobY).toFixed(3)+'vh,0) '+
-      'rotateX('+disp.rx.toFixed(2)+'deg) rotateY('+(disp.ry+bobR).toFixed(2)+'deg) rotateZ('+disp.rz.toFixed(2)+'deg) scale('+disp.s.toFixed(3)+')';
+    var time=(now-t0)/1000, bobY=Math.sin(time*0.7)*0.5, bobR=Math.sin(time*0.45)*0.9;
+    build.style.transform='perspective(1600px) translate3d(0,'+bobY.toFixed(3)+'vh,0) '+
+      'rotateX('+disp.rx.toFixed(2)+'deg) rotateY('+(disp.ry+bobR).toFixed(2)+'deg) scale('+disp.s.toFixed(3)+')';
     if(p>=1 && settled){ running=false; return; }
     requestAnimationFrame(frame);
   }
