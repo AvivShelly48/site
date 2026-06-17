@@ -695,7 +695,14 @@
   window.__seqProgress=function(){return Math.min(1, ready/need);};
   Object.defineProperty(window,'__seqReady',{get:function(){return ready>=1;}});
 
-  scrollEl.style.height=(SCREENS*100)+'svh';
+  /* The scrub spacer must match the progress denominator (SCREENS*innerHeight)
+     exactly — using svh here broke on mobile, where svh ≠ innerHeight, so the
+     content slid up before progress hit 100%. We also add an end-hold (extra
+     screens, longer on mobile) so the final "ברוכים הבאים הביתה" scene lingers
+     fully before the galleries scroll in from below. */
+  function endHold(){ return innerWidth<760 ? 1.1 : 0.5; }
+  function layout(){ scrollEl.style.height=((SCREENS+endHold())*innerHeight)+'px'; }
+  layout();
 
   /* time-of-day palettes: top / mid / horizon sky, sun colour+pos+opacity, stars */
   var P=[
@@ -774,7 +781,7 @@
     return;
   }
   addEventListener('scroll',requestRender,{passive:true});
-  addEventListener('resize',requestRender,{passive:true});
+  addEventListener('resize',function(){ layout(); requestRender(); },{passive:true});
   render();
 })();
 </script>
