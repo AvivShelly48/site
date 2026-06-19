@@ -32,17 +32,15 @@ Headers:
   Content-Type: application/json
 Body (JSON):
 {
-  "external_id": "{{record.id}}",        // מזהה הפרויקט אצלכם — מפתח ההתאמה
-  "title":       "{{record.title}}",
-  "location":    "{{record.city}}",
-  "cat":         "build|renewal|sale",   // ראו טבלת המיפוי
-  "sale":        "{{record.marketing_status}}",
-  "stage":       1,                       // 1=רישוי 2=ביצוע 3=אכלוס
-  "image":       "{{record.image_url}}",
+  "external_id": "{{record.id}}",                    // מזהה הפרויקט אצלכם (UUID)
+  "title":       "{{record.name}}",
+  "location":    "{{record.address}}",               // כתובת מלאה (אין שדה עיר נפרד)
+  "cat":         "<המרה מ-category>",                // ראו טבלת המרה §3א
+  "sale":        "<המרה מ-status → תווית>",          // ראו טבלת המרה §3ב
+  "stage":       "<המרה מ-status → 1/2/3>",          // ראו טבלת המרה §3ב
+  "image":       "{{record.project_simulation_url}}",
   "description": "{{record.description}}",
-  "facts":       [ {"k":"units","v":"202","l":"יח״ד חדשות"} ],
-  "featured":    false,
-  "order":       10
+  "facts":       [ { "k":"units", "v":"{{record.total_units}}", "l":"יח״ד" } ]
 }
 ```
 > **Upsert:** אם כבר קיימת באתר רשומה עם אותו `external_id` — לעדכן אותה (PATCH) במקום ליצור חדשה. אם ה‑API שלכם לא תומך ב‑upsert אוטומטי, בצעו GET לפי `external_id` ואז POST/PATCH בהתאם.
@@ -62,22 +60,39 @@ Body: { "external_id": "{{record.id}}", "status": "sold|reserved|available" }
 
 ---
 
-## 3. טבלת מיפוי שדות (ניהול → אתר)
-מלאו את עמודת "השדה אצלכם" לפי המבנה האמיתי באפליקציית הניהול:
-
-| שדה באתר (יעד) | סוג | משמעות | השדה אצלכם |
+## 3. טבלת מיפוי שדות (ניהול → אתר) — ✅ אושר
+| שדה באתר (יעד) | השדה אצלכם | סוג | הערה |
 |---|---|---|---|
-| `external_id` | string | מזהה ייחודי של הפרויקט/דירה אצלכם (**חובה** – מפתח התאמה) | … |
-| `title` | string | שם הפרויקט | … |
-| `location` | string | עיר/מיקום | … |
-| `cat` | enum | `renewal`=התחדשות · `sale`=מחיר למשתכן · `build`=בנייה למגורים | … |
-| `sale` | string | תווית שיווק (בשיווק/בביצוע/בתכנון) | … |
-| `stage` | 1/2/3 | רישוי / ביצוע / אכלוס | … |
-| `image` | URL | תמונת הפרויקט (URL ציבורי) | … |
-| `description` | string | תיאור | … |
-| `facts` | array | עד 3 נתונים `{k,v,l}` (k∈units/floors/renew/build/park/key) | … |
-| **Unit** `status` | enum | `available` / `reserved` / `sold` | … |
-| **Unit** `project` | string | לאיזה פרויקט שייכת הדירה | … |
+| `external_id` | `id` | UUID | מזהה ייחודי אוטומטי (מפתח התאמה) |
+| `title` | `name` | string | שם הפרויקט |
+| `location` | `address` | string | כתובת מלאה (אין שדה עיר נפרד) — יוצג כפי שהוא |
+| `cat` | `category` | enum | **המרה — §3א** |
+| `sale` + `stage` | `status` | enum | **המרה — §3ב** (שדה אחד → שני שדות) |
+| `image` | `project_simulation_url` | URL | |
+| `description` | `description` | string | |
+| `facts[0]` (units) | `total_units` | number | `{ "k":"units", "v":"<total_units>", "l":"יח״ד" }` |
+| **Unit** `status` | (שדה הסטטוס בדירה) | enum | `available`/`reserved`/`sold` |
+| **Unit** `external_id` | `id` של הדירה | UUID | מפתח התאמה לדירה |
+
+### 3א. המרת `category` → `cat`  ⛔ ממתין לערכים שלכם
+`cat` באתר מקבל **אחד מ-3**: `renewal` (התחדשות) · `sale` (מחיר למשתכן) · `build` (בנייה למגורים).
+מלאו לפי הערכים שקיימים אצלכם ב-`category`:
+
+| הערך אצלכם ב-`category` | → `cat` באתר |
+|---|---|
+| `…` | `renewal` |
+| `…` | `sale` |
+| `…` | `build` |
+
+### 3ב. המרת `status` → `sale` (תווית) + `stage` (1/2/3)  ⛔ ממתין לערכים שלכם
+שדה `status` אחד מזין שני שדות באתר: תווית שיווק טקסטואלית (`sale`) ושלב בנייה מספרי (`stage`: 1=רישוי, 2=ביצוע, 3=אכלוס).
+
+| הערך אצלכם ב-`status` | → `sale` (תווית) | → `stage` |
+|---|---|---|
+| `…` | בשיווק | 2 |
+| `…` | בתכנון | 1 |
+| `…` | באכלוס | 3 |
+| `…` | … | … |
 
 ---
 
@@ -87,11 +102,13 @@ Body: { "external_id": "{{record.id}}", "status": "sold|reserved|available" }
 
 ---
 
-## 5. ⬅️ מה אני צריך מכם בחזרה (כדי לסיים את הצד שלי)
-1. **שמות ה‑entities והשדות** באפליקציית הניהול עבור פרויקט ודירה (צילום מסך של ה‑Data model או ייצוא סכמה) — כדי למלא את טבלת המיפוי במדויק.
-2. **מהו השדה הייחודי** (id) של פרויקט ושל דירה אצלכם — זה ייכנס ל‑`external_id`.
-3. **האם אפליקציית הניהול תומכת באוטומציה עם HTTP/Webhook יוצא** (קריאה ל‑API חיצוני)? אם כן — מצוין. אם לא — נתאם חלופה (Pull מתוזמן / גשר).
-4. אישור הפורמט המדויק של ה‑REST API ל‑entities ב‑Base44 שלכם (כותרת האימות והנתיב) — לפי תיעוד ה‑Base44 של החשבון.
+## 5. ⬅️ מה נותר שאני צריך מכם
+✅ קיבלנו את מיפוי השדות (§3). נותרו:
+1. **⛔ ערכי ה-enum של `category`** — רשימת הערכים האפשריים, כדי למלא את טבלת ההמרה §3א (→ renewal/sale/build).
+2. **⛔ ערכי ה-enum של `status`** — רשימת הערכים האפשריים, כדי למלא את §3ב (→ תווית `sale` + `stage` 1/2/3).
+3. **דירות (Unit):** האם קיים אצלכם entity של דירה בודדת עם שדה סטטוס? אם כן — שם ה-entity, שם שדה הסטטוס וערכיו (נמכר/פנוי). אם לא — נדלג בינתיים על סנכרון דירות.
+4. **האם אפליקציית הניהול תומכת באוטומציה עם HTTP/Webhook יוצא**? אם לא — נתאם חלופה (Pull מתוזמן / גשר).
+5. אישור פורמט ה‑REST API של Base44 בחשבונכם (כותרת אימות + נתיב).
 
 ## 6. ⬅️ מה אני אספק לכם
 - `WEBSITE_APP_ID` ו‑`WEBSITE_API_KEY` של אפליקציית האתר (לאחר שתוקם), להזנה באוטומציות.
