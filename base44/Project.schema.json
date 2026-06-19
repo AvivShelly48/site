@@ -5,7 +5,7 @@
   "properties": {
     "title":       { "type": "string", "description": "שם הפרויקט, למשל: קרן היסוד · מתחם הצעירים" },
     "location":    { "type": "string", "description": "עיר / מיקום, למשל: אשדוד" },
-    "cat":         { "type": "string", "enum": ["renewal", "sale", "build"], "description": "קטגוריה: renewal=התחדשות עירונית · sale=מחיר למשתכן · build=בנייה למגורים" },
+    "cat":         { "type": "string", "enum": ["renewal", "sale", "build", "commercial"], "description": "קטגוריה: renewal=התחדשות עירונית · sale=מחיר למשתכן · build=בנייה למגורים · commercial=מסחרי" },
     "sale":        { "type": "string", "description": "תווית שיווק: בשיווק / בתכנון / למכירה" },
     "stage":       { "type": "number", "description": "סטטוס בנייה: 1=רישוי · 2=ביצוע · 3=אכלוס" },
     "image":       { "type": "string", "description": "URL לתמונת הפרויקט (העלו ל-File Storage של Base44)" },

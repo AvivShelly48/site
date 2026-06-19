@@ -243,6 +243,8 @@
   .catanim.sale .ca-dot{position:relative;z-index:2;width:9px;height:9px;border-radius:50%;background:var(--led);box-shadow:0 0 0 0 rgba(243,214,160,.7);animation:pulse 1.6s ease-out infinite;}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(243,214,160,.6)}70%{box-shadow:0 0 0 11px rgba(243,214,160,0)}100%{box-shadow:0 0 0 0 rgba(243,214,160,0)}}
   .catanim.build .ca-dot{width:8px;height:8px;border-radius:1px;background:var(--green-bright);transform:rotate(45deg);}
+  .catanim.commercial{border-color:rgba(168,98,60,.5);}
+  .catanim.commercial .ca-dot{width:8px;height:8px;border-radius:1px;background:var(--wood);transform:rotate(45deg);}
 
   .lb-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .lb-meta .lb-sale{font-size:11px;letter-spacing:.1em;font-weight:600;color:var(--green-deep);border:1px solid rgba(95,156,54,.4);border-radius:2px;padding:3px 9px;}
@@ -824,9 +826,9 @@
 (function(){
   /* Projects data — shape matches the planned Base44 `Project` entity.
      Go live by replacing PROJECTS with: await base44.entities.Project.list(); */
-  /* cat: renewal=התחדשות עירונית · sale=מחיר למשתכן · build=בנייה למגורים
+  /* cat: renewal=התחדשות עירונית · sale=מחיר למשתכן · build=בנייה למגורים · commercial=מסחרי
      stage: 1=רישוי · 2=ביצוע · 3=אכלוס.  Data sourced from shellyurban.co.il */
-  var CAT={renewal:"התחדשות עירונית", sale:"מחיר למשתכן", build:"בנייה למגורים"};
+  var CAT={renewal:"התחדשות עירונית", sale:"מחיר למשתכן", build:"בנייה למגורים", commercial:"מסחרי"};
   var PROJECTS = [
     { title:"עצמאות · פינוי-בינוי", location:"יבנה", cat:"renewal", sale:"בביצוע", stage:2,
       image:"assets/uploads/render-independence.jpg",
@@ -919,6 +921,7 @@
     var cw;
     if(p.cat==='renewal') cw='<div class="catanim renewal"><span class="ca-lab">'+CAT.renewal+'</span><span class="ca-ba"><b>ישן</b><span class="ar">→</span><b>חדש</b></span></div>';
     else if(p.cat==='sale') cw='<div class="catanim sale"><span class="ca-dot"></span><span class="ca-lab">בשיווק · מחיר למשתכן</span></div>';
+    else if(p.cat==='commercial') cw='<div class="catanim commercial"><span class="ca-dot"></span><span class="ca-lab">'+CAT.commercial+'</span></div>';
     else cw='<div class="catanim build"><span class="ca-dot"></span><span class="ca-lab">'+CAT.build+'</span></div>';
     lbCatWrap.innerHTML=cw;
     /* fact icons */
