@@ -1,0 +1,23 @@
+SHELLY URBAN — רשימת דפים ופוסטים מתוך גיבוי התוכן (WXR)
+מקור: shelly-.WordPress.2026-06-14.xml
+
+== דפים (Pages) ==
+[publish] דף הבית
+[publish] התחדשות עירונית
+[publish] ייזום ובנייה
+[publish] ביצוע קבלנות בניין
+[publish] אודות
+[publish] צור קשר
+[publish] תודה
+[publish] פרויקטים למגורים
+[draft]   העמוד שלי
+[publish] מחיר למשתכן
+[publish] הצהרת נגישות
+
+== פוסטים / פרויקטים (Posts) ==
+[publish] הלילך 5
+[publish] הציונות 10 – סיטי פארק
+[publish] הלילך 3
+[publish] הלילך 7
+[publish] העצמאות פינוי בינוי 28-32
+[publish] קרן היסוד מתחם הצעירים
