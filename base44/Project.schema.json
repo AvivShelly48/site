@@ -15,7 +15,8 @@
                        "v": { "type": "string", "description": "ערך, למשל 144" },
                        "l": { "type": "string", "description": "תווית, למשל יח\"ד חדשות" } } } },
     "featured":    { "type": "boolean", "description": "האם זהו כרטיס הדגל הגדול (מוצג למעלה)" },
-    "order":       { "type": "number", "description": "סדר הצגה (קטן→ראשון)" }
+    "order":       { "type": "number", "description": "סדר הצגה (קטן→ראשון)" },
+    "external_id": { "type": "string", "description": "מזהה הפרויקט באפליקציית הניהול (ShellyUrban) — מפתח ההתאמה לסנכרון" }
   },
   "required": ["title", "location", "cat", "stage", "image"]
 }
