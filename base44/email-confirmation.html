@@ -1,0 +1,66 @@
+<!--
+  שלי אורבן — תבנית מייל אישור ממותג (Autoresponder)
+  לשימוש ב-Base44: Automation על entity "Lead" → On create → Send Email → אל {{phone? no}}
+  שלחו אל כתובת המייל של הפונה (אם נאסף email) — או השתמשו בתבנית זו כאישור.
+  משתני מיזוג: {{name}}, {{project}}  — מופו משדות רשומת ה-Lead.
+  הלוגו נטען מכתובת מוחלטת (אימיילים לא תומכים בנתיבים יחסיים).
+-->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /></head>
+<body style="margin:0;padding:0;background:#f1efea;font-family:Arial,'Heebo',sans-serif;color:#17151a;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1efea;padding:28px 0;">
+    <tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:92%;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px -16px rgba(23,21,26,.25);">
+
+        <!-- header -->
+        <tr><td style="background:#17151a;padding:26px 32px;" align="right">
+          <img src="https://avivshelly48.github.io/site/assets/s-mark-green.png" width="34" alt="שלי אורבן" style="display:inline-block;vertical-align:middle;" />
+          <span style="display:inline-block;vertical-align:middle;margin-inline-start:10px;font-family:'Frank Ruhl Libre',Georgia,serif;font-weight:700;font-size:22px;letter-spacing:.12em;color:#ffffff;">SHELLY
+            <span style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:.3em;color:#84bf52;">URBAN</span>
+          </span>
+        </td></tr>
+
+        <!-- body -->
+        <tr><td style="padding:36px 34px 12px;" align="right">
+          <div style="display:inline-block;background:#eaf1e2;color:#447327;font-size:13px;font-weight:700;padding:7px 14px;border-radius:100px;">פנייתכם התקבלה ✓</div>
+          <h1 style="font-family:'Frank Ruhl Libre',Georgia,serif;font-weight:500;font-size:28px;line-height:1.2;margin:18px 0 6px;color:#17151a;">
+            תודה, {{name}} 🙏
+          </h1>
+          <p style="font-size:16px;line-height:1.8;color:#3a372f;margin:10px 0 0;">
+            קיבלנו את פנייתכם בנושא <strong style="color:#447327;">{{project}}</strong>, והיא כבר אצלנו.
+            נציג מטעם <strong>שלי אורבן</strong> יחזור אליכם בהקדם עם כל הפרטים.
+          </p>
+          <p style="font-size:16px;line-height:1.8;color:#3a372f;margin:14px 0 0;">
+            אנחנו מלווים אתכם אישית לאורך כל הדרך — מהרגע הראשון ועד מסירת המפתח.
+          </p>
+        </td></tr>
+
+        <!-- CTA -->
+        <tr><td style="padding:24px 34px 8px;" align="right">
+          <a href="https://avivshelly48.github.io/site/" style="display:inline-block;background:#447327;color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;padding:13px 26px;border-radius:100px;">לאתר ולפרויקטים שלנו ←</a>
+        </td></tr>
+
+        <!-- contact strip -->
+        <tr><td style="padding:22px 34px 0;" align="right">
+          <hr style="border:none;border-top:1px solid #e7e2d8;margin:0 0 18px;" />
+          <p style="font-size:14px;color:#6b675f;line-height:1.9;margin:0;">
+            📞 <a href="tel:+97288623366" style="color:#447327;text-decoration:none;">08-862-3366</a>&nbsp;&nbsp;·&nbsp;&nbsp;
+            ✉️ <a href="mailto:Office@shellyurban.co.il" style="color:#447327;text-decoration:none;">Office@shellyurban.co.il</a><br/>
+            📍 הגדוד העברי 5, אשדוד
+          </p>
+        </td></tr>
+
+        <!-- footer -->
+        <tr><td style="background:#2c2a30;padding:18px 34px;margin-top:24px;" align="right">
+          <p style="font-size:12px;color:rgba(255,255,255,.6);margin:0;line-height:1.7;">
+            © שלי אורבן · דני שלי מהנדסים בע״מ · כל הזכויות שמורות<br/>
+            מייל זה נשלח אוטומטית בעקבות פנייתכם באתר. אין להשיב למייל זה.
+          </p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>

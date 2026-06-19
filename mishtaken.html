@@ -329,6 +329,7 @@
       <form id="leadForm">
         <input id="lf-name" name="name" type="text" autocomplete="name" required placeholder="שם מלא" />
         <input id="lf-phone" name="phone" type="tel" autocomplete="tel" required placeholder="טלפון" />
+        <input id="lf-email" name="email" type="email" autocomplete="email" placeholder="דוא״ל (לקבלת אישור)" />
         <button type="submit">שריינו מקום ←</button>
         <div class="lnote">השליחה פותחת את תוכנת המייל עם הפרטים, מוכנים לשליחה ל-Office@shellyurban.co.il</div>
       </form>
@@ -372,12 +373,25 @@
   /* lead form → mailto (same pattern as the main site) */
   var MAIL_TO="Office@shellyurban.co.il";
   var form=document.getElementById('leadForm');
+  var PROJ="הציונות 10 · סיטי פארק, אשדוד (מחיר למשתכן)";
+  function mailtoLead(name,phone,email){
+    var subject=encodeURIComponent("פנייה מעמוד מחיר למשתכן — הציונות 10 · סיטי פארק, אשדוד"+(name?(" · "+name):""));
+    var body=encodeURIComponent("שם: "+name+"\nטלפון: "+phone+(email?("\nדוא״ל: "+email):"")+"\nפרויקט: "+PROJ);
+    window.location.href="mailto:"+MAIL_TO+"?subject="+subject+"&body="+body;
+  }
   if(form) form.addEventListener('submit',function(e){
     e.preventDefault();
-    var name=form.name.value.trim(),phone=form.phone.value.trim();
-    var subject=encodeURIComponent("פנייה מעמוד מחיר למשתכן — הציונות 10 · סיטי פארק, אשדוד"+(name?(" · "+name):""));
-    var body=encodeURIComponent("שם: "+name+"\nטלפון: "+phone+"\nפרויקט: הציונות 10 · סיטי פארק, אשדוד (מחיר למשתכן)");
-    window.location.href="mailto:"+MAIL_TO+"?subject="+subject+"&body="+body;
+    var name=form.name.value.trim(),phone=form.phone.value.trim(),email=(form.email?form.email.value.trim():"");
+    var btn=form.querySelector('button[type="submit"]');
+    /* Base44: save the Lead (triggers the branded confirmation automation); otherwise mailto */
+    if(window.base44 && base44.entities && base44.entities.Lead){
+      if(btn){btn.disabled=true;btn.textContent="שולח…";}
+      base44.entities.Lead.create({name:name,phone:phone,email:email,project:PROJ,source:"mishtaken"})
+        .then(function(){ if(btn){btn.textContent="נשלח ✓";} form.reset(); setTimeout(function(){if(btn){btn.disabled=false;btn.textContent="שריינו מקום ←";}},2600); })
+        .catch(function(){ if(btn){btn.disabled=false;btn.textContent="שריינו מקום ←";} mailtoLead(name,phone,email); });
+    } else {
+      mailtoLead(name,phone,email);
+    }
   });
   document.getElementById('yr').textContent=new Date().getFullYear();
 })();

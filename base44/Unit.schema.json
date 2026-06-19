@@ -1,0 +1,19 @@
+{
+  "name": "Unit",
+  "type": "object",
+  "description": "דירה בודדת בפרויקט — בסיס ללוח זמינות ולסנכרון 'נמכר/פנוי' מול תוכנת הניהול",
+  "properties": {
+    "project":     { "type": "string", "description": "שם/מזהה הפרויקט שאליו שייכת הדירה (תואם Project.title או project_id)" },
+    "unit_number": { "type": "string", "description": "מספר דירה, למשל 14" },
+    "building":    { "type": "string", "description": "בניין / מספר בניין במתחם" },
+    "floor":       { "type": "number", "description": "קומה" },
+    "rooms":       { "type": "number", "description": "מספר חדרים" },
+    "sqm":         { "type": "number", "description": "שטח במ\"ר" },
+    "price":       { "type": "number", "description": "מחיר (₪) — אופציונלי; בשוק החופשי בלבד" },
+    "status":      { "type": "string", "enum": ["available", "reserved", "sold"], "default": "available", "description": "סטטוס: available=פנוי · reserved=בהמתנה · sold=נמכר" },
+    "exposure":    { "type": "string", "description": "כיווני אוויר / הערה, למשל: דרום-מערב" },
+    "external_id": { "type": "string", "description": "מזהה הדירה בתוכנת הניהול — לסנכרון דו-כיווני (מפתח ההתאמה)" },
+    "order":       { "type": "number", "description": "סדר הצגה" }
+  },
+  "required": ["project", "unit_number", "status"]
+}

@@ -553,6 +553,8 @@
         <input id="lf-name" name="name" type="text" autocomplete="name" required placeholder="ישראל ישראלי" />
         <label class="fl" for="lf-phone">טלפון</label>
         <input id="lf-phone" name="phone" type="tel" autocomplete="tel" required placeholder="050-000-0000" />
+        <label class="fl" for="lf-email">דוא״ל <span style="color:var(--ink-faint);font-weight:400;">(לקבלת אישור)</span></label>
+        <input id="lf-email" name="email" type="email" autocomplete="email" placeholder="name@example.com" />
         <label class="fl" for="lf-project">תחום מעניין</label>
         <select id="lf-project" name="project">
           <option>התחדשות עירונית</option>
@@ -987,23 +989,23 @@
 
   var MAIL_TO="Office@shellyurban.co.il";
   var form=document.getElementById('leadForm');
-  function mailtoLead(name,phone,project,msg){
+  function mailtoLead(name,phone,project,msg,email){
     var subject=encodeURIComponent("פנייה מהאתר — "+project+(name?(" · "+name):""));
-    var body=encodeURIComponent("שם: "+name+"\nטלפון: "+phone+"\nתחום מעניין: "+project+"\n\nהודעה:\n"+msg);
+    var body=encodeURIComponent("שם: "+name+"\nטלפון: "+phone+(email?("\nדוא״ל: "+email):"")+"\nתחום מעניין: "+project+"\n\nהודעה:\n"+msg);
     window.location.href="mailto:"+MAIL_TO+"?subject="+subject+"&body="+body;
   }
   if(form) form.addEventListener('submit',function(e){
     e.preventDefault();
-    var name=form.name.value.trim(),phone=form.phone.value.trim(),project=form.project.value,msg=form.message.value.trim();
+    var name=form.name.value.trim(),phone=form.phone.value.trim(),project=form.project.value,msg=form.message.value.trim(),email=(form.email?form.email.value.trim():"");
     var btn=form.querySelector('.submit');
     /* Base44: save a Lead record; otherwise fall back to opening the mail client */
     if(window.base44 && base44.entities && base44.entities.Lead){
       if(btn){btn.disabled=true;btn.textContent="שולח…";}
-      base44.entities.Lead.create({name:name,phone:phone,project:project,message:msg,source:"website"})
+      base44.entities.Lead.create({name:name,phone:phone,email:email,project:project,message:msg,source:"website"})
         .then(function(){ if(btn){btn.textContent="נשלח ✓";} form.reset(); setTimeout(function(){if(btn){btn.disabled=false;btn.textContent="שליחה";}},2600); })
-        .catch(function(){ if(btn){btn.disabled=false;btn.textContent="שליחה";} mailtoLead(name,phone,project,msg); });
+        .catch(function(){ if(btn){btn.disabled=false;btn.textContent="שליחה";} mailtoLead(name,phone,project,msg,email); });
     } else {
-      mailtoLead(name,phone,project,msg);
+      mailtoLead(name,phone,project,msg,email);
     }
   });
   document.getElementById('yr').textContent=new Date().getFullYear();
