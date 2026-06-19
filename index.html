@@ -93,12 +93,20 @@
   .sky-stars{position:absolute;inset:0;opacity:0;will-change:opacity;
     background-image:radial-gradient(1.4px 1.4px at 12% 18%,#fff,transparent),radial-gradient(1.2px 1.2px at 28% 32%,#fff,transparent),radial-gradient(1.6px 1.6px at 42% 12%,#fff,transparent),radial-gradient(1.1px 1.1px at 57% 26%,#fff,transparent),radial-gradient(1.5px 1.5px at 68% 16%,#fff,transparent),radial-gradient(1.2px 1.2px at 78% 34%,#fff,transparent),radial-gradient(1.3px 1.3px at 88% 22%,#fff,transparent),radial-gradient(1.1px 1.1px at 8% 40%,#fff,transparent),radial-gradient(1.4px 1.4px at 35% 46%,#fff,transparent),radial-gradient(1.2px 1.2px at 63% 42%,#fff,transparent);}
   /* the high-resolution building — constant and sharp */
-  .bld{position:absolute;bottom:-2vh;left:0;right:auto;height:108vh;will-change:transform;
-    transform:translateX(-46%);filter:drop-shadow(0 40px 64px rgba(8,12,24,.42));}
+  .bld{position:absolute;bottom:-2vh;left:0;right:auto;height:108vh;z-index:1;will-change:transform,opacity;
+    transform:translateX(-46%);transform-origin:48% 78%;filter:drop-shadow(0 40px 64px rgba(8,12,24,.42));}
   .bld img{height:100%;width:auto;display:block;}
   .bld .bld-night{position:absolute;top:0;left:0;right:auto;opacity:0;will-change:opacity;}
+  /* live footage: walking in through the glass entrance, scrubbed by scroll */
+  .cino-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;
+    opacity:0;will-change:opacity;pointer-events:none;}
+  /* legibility scrim + soft vignette over the bright lobby, behind the caption */
+  .cino-lobby{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;will-change:opacity;
+    background:
+      linear-gradient(to right, rgba(10,8,14,0) 52%, rgba(10,8,14,.5) 100%),
+      radial-gradient(130% 120% at 50% 44%, rgba(8,6,14,0) 50%, rgba(8,6,14,.6) 100%);}
 
-  .cino-chapters{position:absolute;inset:0;pointer-events:none;color:#fff;}
+  .cino-chapters{position:absolute;inset:0;z-index:5;pointer-events:none;color:#fff;}
   .cino-chapters.on-light{color:#1b1922;}
   .cchap{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;}
   .cchap.live{opacity:1;}
@@ -167,36 +175,59 @@
   .feat .feat-copy .more{margin-top:30px;display:inline-flex;align-items:center;gap:13px;font-size:13.5px;letter-spacing:.05em;color:#fff;}
   .feat .feat-copy .more .ln2{width:42px;height:1px;background:var(--led);transition:width .4s;}
   .feat:hover .feat-copy .more .ln2{width:70px;}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(14px,1.8vw,24px);}
-  .card{position:relative;border-radius:5px;overflow:hidden;cursor:pointer;background:var(--char);aspect-ratio:4/5;}
-  .card img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1),filter .6s;filter:saturate(.92);}
-  .card:hover img{transform:scale(1.07);filter:saturate(1.05);}
-  .card .ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;color:#fff;
-    background:linear-gradient(0deg,rgba(20,18,24,.82) 0%,rgba(20,18,24,.15) 48%,transparent 75%);}
-  .card .st{align-self:flex-start;font-size:10px;letter-spacing:.16em;font-weight:600;color:var(--bg);background:rgba(95,156,54,.92);padding:4px 9px;border-radius:2px;margin-bottom:auto;}
-  .card .ct{font-family:var(--serif);font-size:21px;font-weight:600;}
-  .card .cl{font-size:12.5px;color:rgba(255,255,255,.66);margin-top:3px;letter-spacing:.04em;}
-  .card .plus{position:absolute;top:18px;inset-inline-end:18px;width:30px;height:30px;border:1px solid rgba(255,255,255,.5);border-radius:50%;display:grid;place-items:center;opacity:0;transform:scale(.7);transition:.4s;}
-  .card .plus::before,.card .plus::after{content:"";position:absolute;background:#fff;}
-  .card .plus::before{width:11px;height:1.5px;}.card .plus::after{height:11px;width:1.5px;}
-  .card:hover .plus{opacity:1;transform:scale(1);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(18px,2vw,28px);}
+  /* inviting soft cards: image on top, light info panel below */
+  .pcard{position:relative;display:flex;flex-direction:column;background:var(--bg2);border:1px solid var(--hair-soft);
+    border-radius:16px;overflow:hidden;cursor:pointer;box-shadow:0 1px 2px rgba(23,21,26,.04);
+    transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s,border-color .55s;}
+  .pcard:hover,.pcard:focus-visible{transform:translateY(-6px);box-shadow:0 26px 50px -26px rgba(23,21,26,.36);border-color:var(--hair);outline:none;}
+  .pcard-img{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--char);}
+  .pcard-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1);}
+  .pcard:hover .pcard-img img{transform:scale(1.06);}
+  .pcard-tag{position:absolute;top:14px;inset-inline-end:14px;font-size:10.5px;letter-spacing:.14em;font-weight:700;
+    color:var(--char);background:var(--led);padding:5px 12px;border-radius:100px;box-shadow:0 6px 16px -8px rgba(0,0,0,.45);}
+  .pcard-body{padding:20px 22px 20px;display:flex;flex-direction:column;flex:1;}
+  .pcard-ttl{font-family:var(--serif);font-weight:500;font-size:23px;line-height:1.15;color:var(--ink);}
+  .pcard-loc{font-size:13.5px;color:var(--ink-dim);margin-top:8px;letter-spacing:.03em;display:flex;align-items:center;gap:7px;}
+  .pcard-loc::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green);flex:none;}
+  .pcard-facts{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px;}
+  .pcard-facts span{font-size:12px;font-weight:600;color:var(--green-deep);background:rgba(95,156,54,.10);
+    border:1px solid rgba(95,156,54,.18);border-radius:100px;padding:4px 11px;}
+  .pcard-cta{margin-top:auto;padding-top:17px;margin-top:17px;display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid var(--hair-soft);}
+  .pcard-cta b{font-weight:600;font-size:13px;letter-spacing:.03em;color:var(--green);}
+  .pcard-cta i{font-style:normal;font-size:16px;color:var(--green);transition:transform .35s;}
+  .pcard:hover .pcard-cta i{transform:translateX(-6px);}
 
   .lb{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px);background:rgba(18,16,22,.86);backdrop-filter:blur(10px);opacity:0;transition:opacity .4s;}
   .lb.on{display:flex;opacity:1;}
-  .lb-card{position:relative;max-width:980px;width:100%;max-height:88vh;background:var(--bg);border-radius:6px;overflow:hidden;display:grid;grid-template-columns:1.15fr 1fr;transform:translateY(20px) scale(.98);transition:transform .5s cubic-bezier(.2,.8,.2,1);}
+  .lb-card{position:relative;max-width:1040px;width:100%;max-height:90vh;overflow-y:auto;overflow-x:hidden;background:transparent;
+    transform:translateY(22px) scale(.985);transition:transform .55s cubic-bezier(.2,.8,.2,1);scrollbar-width:none;}
+  .lb-card::-webkit-scrollbar{display:none;}
   .lb.on .lb-card{transform:none;}
-  .lb-card .lb-img{position:relative;background:var(--char);min-height:300px;}
+  .lb-card .lb-img{position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:var(--char);}
   .lb-card .lb-img img{width:100%;height:100%;object-fit:cover;}
-  .lb-card .lb-body{padding:clamp(28px,3.5vw,52px);display:flex;flex-direction:column;justify-content:center;}
-  .lb-card .lb-body .st{align-self:flex-start;font-size:11px;letter-spacing:.16em;font-weight:600;color:var(--green-deep);background:rgba(95,156,54,.14);padding:5px 11px;border-radius:2px;}
-  .lb-card .lb-body h3{font-family:var(--serif);font-weight:500;font-size:clamp(26px,3vw,40px);margin:18px 0 0;}
-  .lb-card .lb-body .loc{color:var(--ink-dim);font-size:14px;margin-top:10px;letter-spacing:.04em;}
-  .lb-card .lb-body p{color:var(--ink-dim);font-size:15px;margin-top:20px;line-height:1.7;}
-  .lb-card .lb-body .lb-cta{margin-top:30px;align-self:flex-start;border:1px solid var(--ink);padding:11px 22px;border-radius:2px;font-size:13.5px;transition:.3s;}
-  .lb-card .lb-body .lb-cta:hover{background:var(--green);border-color:var(--green);color:#fff;}
-  .lb-close{position:absolute;top:14px;inset-inline-end:14px;z-index:3;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.92);border:none;display:grid;place-items:center;font-size:20px;color:var(--ink);box-shadow:0 6px 20px -8px rgba(0,0,0,.4);}
+  /* floating luxe info card overlapping the image */
+  .lb-card .lb-body{position:relative;z-index:6;width:min(560px,90%);margin:-160px auto 6px;margin-inline-start:clamp(16px,4%,56px);
+    background:var(--bg2);border-radius:18px;padding:clamp(26px,3vw,42px);display:flex;flex-direction:column;
+    box-shadow:0 44px 90px -42px rgba(14,12,20,.62),0 0 0 1px var(--hair-soft);}
+  .lb-card .lb-body .lb-meta .st{font-size:11px;letter-spacing:.16em;font-weight:600;color:var(--green-deep);background:rgba(95,156,54,.14);padding:5px 12px;border-radius:100px;}
+  .lb-card .lb-body h3{font-family:var(--serif);font-weight:500;font-size:clamp(28px,3vw,42px);margin:14px 0 0;line-height:1.04;}
+  .lb-card .lb-body .loc{color:var(--ink-dim);font-size:14px;margin-top:11px;letter-spacing:.04em;}
+  .lb-card .lb-body p{color:var(--ink-dim);font-size:15px;margin-top:18px;line-height:1.7;}
+  .lb-card .lb-body .lb-cta{margin-top:26px;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;
+    background:var(--ink);color:#fff;padding:13px 24px;border-radius:100px;font-size:13.5px;font-weight:600;border:1px solid var(--ink);transition:.3s;}
+  .lb-card .lb-body .lb-cta:hover{background:var(--green);border-color:var(--green);}
+  .lb-close{position:absolute;top:16px;inset-inline-end:16px;z-index:8;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.94);border:none;cursor:pointer;display:grid;place-items:center;font-size:20px;color:var(--ink);box-shadow:0 8px 24px -8px rgba(0,0,0,.5);}
   /* animated category overlay on the image (differs for renewal vs marketing) */
   .lb-img{overflow:hidden;}
+  /* lightbox image gallery thumbnails */
+  .lb-thumbs{position:absolute;inset-inline-start:auto;inset-inline-end:0;bottom:0;z-index:4;display:flex;gap:8px;padding:14px;justify-content:flex-end;background:linear-gradient(290deg,rgba(11,12,11,.5),transparent 70%);}
+  .lb-thumbs:empty{display:none;}
+  .lb-thumbs button{width:56px;height:42px;padding:0;border:2px solid transparent;border-radius:4px;overflow:hidden;cursor:pointer;background:none;opacity:.65;transition:opacity .25s,border-color .25s;}
+  .lb-thumbs button img{width:100%;height:100%;object-fit:cover;display:block;}
+  .lb-thumbs button.on{opacity:1;border-color:#fff;}
+  .lb-thumbs button:hover{opacity:1;}
   .catanim{position:absolute;top:16px;inset-inline-start:16px;z-index:2;display:inline-flex;align-items:center;gap:9px;
     padding:9px 15px;border-radius:100px;font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#fff;
     backdrop-filter:blur(6px);background:rgba(20,18,24,.42);border:1px solid rgba(255,255,255,.22);overflow:hidden;}
@@ -290,6 +321,7 @@
   /* FOOTER */
   .foot{position:relative;z-index:11;background:var(--char);color:rgba(255,255,255,.6);padding:clamp(48px,7vw,80px) clamp(20px,7vw,140px) 40px;}
   .foot-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:30px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.12);}
+  .foot .flogo{height:58px;width:auto;display:block;margin-bottom:12px;filter:invert(1);mix-blend-mode:screen;opacity:.92;}
   .foot .fbrand{font-family:var(--serif);font-weight:600;font-size:24px;letter-spacing:.14em;color:#fff;}
   .foot .fbrand span{color:var(--green-bright);font-family:var(--sans);font-size:11px;letter-spacing:.3em;margin-inline-start:8px;}
   .foot .fcols{display:flex;gap:clamp(34px,6vw,80px);flex-wrap:wrap;font-size:14px;}
@@ -310,8 +342,9 @@
     .grid,.exec-grid{grid-template-columns:1fr 1fr;}
     .stat-grid{grid-template-columns:1fr 1fr;gap:34px 20px;}
     .logos{grid-template-columns:repeat(3,1fr);}
-    .lb-card{grid-template-columns:1fr;max-height:92vh;overflow-y:auto;}
-    .lb-card .lb-img{aspect-ratio:16/11;min-height:0;}
+    .lb-card{max-height:92vh;}
+    .lb-card .lb-img{aspect-ratio:4/3;}
+    .lb-card .lb-body{width:auto;margin:-72px 14px 6px;padding:24px 22px;}
     .contact-wrap{grid-template-columns:1fr;gap:44px;}
   }
   @media(max-width:560px){
@@ -345,6 +378,8 @@
   <a class="brand" href="#top"><img src="assets/s-mark-green.png" alt="שלי אורבן" /><span class="bw">SHELLY<span class="ub">URBAN</span></span></a>
   <div class="nav-links">
     <a href="#projects">פרויקטים</a>
+    <a href="mishtaken.html">מחיר למשתכן</a>
+    <a href="about.html">אודות</a>
     <a href="#execution">מהשטח</a>
     <a href="#stats">ניסיון</a>
     <a href="#contact">צור קשר</a>
@@ -362,6 +397,11 @@
     <img class="bld-day" id="bldDay" src="assets/building/day.webp" alt="הר אביטל — הדמיה" />
     <img class="bld-night" id="bldNight" src="assets/building/night.webp" alt="" />
   </div>
+  <video class="cino-video" id="cinoVideo" muted playsinline preload="auto"
+         poster="assets/uploads/lobby-entrance.jpg" aria-hidden="true">
+    <source src="assets/uploads/lobby-walk.mp4" type="video/mp4" />
+  </video>
+  <div class="cino-lobby" id="cinoLobby"></div>
 
   <div class="cino-chapters" id="cinoChapters">
     <!-- 1 · Day -->
@@ -399,8 +439,9 @@
     <!-- 5 · Lobby (inside) -->
     <div class="cchap" data-ch="4">
       <div class="cpanel">
-        <div class="dnum">קומת הכניסה</div>
+        <div class="dnum">הלובי · קומת הכניסה</div>
         <h2>ברוכים הבאים <em>הביתה.</em></h2>
+        <p class="ctext">כאן מתחילים החיים החדשים שלכם.</p>
         <a href="#projects" class="ccta" data-hot><span class="ln2"></span> כנסו לפרויקטים</a>
       </div>
     </div>
@@ -504,6 +545,8 @@
           <option>התחדשות עירונית</option>
           <option>מחיר למשתכן</option>
           <option>בנייה למגורים</option>
+          <option>עצמאות · יבנה</option>
+          <option>מיכאל</option>
           <option>הר אביטל</option>
           <option>אחר</option>
         </select>
@@ -518,12 +561,13 @@
   <footer class="foot">
     <div class="foot-top">
       <div>
+        <img class="flogo" src="assets/uploads/logo-shelly-company.jpg" alt="SHELLY" />
         <div class="fbrand">SHELLY<span>URBAN</span></div>
         <p style="margin-top:14px;max-width:34ch;font-size:14px;">נדל״ן · התחדשות עירונית · בנייה — מהתכנון ועד מסירת המפתח, תחת קורת גג אחת.</p>
       </div>
       <div class="fcols">
-        <div><h5>ניווט</h5><a href="#projects">פרויקטים</a><a href="#execution">מהשטח</a><a href="#stats">ניסיון</a><a href="#contact">צור קשר</a></div>
-        <div><h5>תחומים</h5><a href="#projects">התחדשות עירונית</a><a href="#projects">מחיר למשתכן</a><a href="#projects">בנייה למגורים</a></div>
+        <div><h5>ניווט</h5><a href="#projects">פרויקטים</a><a href="about.html">אודות</a><a href="#execution">מהשטח</a><a href="#stats">ניסיון</a><a href="#contact">צור קשר</a></div>
+        <div><h5>תחומים</h5><a href="renewal.html">התחדשות עירונית</a><a href="development.html">ייזום ובנייה</a><a href="contracting.html">ביצוע קבלנות בניין</a><a href="mishtaken.html">מחיר למשתכן</a></div>
         <div><h5>קשר</h5><a href="tel:+97288623366">08-862-3366</a><a href="mailto:Office@shellyurban.co.il">Office@shellyurban.co.il</a></div>
       </div>
     </div>
@@ -539,7 +583,7 @@
 <div class="lb" id="lb">
   <div class="lb-card">
     <button class="lb-close" id="lbClose" aria-label="סגירה">×</button>
-    <div class="lb-img"><img id="lbImg" src="" alt="" /><div id="lbCatWrap"></div></div>
+    <div class="lb-img"><img id="lbImg" src="" alt="" /><div id="lbCatWrap"></div><div class="lb-thumbs" id="lbThumbs"></div></div>
     <div class="lb-body">
       <div class="lb-meta"><span class="st" id="lbCat"></span><span class="lb-sale" id="lbSale"></span></div>
       <h3 id="lbTitle"></h3>
@@ -621,7 +665,30 @@
   var counter=document.getElementById('cinoCount');
   var cue=document.getElementById('cinoCue');
   var scrollEl=document.getElementById('cinoScroll');
+  var lobby=document.getElementById('cinoLobby');
+  var video=document.getElementById('cinoVideo');
+  var vidReady=false, vidDur=0, vidUnlocked=false;
+  if(video){
+    video.addEventListener('loadedmetadata',function(){ vidDur=video.duration||0; });
+    video.addEventListener('canplay',function(){ vidReady=true; requestRender(); });
+  }
+  /* iOS/Safari won't let us seek a video until it has been "activated" by a
+     gesture — unlock it on the first interaction so scroll-scrubbing works. */
+  function unlockVideo(){
+    if(vidUnlocked||!video) return; vidUnlocked=true;
+    var pr=video.play();
+    if(pr&&pr.then){ pr.then(function(){ video.pause(); }).catch(function(){}); }
+    else { try{ video.pause(); }catch(e){} }
+  }
+  ['touchstart','pointerdown','wheel','keydown'].forEach(function(ev){
+    addEventListener(ev,unlockVideo,{passive:true,once:true});
+  });
   var SCENES=chapters.length;            // 5 scenes
+  var SCREENS=4.5;                       // total scroll length, in viewport-heights (room to feel each beat)
+  /* per-chapter scroll boundaries (fractions of total). Each chapter holds one
+     clear, resolved image; the cross-fades happen across the boundaries so the
+     transitions are felt and never land mid-dissolve on a caption. */
+  var STOPS=[0, 0.14, 0.30, 0.50, 0.68, 1.0];
 
   /* gate the loader on the two building images */
   var need=2, ready=0;
@@ -630,12 +697,19 @@
   window.__seqProgress=function(){return Math.min(1, ready/need);};
   Object.defineProperty(window,'__seqReady',{get:function(){return ready>=1;}});
 
-  scrollEl.style.height=(SCENES*100)+'svh';
+  /* The scrub spacer must match the progress denominator (SCREENS*innerHeight)
+     exactly — using svh here broke on mobile, where svh ≠ innerHeight, so the
+     content slid up before progress hit 100%. We also add an end-hold (extra
+     screens, longer on mobile) so the final "ברוכים הבאים הביתה" scene lingers
+     fully before the galleries scroll in from below. */
+  function endHold(){ return innerWidth<760 ? 1.1 : 0.5; }
+  function layout(){ scrollEl.style.height=((SCREENS+endHold())*innerHeight)+'px'; }
+  layout();
 
   /* time-of-day palettes: top / mid / horizon sky, sun colour+pos+opacity, stars */
   var P=[
     {t:[74,134,196],  m:[150,190,221], h:[226,237,242], sc:[255,250,235], sx:80, sy:18, so:.85, st:0},
-    {t:[92,142,191],  m:[176,201,221], h:[241,233,214], sc:[255,243,212], sx:71, sy:30, so:.95, st:0},
+    {t:[96,138,186],  m:[198,198,196], h:[246,228,190], sc:[255,236,196], sx:68, sy:36, so:1,   st:0},
     {t:[104,118,168], m:[227,176,120], h:[247,216,166], sc:[255,224,168], sx:60, sy:50, so:1,   st:.05},
     {t:[66,58,104],   m:[214,116,84],  h:[244,162,96],  sc:[255,148,88],  sx:49, sy:70, so:.95, st:.25},
     {t:[18,28,58],    m:[42,56,94],    h:[92,102,140],  sc:[255,140,92],  sx:43, sy:90, so:.35, st:1}
@@ -647,23 +721,49 @@
   function smooth(e0,e1,x){var t=clamp((x-e0)/(e1-e0),0,1);return t*t*(3-2*t);}
 
   var activeScene=-1;
-  function progress(){ var s=window.scrollY||window.pageYOffset||0; return clamp(s/(SCENES*innerHeight),0,1); }
+  function progress(){ var s=window.scrollY||window.pageYOffset||0; return clamp(s/(SCREENS*innerHeight),0,1); }
+  /* which chapter is p in, and how far through it (0..1) — honours STOPS */
+  function chapterAt(p){
+    var ci=0; while(ci<SCENES-1 && p>=STOPS[ci+1]) ci++;
+    var seg=STOPS[ci+1]-STOPS[ci];
+    return {ci:ci, k:seg>0?clamp((p-STOPS[ci])/seg,0,1):0};
+  }
 
   function render(){
     var p=progress();
-    var f=p*(P.length-1), i=Math.min(P.length-2, Math.floor(f)), k=f-i, a=P[i], b=P[i+1];
+    /* time-of-day tracks the chapters: each palette stop is reached at its
+       chapter boundary, so the short day chapter means daylight passes quickly,
+       and night is fully set by the time we reach the lobby. */
+    var c=chapterAt(p), i=c.ci, k=c.k, a=P[i], b=P[Math.min(i+1,P.length-1)];
     var top=mix(a.t,b.t,k), mid=mix(a.m,b.m,k), hor=mix(a.h,b.h,k), sclr=mix(a.sc,b.sc,k);
     skyBg.style.background='linear-gradient(180deg,'+rgb(top)+' 0%,'+rgb(mid)+' 50%,'+rgb(hor)+' 100%)';
     var sx=lerp(a.sx,b.sx,k), sy=lerp(a.sy,b.sy,k), so=lerp(a.so,b.so,k), starOp=lerp(a.st,b.st,k);
     sun.style.left=sx+'vw'; sun.style.top=sy+'vh'; sun.style.opacity=so;
     sun.style.background='radial-gradient(circle,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',.95) 0%,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',.45) 26%,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',0) 62%)';
     stars.style.opacity=starOp;
-    /* building sits half off the left edge; scrolling pans it in to reveal more */
-    bld.style.transform='translateX('+lerp(-52,-22,p)+'%)';
-    /* building stays constant & sharp — its windows simply light up toward evening */
-    bldNight.style.opacity=smooth(0.55,0.82,p);
-    /* captions POP in: only the active scene is "live" */
-    var active=clamp(Math.floor(p*SCENES + 0.0001),0,SCENES-1);
+    /* approach: nudge the exterior in, then cross-fade through the glass
+       entrance into the real lobby footage. Each shot holds fully before the
+       next dissolve begins, so no caption lands on a muddy 50% blend. */
+    var ap=smooth(0.06,0.34,p);
+    var panX=lerp(-52,-30,smooth(0,0.34,p));
+    var scale=1+ap*0.42;                          // gentle push toward the glass before the handoff
+    bld.style.transform='translateX('+panX+'%) scale('+scale+')';
+    bld.style.opacity=1-smooth(0.26,0.40,p);      // exterior holds, then fades by the entrance
+    /* building windows light up toward evening before we step inside */
+    bldNight.style.opacity=smooth(0.10,0.28,p);
+    /* live footage scrubs from the glass entrance into the lobby; it fades in
+       across the ch1→ch2 boundary and the scroll drives its playback head */
+    if(video){
+      video.style.opacity=smooth(0.30,0.44,p);
+      if(vidReady && vidDur){
+        var vt=clamp((p-0.34)/(1-0.34),0,1)*vidDur;
+        if(Math.abs(vt-video.currentTime)>0.02){ try{ video.currentTime=vt; }catch(e){} }
+      }
+    }
+    /* legibility scrim + vignette bloom once we're inside */
+    if(lobby) lobby.style.opacity=smooth(0.44,0.66,p);
+    /* captions POP in: only the active chapter is "live" */
+    var active=i;
     if(active!==activeScene){
       activeScene=active;
       chapters.forEach(function(c,j){ c.classList.toggle('live', j===active); });
@@ -683,7 +783,7 @@
     return;
   }
   addEventListener('scroll',requestRender,{passive:true});
-  addEventListener('resize',requestRender,{passive:true});
+  addEventListener('resize',function(){ layout(); requestRender(); },{passive:true});
   render();
 })();
 </script>
@@ -697,18 +797,28 @@
      stage: 1=רישוי · 2=ביצוע · 3=אכלוס.  Data sourced from shellyurban.co.il */
   var CAT={renewal:"התחדשות עירונית", sale:"מחיר למשתכן", build:"בנייה למגורים"};
   var PROJECTS = [
+    { title:"עצמאות · פינוי-בינוי", location:"יבנה", cat:"renewal", sale:"בביצוע", stage:2,
+      image:"assets/uploads/render-independence.jpg",
+      gallery:["assets/uploads/render-independence.jpg","assets/uploads/render-interior.jpg"],
+      facts:[{k:"units",v:"202",l:"יח״ד חדשות"},{k:"build",v:"3",l:"מגדלי מגורים"},{k:"park",v:"מסחר",l:"קומת מסחר עירוני"}],
+      description:"פרויקט פינוי-בינוי בלב יבנה — מרכז מסחרי עירוני שמעליו שלושה מגדלי מגורים מודרניים, גינה לרווחת הדיירים וחניון תת-קרקעי רחב. 202 יחידות דיור חדשות בתמהיל מגוון של דירות 4–5–6 חד׳, פנטהאוזים ודירות גן — בנגישות נוחה לצירי תחבורה ולטיילת נחל יבנה." },
+    { title:"מיכאל", location:"מתחם מגורי יוקרה", cat:"build", sale:"בשיווק", stage:2,
+      image:"assets/uploads/render-michael.jpg",
+      gallery:["assets/uploads/render-michael.jpg","assets/uploads/render-tower.jpg"],
+      facts:[{k:"build",v:"3",l:"מגדלי מגורים"},{k:"park",v:"פארק",l:"מרחב ירוק"},{k:"key",v:"בוטיק",l:"סטנדרט יוקרה"}],
+      description:"מתחם מגורים יוקרתי — שלושה מגדלי בוטיק לבנים הניצבים בלב פארק מטופח. אדריכלות נקייה ועכשווית, מרפסות מוצלות ושפע ירק, בסטנדרט בנייה גבוה במיוחד ובאיכות חסרת פשרות — מהתכנון ועד מסירת המפתח." },
     { title:"קרן היסוד · מתחם הצעירים", location:"אשדוד", cat:"renewal", sale:"בשיווק", stage:2,
       image:"assets/proj-keren.jpg",
-      facts:[{k:"units",v:"144",l:"יח״ד חדשות"},{k:"floors",v:"7",l:"קומות"},{k:"renew",v:"144",l:"דירות מתחדשות"}],
-      description:"מתחם התחדשות עירונית בלב אשדוד — 144 יחידות דיור חדשות לצד 144 דירות ותיקות המתחדשות, בבניין בן 7 קומות. דיור איכותי ונגיש לצעירים, עם מרחב ציבורי וקהילתי מתחדש." },
+      facts:[{k:"renew",v:"144",l:"דירות מתחדשות"},{k:"units",v:"138",l:"דירות חדשות"},{k:"build",v:"2",l:"שלבי ביצוע"}],
+      description:"מתחם התחדשות עירונית למשפחות צעירות בלב אשדוד, בשני שלבי ביצוע — שלב א׳: 72 דירות קיימות ו-66 דירות חדשות; שלב ב׳: 72 קיימות ו-72 חדשות. דירות 3–4 חדרים ודירות גג בעיצוב מודרני ובסטנדרט בנייה גבוה, בקרבת פארק אשדוד-ים, האמפי תיאטרון וחופי העיר." },
     { title:"הציונות 10 · סיטי פארק", location:"אשדוד", cat:"sale", sale:"בשיווק", stage:2,
       image:"assets/proj-142.jpg",
       facts:[{k:"floors",v:"9",l:"קומות"},{k:"build",v:"3",l:"בנייני מגורים"},{k:"park",v:"2",l:"מפלסי חניה"}],
-      description:"פרויקט 'מחיר למשתכן' ייחודי בלב אשדוד — שלושה בנייני מגורים בני 9 קומות מעל שני מפלסי חניה תת-קרקעית. נגישות עירונית, חניה נוחה ואיכות חיים גבוהה." },
+      description:"פרויקט 'מחיר למשתכן' ייחודי בלב אשדוד, בפריים-לוקיישן מול פארק ירוק ומרהיב — שלושה בנייני מגורים בני 9 קומות מעל שני מפלסי חניון תת-קרקעי. דירות מרווחות בתכנון ייחודי עם מפרט מפנק ומתקדם, בסטנדרט בנייה גבוה במיוחד, לזוגות צעירים ולמשפחות." },
     { title:"הלילך", location:"יבנה", cat:"renewal", sale:"בשיווק", stage:2,
       image:"assets/proj-lilac.jpg",
-      facts:[{k:"renew",v:"תמ״א",l:"פינוי-בינוי"},{k:"floors",v:"מגורים",l:"בנייה חדשה"},{k:"key",v:"ליווי",l:"דיירים מלא"}],
-      description:"פרויקט התחדשות עירונית במרכז יבנה — חידוש מתחם מגורים ותיק לכדי בניין חדש ומודרני, עם ליווי דיירים מלא לאורך כל הדרך, מהתכנון ועד המסירה." },
+      facts:[{k:"build",v:"6",l:"בניינים ברחוב"},{k:"renew",v:"3+3",l:"תמ״א 38 ופינוי-בינוי"},{k:"key",v:"בוטיק",l:"בנייני מגורים"}],
+      description:"התחדשות של רחוב שלם בלב יבנה — שישה בניינים מודרניים שישנו את פני הרחוב והשכונה: שלושה בתמ״א 38 ושלושה בפינוי-בינוי שבמקומם יוקמו שלושה מגדלי מגורים. בנייני בוטיק בעיצוב נקי ואורבני, סביב גינה ציבורית מטופחת — שילוב מנצח של קהילה, שקט וחיים עירוניים תוססים." },
     { title:"שערי העיר · רובע 9", location:"אשדוד", cat:"build", sale:"בתכנון", stage:1,
       image:"assets/proj-independence.jpg",
       facts:[{k:"units",v:"כ-240",l:"יח״ד"},{k:"build",v:"מגורים",l:"+ תעסוקה"},{k:"park",v:"מסחר",l:"ומשרדים"}],
@@ -720,15 +830,22 @@
     description:"פרויקט הדגל שלנו — חזית פחם אלגנטית, עמוד עץ חם ומרפסות מרחפות. תאורת LED לינארית מדגישה כל קומה; בלילה הבניין זוהר. שפה אדריכלית עכשווית, מהתכנון ועד מסירת המפתח." };
 
   var grid=document.getElementById('projGrid');
+  function chips(p){
+    return (p.facts||[]).slice(0,2).map(function(f){
+      return '<span>'+f.v+' '+f.l+'</span>'; }).join('');
+  }
   function renderProjects(list){
     grid.innerHTML=list.map(function(p,i){
       var d=i%3===1?'d1':(i%3===2?'d2':'');
-      return '<article class="card reveal '+d+'" data-hot tabindex="0">'+
-        '<img src="'+p.image+'" alt="'+p.title+'" loading="lazy" />'+
-        '<span class="plus"></span><div class="ov"><span class="st">'+(p.sale||CAT[p.cat]||'')+'</span>'+
-        '<div class="ct">'+p.title+'</div><div class="cl">'+p.location+'</div></div></article>';
+      return '<article class="pcard reveal '+d+'" data-hot tabindex="0" aria-label="'+p.title+'">'+
+        '<div class="pcard-img"><img src="'+p.image+'" alt="'+p.title+'" loading="lazy" />'+
+        '<span class="pcard-tag">'+(p.sale||CAT[p.cat]||'')+'</span></div>'+
+        '<div class="pcard-body"><div class="pcard-ttl">'+p.title+'</div>'+
+        '<div class="pcard-loc">'+p.location+'</div>'+
+        '<div class="pcard-facts">'+chips(p)+'</div>'+
+        '<div class="pcard-cta"><b>לצפייה בפרויקט</b><i>←</i></div></div></article>';
     }).join('');
-    grid.querySelectorAll('.card').forEach(function(el,i){
+    grid.querySelectorAll('.pcard').forEach(function(el,i){
       if(window.__observeReveal) window.__observeReveal(el);
       el.addEventListener('click',function(){openLB(list[i]);});
       el.addEventListener('keydown',function(e){if(e.key==='Enter')openLB(list[i]);});
@@ -739,6 +856,7 @@
       lbCat=document.getElementById('lbCat'),lbSale=document.getElementById('lbSale'),
       lbFacts=document.getElementById('lbFacts'),lbFill=document.getElementById('lbFill'),
       lbCatWrap=document.getElementById('lbCatWrap'),
+      lbThumbs=document.getElementById('lbThumbs'),
       lbSteps=[].slice.call(document.querySelectorAll('.lb-status .lb-steps span'));
   var ICONS={
     units:'<svg viewBox="0 0 24 24"><path d="M4 21V5l8-3 8 3v16"/><path d="M9 21v-5h6v5"/><path d="M8 8h.01M12 8h.01M16 8h.01M8 12h.01M16 12h.01"/></svg>',
@@ -751,6 +869,18 @@
   var curCat='';
   function openLB(p){
     lbImg.src=p.image;lbImg.alt=p.title;lbTitle.textContent=p.title;lbLoc.textContent=p.location;lbDesc.textContent=p.description;
+    /* image gallery: show thumbnails when a project has more than one render */
+    var imgs=(p.gallery&&p.gallery.length>1)?p.gallery:[];
+    lbThumbs.innerHTML=imgs.map(function(src,i){
+      return '<button type="button" class="'+(i===0?'on':'')+'" aria-label="תמונה '+(i+1)+'"><img src="'+src+'" alt="" loading="lazy" /></button>';
+    }).join('');
+    [].forEach.call(lbThumbs.children,function(btn,i){
+      btn.addEventListener('click',function(){
+        lbImg.src=imgs[i];
+        [].forEach.call(lbThumbs.children,function(b){b.classList.remove('on');});
+        btn.classList.add('on');
+      });
+    });
     curCat=CAT[p.cat]||'';
     lbCat.textContent=curCat;
     lbSale.textContent=p.sale||''; lbSale.style.display=p.sale?'':'none';
@@ -789,8 +919,10 @@
   function normalizeProject(r){
     var facts=r.facts;
     if(typeof facts==='string'){ try{ facts=JSON.parse(facts); }catch(e){ facts=[]; } }
+    var gallery=r.gallery;
+    if(typeof gallery==='string'){ try{ gallery=JSON.parse(gallery); }catch(e){ gallery=[]; } }
     return { title:r.title, location:r.location, cat:r.cat, sale:r.sale, stage:+r.stage||1,
-             image:r.image, description:r.description, facts:facts||[], featured:!!r.featured, order:+r.order||0 };
+             image:r.image, gallery:gallery||[], description:r.description, facts:facts||[], featured:!!r.featured, order:+r.order||0 };
   }
   function loadProjects(){
     if(window.base44 && base44.entities && base44.entities.Project){

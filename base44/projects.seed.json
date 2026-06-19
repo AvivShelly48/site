@@ -16,6 +16,40 @@
     "order": 0
   },
   {
+    "title": "עצמאות · פינוי-בינוי",
+    "location": "יבנה",
+    "cat": "renewal",
+    "sale": "בביצוע",
+    "stage": 2,
+    "image": "assets/uploads/render-independence.jpg",
+    "gallery": ["assets/uploads/render-independence.jpg", "assets/uploads/render-interior.jpg"],
+    "description": "פרויקט הדגל של שלי אורבן בלב יבנה — פינוי-בינוי שמסמן נקודת מפנה בהתחדשות העירונית של העיר. שלושה מגדלי יוקרה ו-273 דירות חדשות במקום 64 ותיקות, עם גישה ישירה לפארק נחל יבנה וסטנדרט תכנון ובנייה ברמת רוטשילד — מהתכנון ועד מסירת המפתח.",
+    "facts": [
+      { "k": "units", "v": "273", "l": "יח\"ד חדשות" },
+      { "k": "renew", "v": "64", "l": "דירות ותיקות" },
+      { "k": "build", "v": "3", "l": "מגדלי יוקרה" }
+    ],
+    "featured": false,
+    "order": 1
+  },
+  {
+    "title": "מיכאל",
+    "location": "מתחם מגורי יוקרה",
+    "cat": "build",
+    "sale": "בשיווק",
+    "stage": 2,
+    "image": "assets/uploads/render-michael.jpg",
+    "gallery": ["assets/uploads/render-michael.jpg", "assets/uploads/render-tower.jpg"],
+    "description": "מתחם מגורים יוקרתי — שלושה מגדלי בוטיק לבנים הניצבים בלב פארק מטופח. אדריכלות נקייה ועכשווית, מרפסות מוצלות ושפע ירק, בסטנדרט בנייה גבוה במיוחד ובאיכות חסרת פשרות — מהתכנון ועד מסירת המפתח.",
+    "facts": [
+      { "k": "build", "v": "3", "l": "מגדלי מגורים" },
+      { "k": "park", "v": "פארק", "l": "מרחב ירוק" },
+      { "k": "key", "v": "בוטיק", "l": "סטנדרט יוקרה" }
+    ],
+    "featured": false,
+    "order": 2
+  },
+  {
     "title": "קרן היסוד · מתחם הצעירים",
     "location": "אשדוד",
     "cat": "renewal",
@@ -29,7 +63,7 @@
       { "k": "renew", "v": "144", "l": "דירות מתחדשות" }
     ],
     "featured": false,
-    "order": 1
+    "order": 3
   },
   {
     "title": "הציונות 10 · סיטי פארק",
@@ -45,7 +79,7 @@
       { "k": "park", "v": "2", "l": "מפלסי חניה" }
     ],
     "featured": false,
-    "order": 2
+    "order": 4
   },
   {
     "title": "הלילך",
@@ -61,7 +95,7 @@
       { "k": "key", "v": "ליווי", "l": "דיירים מלא" }
     ],
     "featured": false,
-    "order": 3
+    "order": 5
   },
   {
     "title": "שערי העיר · רובע 9",
@@ -77,6 +111,6 @@
       { "k": "park", "v": "מסחר", "l": "ומשרדים" }
     ],
     "featured": false,
-    "order": 4
+    "order": 6
   }
 ]
