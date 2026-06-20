@@ -73,7 +73,8 @@
   .nav-links a:hover::after{width:100%;}
   .nav-cta{font-size:13px;border:1px solid var(--ink);padding:9px 18px;border-radius:1px;transition:.3s;}
   .nav-cta:hover{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important;}
-  .nav-toggle{display:none;width:34px;height:34px;border:1px solid var(--hair);border-radius:3px;background:rgba(255,255,255,.6);position:relative;}
+  .nav-cb{position:absolute;width:1px;height:1px;opacity:0;margin:-1px;pointer-events:none;}
+  .nav-toggle{display:none;width:34px;height:34px;border:1px solid var(--hair);border-radius:3px;background:rgba(255,255,255,.6);position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;}
   .nav-toggle span{position:absolute;inset-inline:8px;height:1.5px;background:var(--ink);}
   .nav-toggle span:nth-child(1){top:11px;}.nav-toggle span:nth-child(2){top:16px;}.nav-toggle span:nth-child(3){top:21px;}
 
@@ -335,18 +336,17 @@
   @media(max-width:980px){
     .nav-links,.nav-cta{display:none;}
     .nav-toggle{display:block;}
-    #nav.menu-open{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:1px solid var(--hair-soft);z-index:101;}
-    #nav.menu-open .nav-links{display:flex;flex-direction:column;gap:0;z-index:2;
-      position:absolute;top:100%;inset-inline:0;background:var(--bg2);
+    #nav .nav-cb:checked ~ .nav-links{display:flex;flex-direction:column;gap:0;z-index:2;
+      position:absolute;top:100%;inset-inline:0;background:#fff;
       border-bottom:1px solid var(--hair);box-shadow:0 24px 40px -22px rgba(23,21,26,.34);padding:6px 0;}
-    #nav.menu-open .nav-links a{color:var(--ink);font-size:16px;padding:15px clamp(20px,5vw,40px);
-      border-bottom:1px solid var(--hair-soft);text-shadow:none;}
-    #nav.menu-open .nav-links a::after{display:none;}
-    #nav.menu-open .nav-cta{display:block;color:#fff;text-align:center;margin:14px clamp(20px,5vw,40px) 4px;}
-    .nav-toggle[aria-expanded="true"]{background:#fff;}
-    .nav-toggle[aria-expanded="true"] span:nth-child(1){top:16px;transform:rotate(45deg);}
-    .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
-    .nav-toggle[aria-expanded="true"] span:nth-child(3){top:16px;transform:rotate(-45deg);}
+    #nav .nav-cb:checked ~ .nav-links a{color:var(--ink)!important;font-size:16px;padding:15px clamp(20px,5vw,40px);
+      border-bottom:1px solid var(--hair-soft);text-shadow:none!important;}
+    #nav .nav-cb:checked ~ .nav-links a::after{display:none;}
+    #nav .nav-cb:checked ~ .nav-cta{display:block;color:#fff;text-align:center;margin:14px clamp(20px,5vw,40px) 4px;}
+    #nav .nav-cb:checked ~ .nav-toggle{background:#fff;}
+    #nav .nav-cb:checked ~ .nav-toggle span:nth-child(1){top:16px;transform:rotate(45deg);}
+    #nav .nav-cb:checked ~ .nav-toggle span:nth-child(2){opacity:0;}
+    #nav .nav-cb:checked ~ .nav-toggle span:nth-child(3){top:16px;transform:rotate(-45deg);}
     .nav-toggle span{transition:transform .3s,opacity .2s,top .3s;}
     .cino-rail{inset-inline-end:14px;gap:10px;}
     .bld{height:74vh;left:0;right:auto;bottom:-1vh;}
@@ -390,6 +390,7 @@
 
 <!-- Nav -->
 <nav id="nav">
+  <input type="checkbox" id="navCb" class="nav-cb" aria-label="פתיחת תפריט ניווט" />
   <a class="brand" href="#top"><img src="assets/s-mark-green.png" alt="שלי אורבן" /><span class="bw">SHELLY<span class="ub">URBAN</span></span></a>
   <div class="nav-links" id="navLinks">
     <a href="#projects">פרויקטים</a>
@@ -400,7 +401,7 @@
     <a href="#contact">צור קשר</a>
   </div>
   <a class="nav-cta" data-hot href="#contact">דברו איתנו</a>
-  <button class="nav-toggle" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+  <label class="nav-toggle" for="navCb" aria-hidden="true"><span></span><span></span><span></span></label>
 </nav>
 
 <!-- ============ CINEMA — scroll-scrubbed video ============ -->
@@ -652,20 +653,14 @@
   var nav=document.getElementById('nav');
   addEventListener('scroll',function(){nav.classList.toggle('shrunk',scrollY>40);},{passive:true});
 
-  /* mobile menu toggle (accessible) */
-  var navToggle=document.querySelector('.nav-toggle');
+  /* mobile menu — pure-CSS checkbox toggle; JS only closes it after use */
+  var navCb=document.getElementById('navCb');
   var navLinks=document.getElementById('navLinks');
-  function setMenu(open){
-    nav.classList.toggle('menu-open',open);
-    navToggle.setAttribute('aria-expanded',open?'true':'false');
-    navToggle.setAttribute('aria-label',open?'סגירת תפריט':'פתיחת תפריט');
-  }
-  if(navToggle){
-    navToggle.addEventListener('click',function(){setMenu(!nav.classList.contains('menu-open'));});
-    navLinks.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false);});
+  if(navCb){
+    navLinks.addEventListener('click',function(e){if(e.target.closest('a'))navCb.checked=false;});
     var navCta=document.querySelector('.nav-cta');
-    if(navCta)navCta.addEventListener('click',function(){setMenu(false);});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('menu-open')){setMenu(false);navToggle.focus();}});
+    if(navCta)navCta.addEventListener('click',function(){navCb.checked=false;});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')navCb.checked=false;});
   }
 
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},
