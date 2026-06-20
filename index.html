@@ -333,6 +333,37 @@
   .foot .fcols h5{color:#fff;font-weight:500;font-size:12px;letter-spacing:.16em;margin-bottom:10px;}
   .foot-bot{padding-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:rgba(255,255,255,.6);}
 
+  /* ---- availability board ---- */
+  .avail-filter{display:flex;flex-wrap:wrap;gap:9px;margin:30px 0 24px;}
+  .avail-filter button{font-family:inherit;font-size:13px;font-weight:500;color:var(--ink-dim);background:var(--bg2);
+    border:1px solid var(--hair);border-radius:100px;padding:8px 16px;cursor:pointer;transition:.25s;}
+  .avail-filter button:hover{border-color:var(--green);color:var(--green-deep);}
+  .avail-filter button.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .avail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:20px;}
+  .unit-card{background:var(--bg2);border:1px solid var(--hair-soft);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;
+    box-shadow:0 1px 2px rgba(23,21,26,.04);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s;}
+  .unit-card:hover{transform:translateY(-5px);box-shadow:0 24px 46px -26px rgba(23,21,26,.32);}
+  .unit-img{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--char);}
+  .unit-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1);}
+  .unit-card:hover .unit-img img{transform:scale(1.06);}
+  .unit-badge{position:absolute;inset-block-start:10px;inset-inline-start:10px;font-size:11.5px;font-weight:700;
+    padding:5px 11px;border-radius:100px;backdrop-filter:blur(4px);}
+  .unit-badge.available{background:rgba(95,156,54,.92);color:#fff;}
+  .unit-badge.reserved{background:rgba(243,196,90,.95);color:#5b4410;}
+  .unit-badge.sold{background:rgba(120,116,124,.92);color:#fff;}
+  .unit-card.sold .unit-img img{filter:grayscale(.85) opacity(.7);}
+  .unit-body{padding:16px 17px 18px;display:flex;flex-direction:column;flex:1;}
+  .unit-proj{font-size:11.5px;color:var(--green-deep);font-weight:600;letter-spacing:.02em;}
+  .unit-title{font-family:var(--serif);font-weight:500;font-size:20px;margin-top:4px;}
+  .unit-meta{font-size:13px;color:var(--ink-dim);margin-top:6px;line-height:1.7;}
+  .unit-price{margin-top:10px;font-size:16px;font-weight:600;color:var(--ink);}
+  .unit-btn{margin-top:14px;width:100%;border:none;border-radius:9px;padding:11px;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;transition:.25s;}
+  .unit-btn.go{background:var(--green-deep);color:#fff;}
+  .unit-btn.go:hover{background:#2f5417;}
+  .unit-btn.off{background:#efece6;color:var(--ink-faint);cursor:default;}
+  .avail-note{margin-top:22px;font-size:12px;color:var(--ink-faint);}
+  @media(max-width:560px){.avail-grid{grid-template-columns:1fr 1fr;gap:12px;} .unit-title{font-size:17px;} .unit-body{padding:12px;}}
+
   @media(max-width:980px){
     .nav-links,.nav-cta{display:none;}
     .nav-toggle{display:block;}
@@ -394,6 +425,7 @@
   <a class="brand" href="#top"><img src="assets/s-mark-green.png" alt="שלי אורבן" /><span class="bw">SHELLY<span class="ub">URBAN</span></span></a>
   <div class="nav-links" id="navLinks">
     <a href="#projects">פרויקטים</a>
+    <a href="#availability">דירות זמינות</a>
     <a href="mishtaken.html">מחיר למשתכן</a>
     <a href="about.html">אודות</a>
     <a href="#execution">מהשטח</a>
@@ -492,6 +524,19 @@
       </div>
     </article>
     <div class="grid" id="projGrid"></div>
+  </section>
+
+  <!-- ============ AVAILABILITY — what's left ============ -->
+  <section class="scene pad" id="availability">
+    <span class="scene-num">05 — מה נותר</span>
+    <div class="scene-head">
+      <div class="eyebrow reveal">דירות אחרונות · זמינות מתעדכנת</div>
+      <h2 class="reveal d1">אילו דירות <em>עוד נשארו.</em></h2>
+      <p class="lead reveal d2">🟢 פנוי · 🟡 בהמתנה · 🔴 נמכר. מצאתם דירה שמתאימה? שריינו אותה — ונחזור אליכם עם כל הפרטים.</p>
+    </div>
+    <div class="avail-filter reveal" id="availFilter"></div>
+    <div class="avail-grid" id="availGrid"></div>
+    <p class="avail-note reveal" id="availNote"></p>
   </section>
 
   <section class="scene pad" id="execution">
@@ -1042,6 +1087,75 @@
     }
   });
   document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+<!-- ============ AVAILABILITY board (Base44 Unit entity, sample fallback) ============ -->
+<script>
+(function(){
+  var SAMPLE=[
+    {project:"הר אביטל", unit:"דירה 12", floor:6, rooms:4, sqm:108, price:2350000, status:"available", image:"assets/har-avital/day-web.jpg"},
+    {project:"עצמאות · פינוי-בינוי, יבנה", unit:"דירה 21", floor:7, rooms:5, sqm:132, price:2640000, status:"available", image:"assets/uploads/render-independence.jpg"},
+    {project:"מיכאל", unit:"פנטהאוז", floor:9, rooms:5, sqm:150, price:3200000, status:"available", image:"assets/uploads/render-michael.jpg"},
+    {project:"הלילך, יבנה", unit:"דירת גן", floor:0, rooms:4, sqm:118, price:2420000, status:"available", image:"assets/proj-lilac.jpg"},
+    {project:"עצמאות · פינוי-בינוי, יבנה", unit:"דירה 8", floor:3, rooms:4, sqm:110, price:2180000, status:"reserved", image:"assets/uploads/render-interior.jpg"},
+    {project:"קרן היסוד · מתחם הצעירים, אשדוד", unit:"דירה 9", floor:4, rooms:3, sqm:88, price:1790000, status:"reserved", image:"assets/proj-keren.jpg"},
+    {project:"הר אביטל", unit:"דירה 4", floor:2, rooms:3, sqm:84, price:1890000, status:"sold", image:"assets/uploads/render-tower.jpg"},
+    {project:"מיכאל", unit:"דירה 6", floor:3, rooms:4, sqm:105, price:2090000, status:"sold", image:"assets/proj-142.jpg"}
+  ];
+  var BADGE={available:["available","🟢 פנוי"],reserved:["reserved","🟡 בהמתנה"],sold:["sold","🔴 נמכר"]};
+  var grid=document.getElementById('availGrid'), filt=document.getElementById('availFilter'), note=document.getElementById('availNote');
+  if(!grid) return;
+  function nis(n){try{return "₪"+Number(n).toLocaleString("he-IL");}catch(e){return "₪"+n;}}
+  function reserve(u){
+    var sel=document.getElementById('lf-project');
+    if(sel){var key=(u.project||'').split(' · ')[0].split(',')[0].trim();
+      for(var o=0;o<sel.options.length;o++){if(sel.options[o].text.indexOf(key)!==-1){sel.selectedIndex=o;break;}}}
+    var msg=document.getElementById('lf-msg');
+    if(msg){var line="מעוניין/ת לשריין: "+u.project+" · "+u.unit+" · קומה "+u.floor+" · "+u.rooms+" חד׳ · ~"+u.sqm+" מ״ר";
+      msg.value=msg.value?(msg.value+"\n"+line):line;}
+    location.hash="#contact";
+    var nm=document.getElementById('lf-name'); if(nm) setTimeout(function(){nm.focus();},400);
+  }
+  function card(u){
+    var b=BADGE[u.status]||BADGE.available, sold=u.status==='sold';
+    var el=document.createElement('article'); el.className='unit-card'+(sold?' sold':'');
+    el.innerHTML=
+      '<div class="unit-img"><img src="'+u.image+'" alt="'+u.project+' '+u.unit+'" loading="lazy" />'+
+        '<span class="unit-badge '+b[0]+'">'+b[1]+'</span></div>'+
+      '<div class="unit-body"><div class="unit-proj">'+u.project+'</div>'+
+        '<div class="unit-title">'+u.unit+'</div>'+
+        '<div class="unit-meta">קומה '+u.floor+' · '+u.rooms+' חדרים · ~'+u.sqm+' מ״ר</div>'+
+        (u.price?'<div class="unit-price">'+(sold?'<s>'+nis(u.price)+'</s>':nis(u.price))+'</div>':'')+
+      '</div>';
+    var btn=document.createElement('button');
+    if(sold){btn.className='unit-btn off';btn.textContent='נמכר';btn.disabled=true;}
+    else{btn.className='unit-btn go';btn.textContent=(u.status==='reserved'?'בקשת מידע · בהמתנה':'שריינו דירה זו');
+      btn.addEventListener('click',function(){reserve(u);});}
+    el.querySelector('.unit-body').appendChild(btn);
+    return el;
+  }
+  function render(list, sample){
+    grid.innerHTML='';
+    var projects=[]; list.forEach(function(u){if(projects.indexOf(u.project)===-1)projects.push(u.project);});
+    filt.innerHTML=''; var current='__all';
+    function paint(){
+      grid.innerHTML='';
+      list.filter(function(u){return current==='__all'||u.project===current;})
+          .forEach(function(u){grid.appendChild(card(u));});
+      Array.prototype.forEach.call(filt.children,function(c){c.classList.toggle('on',c.getAttribute('data-p')===current);});
+    }
+    function chip(label,val){var c=document.createElement('button');c.textContent=label;c.setAttribute('data-p',val);
+      c.addEventListener('click',function(){current=val;paint();});filt.appendChild(c);}
+    chip('הכל','__all'); projects.forEach(function(p){chip(p.split(' · ')[0].split(',')[0],p);});
+    paint();
+    var avail=list.filter(function(u){return u.status==='available';}).length;
+    note.textContent=(sample?'* נתוני המלאי להמחשה — יתחברו אוטומטית למערכת המכירות. ':'')+'כעת '+avail+' דירות פנויות.';
+  }
+  if(window.base44 && base44.entities && base44.entities.Unit){
+    base44.entities.Unit.list().then(function(rows){
+      if(rows && rows.length) render(rows, false); else render(SAMPLE, true);
+    }).catch(function(){ render(SAMPLE, true); });
+  } else { render(SAMPLE, true); }
 })();
 </script>
 <script src="assets/a11y.js" defer></script>
