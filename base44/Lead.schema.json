@@ -6,9 +6,12 @@
     "name":    { "type": "string", "description": "שם מלא" },
     "phone":   { "type": "string", "description": "טלפון" },
     "email":   { "type": "string", "description": "דוא\"ל (אופציונלי) — לשליחת אישור ממותג לפונה" },
-    "project": { "type": "string", "description": "תחום / פרויקט מעניין" },
-    "message": { "type": "string", "description": "תוכן ההודעה" },
-    "source":  { "type": "string", "default": "website", "description": "מקור הפנייה" }
+    "project":  { "type": "string", "description": "פרויקט מעניין (שם הפרויקט הספציפי, או 'כללי')" },
+    "rooms":    { "type": "string", "description": "מספר חדרים מבוקש (3/4/5/5+/גמיש)" },
+    "budget":   { "type": "string", "description": "טווח תקציב" },
+    "timeline": { "type": "string", "description": "אופק רכישה (מיידי / 3-6 חודשים / השנה / בודק) — מדד 'ליד חם'" },
+    "message":  { "type": "string", "description": "תוכן ההודעה" },
+    "source":   { "type": "string", "default": "website", "description": "מקור הפנייה" }
   },
   "required": ["name", "phone"]
 }

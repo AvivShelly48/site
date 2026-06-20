@@ -558,17 +558,43 @@
         <input id="lf-phone" name="phone" type="tel" autocomplete="tel" required placeholder="050-000-0000" />
         <label class="fl" for="lf-email">דוא״ל <span style="color:var(--ink-faint);font-weight:400;">(לקבלת אישור)</span></label>
         <input id="lf-email" name="email" type="email" autocomplete="email" placeholder="name@example.com" />
-        <label class="fl" for="lf-project">תחום מעניין</label>
+        <label class="fl" for="lf-project">פרויקט מעניין</label>
         <select id="lf-project" name="project">
-          <option>התחדשות עירונית</option>
-          <option>מחיר למשתכן</option>
-          <option>בנייה למגורים</option>
-          <option>עצמאות · יבנה</option>
+          <option value="">כללי / עדיין בודק</option>
+          <option>עצמאות · פינוי-בינוי, יבנה</option>
+          <option>קרן היסוד · מתחם הצעירים, אשדוד</option>
+          <option>הציונות 10 · סיטי פארק, אשדוד (מחיר למשתכן)</option>
+          <option>הלילך, יבנה</option>
           <option>מיכאל</option>
+          <option>שערי העיר · רובע 9, אשדוד</option>
           <option>הר אביטל</option>
-          <option>אחר</option>
         </select>
-        <label class="fl" for="lf-msg">הודעה</label>
+        <label class="fl" for="lf-rooms">מספר חדרים</label>
+        <select id="lf-rooms" name="rooms">
+          <option value="">גמיש / לא משנה</option>
+          <option>3 חדרים</option>
+          <option>4 חדרים</option>
+          <option>5 חדרים</option>
+          <option>5+ · פנטהאוז · דירת גן</option>
+        </select>
+        <label class="fl" for="lf-budget">טווח תקציב</label>
+        <select id="lf-budget" name="budget">
+          <option value="">להגדרה בשיחה</option>
+          <option>מחיר למשתכן (זכאי/ת)</option>
+          <option>עד 1.5 מ׳ ₪</option>
+          <option>1.5–2 מ׳ ₪</option>
+          <option>2–2.5 מ׳ ₪</option>
+          <option>מעל 2.5 מ׳ ₪</option>
+        </select>
+        <label class="fl" for="lf-timeline">מתי מתכננים לרכוש</label>
+        <select id="lf-timeline" name="timeline">
+          <option value="">עדיין בודק/ת</option>
+          <option>מיידי — מוכן/ה להתקדם</option>
+          <option>בתוך 3–6 חודשים</option>
+          <option>במהלך השנה</option>
+          <option>אוסף/ת מידע בלבד</option>
+        </select>
+        <label class="fl" for="lf-msg">הודעה (לא חובה)</label>
         <textarea id="lf-msg" name="message" placeholder="ספרו לנו במה נוכל לעזור…"></textarea>
         <button class="submit" type="submit" data-hot>שליחה</button>
         <div class="note">השליחה פותחת את תוכנת המייל עם הפרטים, מוכנים לשליחה ל-Office@shellyurban.co.il</div>
@@ -894,7 +920,7 @@
     park:'<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="8" rx="2"/><path d="M6 11V8a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3"/></svg>',
     key:'<svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="4"/><path d="M11 11l9 9M17 17l2-2"/></svg>'
   };
-  var curCat='';
+  var curCat='', curTitle='';
   function openLB(p){
     lbImg.src=p.image;lbImg.alt=p.title;lbTitle.textContent=p.title;lbLoc.textContent=p.location;lbDesc.textContent=p.description;
     /* image gallery: show thumbnails when a project has more than one render */
@@ -909,7 +935,7 @@
         btn.classList.add('on');
       });
     });
-    curCat=CAT[p.cat]||'';
+    curCat=CAT[p.cat]||''; curTitle=p.title||'';
     lbCat.textContent=curCat;
     lbSale.textContent=p.sale||''; lbSale.style.display=p.sale?'':'none';
     /* animated category overlay — renewal sweeps old→new, marketing pulses */
@@ -936,7 +962,8 @@
   var lbCta=document.getElementById('lbCta');
   if(lbCta) lbCta.addEventListener('click',function(){
     var sel=document.getElementById('lf-project');
-    if(sel&&curCat){for(var o=0;o<sel.options.length;o++){if(sel.options[o].text===curCat){sel.selectedIndex=o;break;}}}
+    if(sel&&curTitle){var key=curTitle.split(' · ')[0];
+      for(var o=0;o<sel.options.length;o++){if(sel.options[o].text.indexOf(key)!==-1){sel.selectedIndex=o;break;}}}
     closeLB();
   });
   var featEl=document.querySelector('.feat[data-project="feat"]');
@@ -987,23 +1014,31 @@
 
   var MAIL_TO="Office@shellyurban.co.il";
   var form=document.getElementById('leadForm');
-  function mailtoLead(name,phone,project,msg,email){
-    var subject=encodeURIComponent("פנייה מהאתר — "+project+(name?(" · "+name):""));
-    var body=encodeURIComponent("שם: "+name+"\nטלפון: "+phone+(email?("\nדוא״ל: "+email):"")+"\nתחום מעניין: "+project+"\n\nהודעה:\n"+msg);
+  function v(id){var el=document.getElementById(id);return el?el.value.trim():"";}
+  function mailtoLead(d){
+    var subject=encodeURIComponent("ליד מהאתר — "+(d.project||"כללי")+(d.name?(" · "+d.name):""));
+    var body=encodeURIComponent(
+      "שם: "+d.name+"\nטלפון: "+d.phone+(d.email?("\nדוא״ל: "+d.email):"")+
+      "\nפרויקט: "+(d.project||"כללי / עדיין בודק")+
+      "\nחדרים: "+(d.rooms||"גמיש")+
+      "\nתקציב: "+(d.budget||"להגדרה")+
+      "\nאופק רכישה: "+(d.timeline||"בודק")+
+      "\n\nהודעה:\n"+d.message);
     window.location.href="mailto:"+MAIL_TO+"?subject="+subject+"&body="+body;
   }
   if(form) form.addEventListener('submit',function(e){
     e.preventDefault();
-    var name=form.name.value.trim(),phone=form.phone.value.trim(),project=form.project.value,msg=form.message.value.trim(),email=(form.email?form.email.value.trim():"");
+    var d={name:v('lf-name'),phone:v('lf-phone'),email:v('lf-email'),project:v('lf-project'),
+           rooms:v('lf-rooms'),budget:v('lf-budget'),timeline:v('lf-timeline'),message:v('lf-msg'),source:"website"};
     var btn=form.querySelector('.submit');
     /* Base44: save a Lead record; otherwise fall back to opening the mail client */
     if(window.base44 && base44.entities && base44.entities.Lead){
       if(btn){btn.disabled=true;btn.textContent="שולח…";}
-      base44.entities.Lead.create({name:name,phone:phone,email:email,project:project,message:msg,source:"website"})
+      base44.entities.Lead.create(d)
         .then(function(){ if(btn){btn.textContent="נשלח ✓";} form.reset(); setTimeout(function(){if(btn){btn.disabled=false;btn.textContent="שליחה";}},2600); })
-        .catch(function(){ if(btn){btn.disabled=false;btn.textContent="שליחה";} mailtoLead(name,phone,project,msg,email); });
+        .catch(function(){ if(btn){btn.disabled=false;btn.textContent="שליחה";} mailtoLead(d); });
     } else {
-      mailtoLead(name,phone,project,msg,email);
+      mailtoLead(d);
     }
   });
   document.getElementById('yr').textContent=new Date().getFullYear();
