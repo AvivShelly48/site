@@ -9,7 +9,7 @@
   --green:#5f9c36; --green-deep:#447327; --green-bright:#84bf52;
   --char:#2c2a30; --led:#f3d6a0; --gold-ink:#6b4e16;
   --hair:rgba(23,21,26,0.12); --hair-soft:rgba(23,21,26,0.07);
-  --serif:"Frank Ruhl Libre","Times New Roman",serif;
+  --serif:"Suez One","Frank Ruhl Libre",serif;
   --sans:"Assistant",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
