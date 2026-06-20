@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/s-mark-green.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
 <style>
   :root{
@@ -18,7 +18,7 @@
     --wood:#a8623c; --char:#2c2a30; --concrete:#b6b1a8; --led:#f3d6a0;
     --hair:rgba(23,21,26,0.12); --hair-soft:rgba(23,21,26,0.07);
     --serif:"Frank Ruhl Libre","Times New Roman",serif;
-    --sans:"Heebo",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --sans:"Assistant",system-ui,-apple-system,"Segoe UI",sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -114,7 +114,8 @@
   .cchap a,.cchap button{pointer-events:auto;}
   /* captions sit high on the sky beside the building and POP in on scroll */
   .cpanel{position:absolute;inset-inline-start:clamp(20px,7vw,110px);top:30%;transform:translateY(-30%);max-width:min(42vw,470px);}
-  .cino-chapters:not(.on-light) .cpanel{text-shadow:0 2px 24px rgba(0,0,0,.4);}
+  .cino-chapters:not(.on-light) .cpanel{text-shadow:0 2px 28px rgba(0,0,0,.6),0 1px 4px rgba(0,0,0,.45);}
+  .cino-chapters.on-light .cpanel{text-shadow:0 1px 16px rgba(255,255,255,.7),0 0 3px rgba(255,255,255,.6);}
   .cpanel>*{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.85,.25,1),transform .8s cubic-bezier(.2,.85,.25,1);}
   .cchap.live .cpanel>*{opacity:1;transform:none;}
   .cchap.live .cpanel>*:nth-child(1){transition-delay:.05s}
