@@ -107,6 +107,15 @@
       linear-gradient(to right, rgba(10,8,14,0) 52%, rgba(10,8,14,.5) 100%),
       radial-gradient(130% 120% at 50% 44%, rgba(8,6,14,0) 50%, rgba(8,6,14,.6) 100%);}
 
+  /* frosted/etched lettering on the lobby glass storefront */
+  .cino-glass{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;will-change:opacity;
+    display:grid;place-items:center;}
+  .cino-glass span{font-family:var(--serif);font-weight:400;font-size:clamp(30px,7vw,86px);
+    letter-spacing:.06em;color:rgba(255,255,255,.5);mix-blend-mode:screen;
+    -webkit-text-stroke:.6px rgba(255,255,255,.45);
+    text-shadow:0 0 2px rgba(255,255,255,.85),0 0 26px rgba(255,255,255,.28);
+    filter:blur(.35px);transform:translateY(-4%);}
+
   .cino-chapters{position:absolute;inset:0;z-index:5;pointer-events:none;color:#fff;}
   .cino-chapters.on-light{color:#1b1922;}
   .cchap{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;}
@@ -455,6 +464,7 @@
     <source src="assets/uploads/lobby-walk.mp4" type="video/mp4" />
   </video>
   <div class="cino-lobby" id="cinoLobby"></div>
+  <div class="cino-glass" id="cinoGlass" aria-hidden="true"><span>שלי אורבן</span></div>
 
   <div class="cino-chapters" id="cinoChapters">
     <!-- 1 · Day -->
@@ -775,6 +785,7 @@
   var cue=document.getElementById('cinoCue');
   var scrollEl=document.getElementById('cinoScroll');
   var lobby=document.getElementById('cinoLobby');
+  var glass=document.getElementById('cinoGlass');
   var video=document.getElementById('cinoVideo');
   var vidReady=false, vidDur=0, vidUnlocked=false;
   if(video){
@@ -871,6 +882,8 @@
     }
     /* legibility scrim + vignette bloom once we're inside */
     if(lobby) lobby.style.opacity=smooth(0.44,0.66,p);
+    /* frosted "שלי אורבן" on the glass: appears at the storefront, fades as we step in */
+    if(glass) glass.style.opacity=smooth(0.40,0.47,p)*(1-smooth(0.56,0.68,p));
     /* captions POP in: only the active chapter is "live" */
     var active=i;
     if(active!==activeScene){
