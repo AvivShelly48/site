@@ -1101,15 +1101,22 @@
     var d={name:v('lf-name'),phone:v('lf-phone'),email:v('lf-email'),project:v('lf-project'),
            rooms:v('lf-rooms'),budget:v('lf-budget'),timeline:v('lf-timeline'),message:v('lf-msg'),source:"website"};
     var btn=form.querySelector('.submit');
-    /* Base44: save a Lead record; otherwise fall back to opening the mail client */
-    if(window.base44 && base44.entities && base44.entities.Lead){
-      if(btn){btn.disabled=true;btn.textContent="שולח…";}
-      base44.entities.Lead.create(d)
-        .then(function(){ if(btn){btn.textContent="נשלח ✓";} form.reset(); setTimeout(function(){if(btn){btn.disabled=false;btn.textContent="שליחה";}},2600); })
-        .catch(function(){ if(btn){btn.disabled=false;btn.textContent="שליחה";} mailtoLead(d); });
-    } else {
-      mailtoLead(d);
+    /* Lead delivery: 1) Base44 submitLead function · 2) Base44 SDK · 3) mailto fallback */
+    function sendLead(d){
+      var api=(window.SHELLY_BASE44_API||"").replace(/\/+$/,"");
+      if(api){
+        return fetch(api+"/submitLead",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)})
+          .then(function(r){ if(!r.ok) throw new Error("http "+r.status); return true; });
+      }
+      if(window.base44 && base44.entities && base44.entities.Lead){
+        return base44.entities.Lead.create(d).then(function(){ return true; });
+      }
+      return Promise.reject(new Error("no-backend"));
     }
+    if(btn){btn.disabled=true;btn.textContent="שולח…";}
+    sendLead(d)
+      .then(function(){ if(btn){btn.textContent="נשלח ✓";} form.reset(); setTimeout(function(){if(btn){btn.disabled=false;btn.textContent="שליחה";}},2600); })
+      .catch(function(){ if(btn){btn.disabled=false;btn.textContent="שליחה";} mailtoLead(d); });
   });
   document.getElementById('yr').textContent=new Date().getFullYear();
 })();
