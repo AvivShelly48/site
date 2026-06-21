@@ -10,6 +10,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
+<!-- ⚙️ Base44 data source: set this to the public functions base URL to pull projects/units live.
+     Leave empty to use embedded data. Example:
+     window.SHELLY_BASE44_API = "https://app.base44.com/api/apps/<APP_ID>/functions"; -->
+<script>window.SHELLY_BASE44_API = "";</script>
+
 <style>
   :root{
     --bg:#f1efea; --bg2:#ffffff;
@@ -1034,15 +1039,26 @@
     return { title:r.title, location:r.location, cat:r.cat, sale:r.sale, stage:+r.stage||1,
              image:r.image, gallery:gallery||[], description:r.description, facts:facts||[], featured:!!r.featured, order:+r.order||0 };
   }
+  function projectsFromRows(items){
+    if(!items || !items.length) return null;
+    var all=items.map(normalizeProject).sort(function(a,b){return a.order-b.order;});
+    var feat=all.filter(function(p){return p.featured;})[0];
+    return { list:all.filter(function(p){return !p.featured;}), featured:feat||FEATURED };
+  }
   function loadProjects(){
-    if(window.base44 && base44.entities && base44.entities.Project){
-      return base44.entities.Project.list().then(function(items){
-        if(!items || !items.length) return null;
-        var all=items.map(normalizeProject).sort(function(a,b){return a.order-b.order;});
-        var feat=all.filter(function(p){return p.featured;})[0];
-        return { list:all.filter(function(p){return !p.featured;}), featured:feat||FEATURED };
-      }).catch(function(){ return null; });
+    var api=(window.SHELLY_BASE44_API||"").replace(/\/+$/,"");
+    /* 1) public Base44 function (works on the static site) */
+    if(api){
+      return fetch(api+"/getPublicProjects",{headers:{Accept:"application/json"}})
+        .then(function(r){return r.ok?r.json():null;})
+        .then(function(d){ return projectsFromRows(d && (d.projects||d.items||d)); })
+        .catch(function(){ return null; });
     }
+    /* 2) Base44 SDK (when the site runs inside the Base44 app) */
+    if(window.base44 && base44.entities && base44.entities.Project){
+      return base44.entities.Project.list().then(function(items){ return projectsFromRows(items); }).catch(function(){ return null; });
+    }
+    /* 3) embedded fallback */
     return Promise.resolve(null);
   }
   function initProjects(){
@@ -1160,7 +1176,13 @@
     var avail=list.filter(function(u){return u.status==='available';}).length;
     note.textContent=(sample?'* נתוני המלאי להמחשה — יתחברו אוטומטית למערכת המכירות. ':'')+'כעת '+avail+' דירות פנויות.';
   }
-  if(window.base44 && base44.entities && base44.entities.Unit){
+  var API=(window.SHELLY_BASE44_API||"").replace(/\/+$/,"");
+  if(API){
+    fetch(API+"/getPublicUnits",{headers:{Accept:"application/json"}})
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(d){ var rows=d&&(d.units||d.items||d); (rows&&rows.length)?render(rows,false):render(SAMPLE,true); })
+      .catch(function(){ render(SAMPLE,true); });
+  } else if(window.base44 && base44.entities && base44.entities.Unit){
     base44.entities.Unit.list().then(function(rows){
       if(rows && rows.length) render(rows, false); else render(SAMPLE, true);
     }).catch(function(){ render(SAMPLE, true); });
