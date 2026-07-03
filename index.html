@@ -50,7 +50,7 @@
   #loader{position:fixed;inset:0;z-index:100;background:var(--bg);
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     transition:opacity .9s ease .15s, visibility .9s ease .15s;}
-  #loader.done{opacity:0;visibility:hidden;}
+  #loader.done{opacity:0;visibility:hidden;pointer-events:none;}
   #loader::before{content:"";position:absolute;inset:0;opacity:.5;
     background-image:linear-gradient(var(--hair-soft) 1px,transparent 1px),linear-gradient(90deg,var(--hair-soft) 1px,transparent 1px);
     background-size:46px 46px;-webkit-mask:radial-gradient(circle at 50% 46%,#000,transparent 70%);mask:radial-gradient(circle at 50% 46%,#000,transparent 70%);}
@@ -695,7 +695,7 @@
 <div class="lb" id="lb">
   <div class="lb-card">
     <button class="lb-close" id="lbClose" aria-label="סגירה">×</button>
-    <div class="lb-img"><img id="lbImg" src="" alt="" /><div id="lbCatWrap"></div><div class="lb-thumbs" id="lbThumbs"></div></div>
+    <div class="lb-img"><img id="lbImg" alt="" /><div id="lbCatWrap"></div><div class="lb-thumbs" id="lbThumbs"></div></div>
     <div class="lb-body">
       <div class="lb-meta"><span class="st" id="lbCat"></span><span class="lb-sale" id="lbSale"></span></div>
       <h3 id="lbTitle"></h3>
