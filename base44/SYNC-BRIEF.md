@@ -45,15 +45,21 @@ Body (JSON):
 ```
 > **Upsert:** אם כבר קיימת באתר רשומה עם אותו `external_id` — לעדכן אותה (PATCH) במקום ליצור חדשה. אם ה‑API שלכם לא תומך ב‑upsert אוטומטי, בצעו GET לפי `external_id` ואז POST/PATCH בהתאם.
 
-### אוטומציה 2 — דירה שונתה (נמכרה/שוחררה)
-**Trigger:** On `Unit` (דירה) **update** של שדה הסטטוס
+### אוטומציה 2 — דירה שונתה (נמכרה/שוחררה/עודכן מחיר)
+**Trigger:** On `Unit` (דירה) **update** של שדה הסטטוס או מחיר היעד
 **Action:**
 ```
 PATCH https://app.base44.com/api/apps/{WEBSITE_APP_ID}/entities/Unit/{matched_id}
 Headers: Authorization: Bearer {WEBSITE_API_KEY}  · Content-Type: application/json
-Body: { "external_id": "{{record.id}}", "status": "sold|reserved|available" }
+Body: {
+  "external_id": "{{record.id}}",
+  "status":      "sold|reserved|available",
+  "price":       "{{record.<שדה מחיר היעד>}}"
+}
 ```
 (אם אין `Unit` תואם באתר — ליצור אותו; מפתח ההתאמה הוא `external_id`.)
+
+> ⚠️ **מחיר — חובה למפות משדה "מחיר יעד" בלבד.** לתוכנת הניהול יש כמה שדות מחיר (מחיר עסקה, מחיר סגירה וכו׳) — לאתר מותר להגיע **רק המחיר שמוגדר כמחיר יעד**. הוא מוצג לגולשים כ"מחיר החל מ־". אין לשלוח לעולם מחירי עסקה/סגירה של רוכשים.
 
 ### (אופציונלי) אוטומציה 3 — לידים מהאתר אל ה‑CRM
 אם תרצו שכל ליד מהאתר יגיע גם לתוכנת הניהול — נגדיר בכיוון ההפוך (אתר → ניהול). תיאום בהמשך.
@@ -72,6 +78,7 @@ Body: { "external_id": "{{record.id}}", "status": "sold|reserved|available" }
 | `description` | `description` | string | |
 | `facts[0]` (units) | `total_units` | number | `{ "k":"units", "v":"<total_units>", "l":"יח״ד" }` |
 | **Unit** `status` | (שדה הסטטוס בדירה) | enum | `available`/`reserved`/`sold` |
+| **Unit** `price` | **שדה "מחיר יעד"** | number | ⚠️ אך ורק מחיר היעד — לא מחיר עסקה/סגירה. מוצג באתר כ"מחיר החל מ־" |
 | **Unit** `external_id` | `id` של הדירה | UUID | מפתח התאמה לדירה |
 
 ### 3א. המרת `category` → `cat`  ✅ אושר

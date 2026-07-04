@@ -9,7 +9,7 @@
     "floor":       { "type": "number", "description": "קומה" },
     "rooms":       { "type": "number", "description": "מספר חדרים" },
     "sqm":         { "type": "number", "description": "שטח במ\"ר" },
-    "price":       { "type": "number", "description": "מחיר (₪) — אופציונלי; בשוק החופשי בלבד" },
+    "price":       { "type": "number", "description": "מחיר (₪) — ממופה משדה 'מחיר יעד' בתוכנת הניהול בלבד (לא מחיר עסקה/סגירה). מוצג באתר כ'מחיר החל מ־'. אופציונלי; בשוק החופשי בלבד" },
     "status":      { "type": "string", "enum": ["available", "reserved", "sold"], "default": "available", "description": "סטטוס: available=פנוי · reserved=בהמתנה · sold=נמכר" },
     "exposure":    { "type": "string", "description": "כיווני אוויר / הערה, למשל: דרום-מערב" },
     "external_id": { "type": "string", "description": "מזהה הדירה בתוכנת הניהול — לסנכרון דו-כיווני (מפתח ההתאמה)" },
