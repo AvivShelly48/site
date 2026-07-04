@@ -9,7 +9,7 @@
   --green:#5f9c36; --green-deep:#447327; --green-bright:#84bf52;
   --char:#2c2a30; --led:#f3d6a0; --gold-ink:#6b4e16;
   --hair:rgba(23,21,26,0.12); --hair-soft:rgba(23,21,26,0.07);
-  --serif:"Suez One","Frank Ruhl Libre",serif;
+  --serif:"Karantina","Frank Ruhl Libre",serif;
   --sans:"Assistant",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -149,3 +149,9 @@ h2 em{font-style:normal;color:var(--green-deep);}
 .member .role{color:var(--green-deep);font-size:13.5px;font-weight:600;margin-top:4px;}
 .member .bio{color:var(--ink-dim);font-size:13.5px;line-height:1.7;margin-top:12px;}
 .member .ph{font-size:.92em;}
+
+/* Karantina headline tracking — הפונט דחוס, הריווח נותן את היוקרה */
+h2,.hero h1,.cta h3,.member h3{letter-spacing:.05em;}
+.stats .st b{letter-spacing:.04em;}
+.vcard h4,.g5-vis b{letter-spacing:.05em;}
+.ladder li i{letter-spacing:.03em;}

@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/s-mark-green.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
 <!-- ⚙️ Base44 data source: set this to the public functions base URL to pull projects/units live.
      Leave empty to use embedded data. Example:
@@ -22,7 +22,7 @@
     --green:#5f9c36; --green-deep:#447327; --green-bright:#84bf52;
     --wood:#a8623c; --char:#2c2a30; --concrete:#b6b1a8; --led:#f3d6a0;
     --hair:rgba(23,21,26,0.12); --hair-soft:rgba(23,21,26,0.07);
-    --serif:"Suez One","Frank Ruhl Libre",serif;
+    --serif:"Karantina","Frank Ruhl Libre",serif;
     --sans:"Assistant",system-ui,-apple-system,"Segoe UI",sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -449,6 +449,13 @@
     .reveal{opacity:1;transform:none;transition:none;}
     .grain,.cino-cue span,.catanim.renewal::before,.catanim.sale .ca-dot{animation:none;}
   }
+
+  /* Karantina headline tracking — הפונט דחוס, הריווח נותן את היוקרה */
+  .cpanel h1,.scene-head h2{letter-spacing:.045em;}
+  .cpanel h2,.cpanel .big,.feat .feat-copy h3,.lb-card .lb-body h3,.contact-l h2,.g5-band h3{letter-spacing:.05em;}
+  .pcard-ttl,.unit-title,.exec-card .xt,.lb-facts .fact b,.g5-val b{letter-spacing:.06em;}
+  .g5-g{letter-spacing:.04em;}
+  .stat .num{letter-spacing:.04em;}
 </style>
 </head>
 <body>
