@@ -853,15 +853,16 @@
     video.addEventListener('canplay',function(){ vidReady=true; requestRender(); });
   }
   /* iOS/Safari won't let us seek a video until it has been "activated" by a
-     gesture — unlock it on the first interaction so scroll-scrubbing works. */
+     gesture — unlock it on the first interaction so scroll-scrubbing works.
+     Low-power mode rejects play(): allow another attempt on a later gesture. */
   function unlockVideo(){
     if(vidUnlocked||!video) return; vidUnlocked=true;
     var pr=video.play();
-    if(pr&&pr.then){ pr.then(function(){ video.pause(); }).catch(function(){}); }
+    if(pr&&pr.then){ pr.then(function(){ video.pause(); }).catch(function(){ vidUnlocked=false; }); }
     else { try{ video.pause(); }catch(e){} }
   }
-  ['touchstart','pointerdown','wheel','keydown'].forEach(function(ev){
-    addEventListener(ev,unlockVideo,{passive:true,once:true});
+  ['touchstart','pointerdown','wheel','keydown','scroll'].forEach(function(ev){
+    addEventListener(ev,unlockVideo,{passive:true});
   });
   var SCENES=chapters.length;            // 5 scenes
   var SCREENS=4.5;                       // total scroll length, in viewport-heights (room to feel each beat)
@@ -935,9 +936,17 @@
        across the ch1→ch2 boundary and the scroll drives its playback head */
     if(video){
       video.style.opacity=smooth(0.30,0.44,p);
+      var vp=clamp((p-0.34)/(1-0.34),0,1);
       if(vidReady && vidDur){
-        var vt=clamp((p-0.34)/(1-0.34),0,1)*vidDur;
+        video.style.transform='';
+        var vt=vp*vidDur;
         if(Math.abs(vt-video.currentTime)>0.02){ try{ video.currentTime=vt; }catch(e){} }
+      } else {
+        /* fallback walk-in: when playback is unavailable (low-power mode,
+           data-saver, decode failure) push into the poster frame instead,
+           so the entrance still feels like stepping inside */
+        video.style.transformOrigin='50% 58%';
+        video.style.transform='scale('+(1+vp*0.38)+')';
       }
     }
     /* legibility scrim + vignette bloom once we're inside */
