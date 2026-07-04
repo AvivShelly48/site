@@ -383,6 +383,8 @@
   .unit-img{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--char);}
   .unit-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1);}
   .unit-card:hover .unit-img img{transform:scale(1.06);}
+  .unit-sim{position:absolute;inset-block-end:9px;inset-inline-end:9px;font-size:10px;font-weight:600;letter-spacing:.04em;
+    color:#fff;background:rgba(23,21,26,.55);backdrop-filter:blur(3px);padding:3px 9px;border-radius:100px;pointer-events:none;}
   .unit-badge{position:absolute;inset-block-start:10px;inset-inline-start:10px;font-size:11.5px;font-weight:700;
     padding:5px 11px;border-radius:100px;backdrop-filter:blur(4px);}
   .unit-badge.available{background:rgba(95,156,54,.92);color:#fff;}
@@ -390,10 +392,10 @@
   .unit-badge.sold{background:rgba(120,116,124,.92);color:#fff;}
   .unit-card.sold .unit-img img{filter:grayscale(.85) opacity(.7);}
   .unit-body{padding:16px 17px 18px;display:flex;flex-direction:column;flex:1;}
-  .unit-proj{font-size:11.5px;color:var(--green-deep);font-weight:600;letter-spacing:.02em;}
-  .unit-title{font-family:var(--serif);font-weight:500;font-size:20px;margin-top:4px;}
-  .unit-meta{font-size:13px;color:var(--ink-dim);margin-top:6px;line-height:1.7;}
-  .unit-price{margin-top:10px;font-size:16px;font-weight:600;color:var(--ink);}
+  .unit-title{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:.05em;}
+  .unit-proj{font-size:13px;color:var(--green-deep);font-weight:600;letter-spacing:.02em;margin-top:6px;}
+  .unit-price{margin-top:9px;font-size:12.5px;color:var(--ink-dim);font-weight:500;}
+  .unit-price b{font-weight:700;color:var(--ink);}
   .unit-btn{margin-top:14px;width:100%;border:none;border-radius:9px;padding:11px;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;transition:.25s;}
   .unit-btn.go{background:var(--green-deep);color:#fff;}
   .unit-btn.go:hover{background:#2f5417;}
@@ -991,11 +993,6 @@
       gallery:["assets/uploads/render-independence.jpg","assets/uploads/render-interior.jpg"],
       facts:[{k:"units",v:"202",l:"יח״ד חדשות"},{k:"build",v:"3",l:"מגדלי מגורים"},{k:"park",v:"מסחר",l:"קומת מסחר עירוני"}],
       description:"פרויקט פינוי-בינוי בלב יבנה — מרכז מסחרי עירוני שמעליו שלושה מגדלי מגורים מודרניים, גינה לרווחת הדיירים וחניון תת-קרקעי רחב. 202 יחידות דיור חדשות בתמהיל מגוון של דירות 4–5–6 חד׳, פנטהאוזים ודירות גן — בנגישות נוחה לצירי תחבורה ולטיילת נחל יבנה." },
-    { title:"מיכאל", location:"מתחם מגורי יוקרה", cat:"build", sale:"בשיווק", stage:2,
-      image:"assets/uploads/render-michael.jpg",
-      gallery:["assets/uploads/render-michael.jpg","assets/uploads/render-tower.jpg"],
-      facts:[{k:"build",v:"3",l:"מגדלי מגורים"},{k:"park",v:"פארק",l:"מרחב ירוק"},{k:"key",v:"בוטיק",l:"סטנדרט יוקרה"}],
-      description:"מתחם מגורים יוקרתי — שלושה מגדלי בוטיק לבנים הניצבים בלב פארק מטופח. אדריכלות נקייה ועכשווית, מרפסות מוצלות ושפע ירק, בסטנדרט בנייה גבוה במיוחד ובאיכות חסרת פשרות — מהתכנון ועד מסירת המפתח." },
     { title:"קרן היסוד · מתחם הצעירים", location:"אשדוד", cat:"renewal", sale:"בשיווק", stage:2,
       image:"assets/proj-keren.jpg",
       facts:[{k:"renew",v:"144",l:"דירות מתחדשות"},{k:"units",v:"138",l:"דירות חדשות"},{k:"build",v:"2",l:"שלבי ביצוע"}],
@@ -1007,11 +1004,7 @@
     { title:"הלילך", location:"יבנה", cat:"renewal", sale:"בשיווק", stage:2,
       image:"assets/proj-lilac.jpg",
       facts:[{k:"build",v:"6",l:"בניינים ברחוב"},{k:"renew",v:"3+3",l:"תמ״א 38 ופינוי-בינוי"},{k:"key",v:"בוטיק",l:"בנייני מגורים"}],
-      description:"התחדשות של רחוב שלם בלב יבנה — שישה בניינים מודרניים שישנו את פני הרחוב והשכונה: שלושה בתמ״א 38 ושלושה בפינוי-בינוי שבמקומם יוקמו שלושה מגדלי מגורים. בנייני בוטיק בעיצוב נקי ואורבני, סביב גינה ציבורית מטופחת — שילוב מנצח של קהילה, שקט וחיים עירוניים תוססים." },
-    { title:"שערי העיר · רובע 9", location:"אשדוד", cat:"build", sale:"בתכנון", stage:1,
-      image:"assets/proj-independence.jpg",
-      facts:[{k:"units",v:"כ-240",l:"יח״ד"},{k:"build",v:"מגורים",l:"+ תעסוקה"},{k:"park",v:"מסחר",l:"ומשרדים"}],
-      description:"מתחם מגורים ותעסוקה ברובע 9 באשדוד — כ-240 יחידות דיור לצד פארק תעסוקה עם משרדים ומסחר. שכונה חדשה שמשלבת מגורים, עבודה ופנאי תחת קורת גג אחת." }
+      description:"התחדשות של רחוב שלם בלב יבנה — שישה בניינים מודרניים שישנו את פני הרחוב והשכונה: שלושה בתמ״א 38 ושלושה בפינוי-בינוי שבמקומם יוקמו שלושה מגדלי מגורים. בנייני בוטיק בעיצוב נקי ואורבני, סביב גינה ציבורית מטופחת — שילוב מנצח של קהילה, שקט וחיים עירוניים תוססים." }
   ];
   var FEATURED = { title:"הר אביטל", location:"מגדל מגורים בוטיק", cat:"build", sale:"בשיווק", stage:2,
     image:"assets/har-avital/day-web.jpg",
@@ -1201,39 +1194,42 @@
 <script>
 (function(){
   var SAMPLE=[
-    {project:"הר אביטל", unit:"דירה 12", floor:6, rooms:4, sqm:108, price:2350000, status:"available", image:"assets/har-avital/day-web.jpg"},
-    {project:"עצמאות · פינוי-בינוי, יבנה", unit:"דירה 21", floor:7, rooms:5, sqm:132, price:2640000, status:"available", image:"assets/uploads/render-independence.jpg"},
-    {project:"מיכאל", unit:"פנטהאוז", floor:9, rooms:5, sqm:150, price:3200000, status:"available", image:"assets/uploads/render-michael.jpg"},
-    {project:"הלילך, יבנה", unit:"דירת גן", floor:0, rooms:4, sqm:118, price:2420000, status:"available", image:"assets/proj-lilac.jpg"},
-    {project:"עצמאות · פינוי-בינוי, יבנה", unit:"דירה 8", floor:3, rooms:4, sqm:110, price:2180000, status:"reserved", image:"assets/uploads/render-interior.jpg"},
-    {project:"קרן היסוד · מתחם הצעירים, אשדוד", unit:"דירה 9", floor:4, rooms:3, sqm:88, price:1790000, status:"reserved", image:"assets/proj-keren.jpg"},
-    {project:"הר אביטל", unit:"דירה 4", floor:2, rooms:3, sqm:84, price:1890000, status:"sold", image:"assets/uploads/render-tower.jpg"},
-    {project:"מיכאל", unit:"דירה 6", floor:3, rooms:4, sqm:105, price:2090000, status:"sold", image:"assets/proj-142.jpg"}
+    {project:"עצמאות · פינוי-בינוי", location:"יבנה", rooms:5, priceFrom:2640000, status:"available", image:"assets/uploads/render-independence.jpg"},
+    {project:"עצמאות · פינוי-בינוי", location:"יבנה", rooms:4, priceFrom:2180000, status:"available", image:"assets/uploads/render-interior.jpg"},
+    {project:"הלילך", location:"יבנה", rooms:4, priceFrom:2420000, status:"available", image:"assets/proj-lilac.jpg"},
+    {project:"הלילך", location:"יבנה", rooms:5, priceFrom:2780000, status:"reserved", image:"assets/proj-lilac3.jpg"},
+    {project:"קרן היסוד · מתחם הצעירים", location:"אשדוד", rooms:3, priceFrom:1790000, status:"available", image:"assets/proj-keren.jpg"},
+    {project:"קרן היסוד · מתחם הצעירים", location:"אשדוד", rooms:4, priceFrom:2050000, status:"reserved", image:"assets/proj-independence3.jpg"},
+    {project:"הציונות 10 · סיטי פארק", location:"אשדוד", rooms:4, priceFrom:0, status:"available", image:"assets/proj-142.jpg"}
   ];
   var BADGE={available:["available","🟢 פנוי"],reserved:["reserved","🟡 בהמתנה"],sold:["sold","🔴 נמכר"]};
   var grid=document.getElementById('availGrid'), filt=document.getElementById('availFilter'), note=document.getElementById('availNote');
   if(!grid) return;
   function nis(n){try{return "₪"+Number(n).toLocaleString("he-IL");}catch(e){return "₪"+n;}}
+  /* normalize a unit from either SAMPLE or Base44 (which may use price/sqm/unit) */
+  function loc(u){ return u.location || ((u.project||'').split(',')[1]||'').trim(); }
+  function priceOf(u){ return u.priceFrom || u.price || 0; }
   function reserve(u){
     var sel=document.getElementById('lf-project');
     if(sel){var key=(u.project||'').split(' · ')[0].split(',')[0].trim();
       for(var o=0;o<sel.options.length;o++){if(sel.options[o].text.indexOf(key)!==-1){sel.selectedIndex=o;break;}}}
     var msg=document.getElementById('lf-msg');
-    if(msg){var line="מעוניין/ת לשריין: "+u.project+" · "+u.unit+" · קומה "+u.floor+" · "+u.rooms+" חד׳ · ~"+u.sqm+" מ״ר";
+    if(msg){var l=loc(u);var line="מעוניין/ת לשריין: דירת "+u.rooms+" חדרים · "+u.project+(l?" · "+l:"");
       msg.value=msg.value?(msg.value+"\n"+line):line;}
     location.hash="#contact";
     var nm=document.getElementById('lf-name'); if(nm) setTimeout(function(){nm.focus();},400);
   }
   function card(u){
-    var b=BADGE[u.status]||BADGE.available, sold=u.status==='sold';
+    var b=BADGE[u.status]||BADGE.available, sold=u.status==='sold', l=loc(u), pr=priceOf(u);
     var el=document.createElement('article'); el.className='unit-card'+(sold?' sold':'');
     el.innerHTML=
-      '<div class="unit-img"><img src="'+u.image+'" alt="'+u.project+' '+u.unit+'" loading="lazy" />'+
-        '<span class="unit-badge '+b[0]+'">'+b[1]+'</span></div>'+
-      '<div class="unit-body"><div class="unit-proj">'+u.project+'</div>'+
-        '<div class="unit-title">'+u.unit+'</div>'+
-        '<div class="unit-meta">קומה '+u.floor+' · '+u.rooms+' חדרים · ~'+u.sqm+' מ״ר</div>'+
-        (u.price?'<div class="unit-price">'+(sold?'<s>'+nis(u.price)+'</s>':nis(u.price))+'</div>':'')+
+      '<div class="unit-img"><img src="'+u.image+'" alt="הדמיית '+u.project+'" loading="lazy" />'+
+        '<span class="unit-badge '+b[0]+'">'+b[1]+'</span>'+
+        '<span class="unit-sim">הדמיה</span></div>'+
+      '<div class="unit-body">'+
+        '<div class="unit-title">דירת '+u.rooms+' חדרים</div>'+
+        '<div class="unit-proj">'+u.project+(l?' · '+l:'')+'</div>'+
+        (pr?'<div class="unit-price">'+(sold?'נמכר':'מחיר החל מ־ <b>'+nis(pr)+'</b>')+'</div>':'')+
       '</div>';
     var btn=document.createElement('button');
     if(sold){btn.className='unit-btn off';btn.textContent='נמכר';btn.disabled=true;}
@@ -1257,7 +1253,7 @@
     chip('הכל','__all'); projects.forEach(function(p){chip(p.split(' · ')[0].split(',')[0],p);});
     paint();
     var avail=list.filter(function(u){return u.status==='available';}).length;
-    note.textContent=(sample?'* נתוני המלאי להמחשה — יתחברו אוטומטית למערכת המכירות. ':'')+'כעת '+avail+' דירות פנויות.';
+    note.textContent='כעת '+avail+' דירות פנויות. כל התמונות הן הדמיות אדריכליות להמחשה בלבד ואינן מהוות מצג מחייב. '+(sample?'נתוני המלאי והמחירים להמחשה — יתעדכנו אוטומטית ממערכת המכירות.':'');
   }
   var API=(window.SHELLY_BASE44_API||"").replace(/\/+$/,"");
   if(API){
