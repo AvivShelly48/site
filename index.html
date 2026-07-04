@@ -359,6 +359,12 @@
   .foot-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:30px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.12);}
   .foot .flogo{height:58px;width:auto;display:block;margin-bottom:12px;filter:invert(1);mix-blend-mode:screen;opacity:.92;}
   .foot .fbrand{font-family:var(--serif);font-weight:600;font-size:24px;letter-spacing:.14em;color:#fff;}
+  /* G5 seal chip — footer quality stamp */
+  .g5-chip{display:inline-flex;align-items:center;gap:10px;margin-top:14px;padding:7px 16px 7px 9px;border-radius:100px;
+    background:rgba(243,214,160,.07);border:1px solid rgba(243,214,160,.38);color:#fff;font-size:12.5px;font-weight:500;}
+  .g5-chip .g{font-family:var(--serif);color:var(--led);font-size:15px;letter-spacing:.02em;background:rgba(243,214,160,.1);
+    border:1px solid rgba(243,214,160,.45);border-radius:100px;min-width:30px;height:30px;display:grid;place-items:center;padding:0 4px;}
+  
   .foot .fbrand span{color:var(--green-bright);font-family:var(--sans);font-size:11px;letter-spacing:.3em;margin-inline-start:8px;}
   .foot .fcols{display:flex;gap:clamp(34px,6vw,80px);flex-wrap:wrap;font-size:14px;}
   .foot .fcols a{display:block;padding:5px 0;transition:color .3s;}
@@ -730,6 +736,7 @@
     <div class="foot-top">
       <div>
         <div class="fbrand">SHELLY<span>GROUP</span></div>
+        <a class="g5-chip" href="contracting.html" title="קבלן רשום סיווג ג׳5"><span class="g">ג׳5</span> קבלן רשום בסיווג הגבוה ביותר · ביצוע עצמי מאז 1996</a>
         <p style="margin-top:14px;max-width:34ch;font-size:14px;">נדל״ן · התחדשות עירונית · בנייה — מהתכנון ועד מסירת המפתח, תחת קורת גג אחת.</p>
         <div class="fsocial">
           <a href="#" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.8.72 1.47 1.38 2.13.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.8-.31 1.47-.72 2.13-1.38.66-.66 1.07-1.33 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.7 5.7 0 0 0-1.38-2.12A5.7 5.7 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-10.4a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg></a>
@@ -988,7 +995,7 @@
      stage: 1=רישוי · 2=ביצוע · 3=אכלוס.  Data sourced from shellyurban.co.il */
   var CAT={renewal:"התחדשות עירונית", sale:"מחיר למשתכן", build:"בנייה למגורים", commercial:"מסחרי"};
   var PROJECTS = [
-    { title:"עצמאות · פינוי-בינוי", location:"יבנה", cat:"renewal", sale:"בביצוע", stage:2,
+    { title:"עצמאות · פינוי-בינוי", location:"יבנה", cat:"renewal", sale:"בתכנון", stage:1,
       image:"assets/uploads/render-independence.jpg",
       gallery:["assets/uploads/render-independence.jpg","assets/uploads/render-interior.jpg"],
       facts:[{k:"units",v:"202",l:"יח״ד חדשות"},{k:"build",v:"3",l:"מגדלי מגורים"},{k:"park",v:"מסחר",l:"קומת מסחר עירוני"}],
@@ -1004,9 +1011,13 @@
     { title:"הלילך", location:"יבנה", cat:"renewal", sale:"בשיווק", stage:2,
       image:"assets/proj-lilac.jpg",
       facts:[{k:"build",v:"6",l:"בניינים ברחוב"},{k:"renew",v:"3+3",l:"תמ״א 38 ופינוי-בינוי"},{k:"key",v:"בוטיק",l:"בנייני מגורים"}],
-      description:"התחדשות של רחוב שלם בלב יבנה — שישה בניינים מודרניים שישנו את פני הרחוב והשכונה: שלושה בתמ״א 38 ושלושה בפינוי-בינוי שבמקומם יוקמו שלושה מגדלי מגורים. בנייני בוטיק בעיצוב נקי ואורבני, סביב גינה ציבורית מטופחת — שילוב מנצח של קהילה, שקט וחיים עירוניים תוססים." }
+      description:"התחדשות של רחוב שלם בלב יבנה — שישה בניינים מודרניים שישנו את פני הרחוב והשכונה: שלושה בתמ״א 38 ושלושה בפינוי-בינוי שבמקומם יוקמו שלושה מגדלי מגורים. בנייני בוטיק בעיצוב נקי ואורבני, סביב גינה ציבורית מטופחת — שילוב מנצח של קהילה, שקט וחיים עירוניים תוססים." },
+    { title:"מרכז מסחרי אשקלון", location:"אשקלון · מגרש 404-444", cat:"commercial", sale:"בביצוע", stage:2,
+      image:"assets/exec-crane.jpg",
+      facts:[{k:"build",v:"מסחר",l:"מרכז מסחרי"},{k:"park",v:"404-444",l:"מגרשים"},{k:"key",v:"2026",l:"בבנייה כעת"}],
+      description:"מרכז מסחרי חדש באשקלון, במגרשים 404 ו-444 — שטחי מסחר מודרניים בנקודה מסחרית מתפתחת. הפרויקט בבנייה פעילה — ביצוע עצמי מלא של שלי גרופ, ברישיון קבלן ג׳5." }
   ];
-  var FEATURED = { title:"הר אביטל", location:"מגדל מגורים בוטיק", cat:"build", sale:"בשיווק", stage:2,
+  var FEATURED = { title:"הר אביטל", location:"מגדל מגורים בוטיק", cat:"build", sale:"בשיווק", stage:1,
     image:"assets/har-avital/day-web.jpg",
     facts:[{k:"floors",v:"9",l:"קומות"},{k:"build",v:"בוטיק",l:"מגדל מגורים"},{k:"key",v:"LED",l:"חזית מוארת"}],
     description:"פרויקט הדגל שלנו — חזית פחם אלגנטית, עמוד עץ חם ומרפסות מרחפות. תאורת LED לינארית מדגישה כל קומה; בלילה הבניין זוהר. שפה אדריכלית עכשווית, מהתכנון ועד מסירת המפתח." };
