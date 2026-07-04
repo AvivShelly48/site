@@ -4,12 +4,42 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ביצוע קבלנות בניין — שלי אורבן</title>
-<meta name="description" content="ביצוע קבלנות בניין עם דני שלי מהנדסים — ביצוע, ניהול ופיקוח הנדסי בשיטות בנייה מתקדמות, לאיכות וגימור בסטנדרט הגבוה ביותר ושליטה מלאה בתהליך עד המסירה." />
+<meta name="description" content="קבלן רשום בסיווג ג׳5 — הגבוה ביותר בפנקס הקבלנים. שלי גרופ (דני שלי מהנדסים) היא יזם שמבצע לעצמו מאז 1996: שליטה מלאה בכל תהליכי הייצור, איכות מובטחת ואחריות בלי תלות באחרים." />
 <link rel="icon" href="assets/s-mark-green.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/pages.css" />
+<style>
+/* G5 — סולם הסיווגים והשוואת ביצוע עצמי */
+.g5-cols{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,54px);margin-top:34px;align-items:start;}
+@media(max-width:760px){.g5-cols{grid-template-columns:1fr;}}
+.ladder{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.ladder li{display:grid;grid-template-columns:56px 1fr;align-items:center;gap:14px;background:var(--bg);
+  border:1px solid var(--hair-soft);border-radius:12px;padding:11px 16px;color:var(--ink-dim);font-size:14px;}
+.ladder li i{font-style:normal;font-family:var(--serif);font-size:19px;color:var(--ink-faint);text-align:center;}
+.ladder li em{font-style:normal;}
+.ladder li.top{background:linear-gradient(135deg,#2c2a30,#3a3740);border-color:rgba(243,214,160,.4);color:#fff;
+  box-shadow:0 12px 30px rgba(44,42,48,.28);transform:scale(1.03);padding-block:16px;}
+.ladder li.top i{color:var(--led);font-size:26px;text-shadow:0 0 18px rgba(243,214,160,.4);}
+.ladder li.top .who{color:var(--led);font-weight:700;font-size:14px;display:block;}
+.ladder-note{font-size:12px;color:var(--ink-faint);margin-top:10px;}
+.g5-vs{display:flex;flex-direction:column;gap:14px;}
+.vcard{border-radius:14px;padding:20px 22px;border:1px solid var(--hair-soft);}
+.vcard.others{background:var(--bg);}
+.vcard.us{background:linear-gradient(135deg,rgba(95,156,54,.10),rgba(132,191,82,.16));border-color:rgba(95,156,54,.35);}
+.vcard h4{font-family:var(--serif);font-weight:500;font-size:17px;}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px;font-size:13.5px;color:var(--ink-dim);}
+.chain span{background:#fff;border:1px solid var(--hair);border-radius:100px;padding:5px 13px;}
+.chain i{font-style:normal;color:var(--ink-faint);}
+.vcard.us .chain span{background:var(--green-deep);color:#fff;border-color:transparent;font-weight:600;}
+.vcard .vnote{font-size:13.5px;color:var(--ink-dim);margin-top:12px;opacity:.75;}
+.g5-vision{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px);margin-top:clamp(30px,4vw,46px);}
+@media(max-width:760px){.g5-vision{grid-template-columns:1fr;}}
+.g5-vis{background:var(--bg);border:1px solid var(--hair-soft);border-radius:14px;padding:22px;}
+.g5-vis b{display:block;font-family:var(--serif);font-weight:500;font-size:17px;color:var(--green-deep);line-height:1.35;}
+.g5-vis p{font-size:14px;color:var(--ink-dim);margin-top:8px;line-height:1.7;}
+</style>
 </head>
 <body>
 
@@ -24,9 +54,9 @@
 <header class="hero">
   <div class="bgimg"><img src="assets/exec-done.jpg" alt="ביצוע קבלנות בניין — שלי אורבן" /></div>
   <div class="wrap">
-    <span class="pill tag">תחום פעילות</span>
+    <span class="pill tag">קבלן רשום · סיווג ג׳5 · מאז 1996</span>
     <h1>ביצוע <em>קבלנות בניין.</em></h1>
-    <p class="hsub">מצוינות הנדסית בכל שלב — ביצוע, ניהול ופיקוח בשיטות בנייה מתקדמות, לאיכות וגימור בסטנדרט הגבוה ביותר.</p>
+    <p class="hsub">יזם שמבצע לעצמו, ברישיון קבלן בסיווג ג׳5 — הגבוה ביותר בפנקס הקבלנים. מצוינות הנדסית בכל שלב: ביצוע, ניהול ופיקוח בשיטות בנייה מתקדמות, לאיכות וגימור בסטנדרט הגבוה ביותר.</p>
   </div>
 </header>
 
@@ -35,6 +65,45 @@
     <div class="prose reveal">
       <p>דני שלי מהנדסים בע״מ מתמחה בבנייה, בניהולה ובפיקוח הנדסי. מאחורי כל אבן שאנו מניחים על הקרקע עומדת מחשבה מקדימה — והשילוב של ידע מקיף, מקצועיות, יסודיות ומערכות מידע מתקדמות מאפשר לנו איכות בנייה וגימור בסטנדרט הגבוה ביותר. אנו בעלי יכולות יוצאות דופן לתכנון וביצוע פרויקטים מורכבים, תוך שילוב מצוינות ניהולית והנדסית.</p>
       <p>מרגע תחילת הביצוע איננו מתפשרים על איכות, ומשלבים מטעמנו מומחים מהשורה הראשונה המפקחים על כל שלב ושלב: מבחירת אנשי המקצוע, קבלני המשנה, תהליכי העבודה והחומרים הטובים ביותר — תוך הבטחת קצב ואיכות עבודה מרביים. כך נשמרת בידינו שליטה מלאה בתהליך הביצוע, עד למסירת הדירות.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ G5 — הסיווג הגבוה ביותר + ביצוע עצמי ============ -->
+<section style="background:#fff;">
+  <div class="wrap">
+    <span class="eyebrow reveal">קבלן רשום · סיווג ג׳5</span>
+    <h2 class="reveal">הסיווג הגבוה ביותר. <em>ההיקף? ללא הגבלה.</em></h2>
+    <p class="sec-lead reveal">רשם הקבלנים במשרד הבינוי והשיכון מדרג כל חברת בנייה בישראל בסולם של חמש דרגות — לפי היקפי הביצוע שהוכיחה בשטח, איתנותה והצוות ההנדסי שלה. כל דרגה קובעת תקרה כספית לפרויקט שמותר לה לבצע. חוץ מאחת.</p>
+    <div class="g5-cols">
+      <div>
+        <ul class="ladder reveal">
+          <li class="top"><i>ג׳5</i><em><span class="who">שלי גרופ נמצאת כאן — מאז 1996 בתחום</span>ביצוע בהיקף כספי בלתי מוגבל · מהנדסים בכירים בחברה</em></li>
+          <li><i>ג׳4</i><em>עד כ-36.6 מיליון ₪ לאתר</em></li>
+          <li><i>ג׳3</i><em>היקף מוגבל · דרגת ביניים</em></li>
+          <li><i>ג׳2</i><em>היקף מוגבל</em></li>
+          <li><i>ג׳1</i><em>עד כ-5 מיליון ₪ — דרגת הכניסה</em></li>
+        </ul>
+        <p class="ladder-note">* תקרות ההיקף לפי עדכון רשם הקבלנים, ינואר 2025. את ג׳5 אי אפשר לקנות — רק לבנות: שנים של ביצוע מוכח, בהיקפים הולכים וגדלים.</p>
+      </div>
+      <div class="g5-vs">
+        <div class="vcard others reveal">
+          <h4>איך זה עובד אצל רוב היזמים</h4>
+          <div class="chain"><span>יזם</span><i>←</i><span>קבלן ראשי חיצוני</span><i>←</i><span>קבלני משנה</span><i>←</i><span>אתם</span></div>
+          <p class="vnote">כל שלב — גורם אחר. אחריות מפוצלת, פערי תיווך, ותשובות מסוג "זה לא אצלנו".</p>
+        </div>
+        <div class="vcard us reveal d1">
+          <h4>איך זה עובד בשלי גרופ</h4>
+          <div class="chain"><span>שלי גרופ — יזם · מהנדס · מבצע</span><i>←</i><span style="background:var(--green);">אתם</span></div>
+          <p class="vnote" style="opacity:1;">גורם אחד, אחריות אחת. מה שהובטח לכם בחוזה — נבנה באותן ידיים שחתמו עליו.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="g5-vision">
+      <article class="g5-vis reveal"><b>שליטה מלאה בכל תהליכי הייצור</b><p>מהתכנון, דרך השלד והגמר, ועד מסירת המפתח — כל שלב בשרשרת נשאר בידיים שלנו. אין תלות בקבלן חיצוני, אין הפתעות באמצע הדרך.</p></article>
+      <article class="g5-vis reveal d1"><b>איכות מובטחת — המוכר הוא הבונה</b><p>כשמי שמוכר לכם את הדירה הוא גם מי שבונה אותה, האינטרס שלנו ושלכם זהה: בית מושלם. אין תירוצים, אין פשרות ואין פערי אחריות.</p></article>
+      <article class="g5-vis reveal d2"><b>שירות ואחריות בלי תלות באחרים</b><p>שאלה בשנת הבדק? תיקון אחרי המסירה? אתם מול גורם אחד שמכיר כל בורג בבניין — כי הוא זה שהניח אותו.</p></article>
     </div>
   </div>
 </section>
