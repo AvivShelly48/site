@@ -5,15 +5,16 @@
     "cat": "build",
     "sale": "בשיווק",
     "stage": 2,
-    "image": "assets/har-avital/day-web.jpg",
-    "description": "פרויקט הדגל שלנו — חזית פחם אלגנטית, עמוד עץ חם ומרפסות מרחפות. תאורת LED לינארית מדגישה כל קומה; בלילה הבניין זוהר. שפה אדריכלית עכשווית, מהתכנון ועד מסירת המפתח.",
+    "image": "https://avivshelly48.github.io/site/assets/har-avital/day-web.jpg",
+    "gallery": ["https://avivshelly48.github.io/site/assets/har-avital/day-web.jpg", "https://avivshelly48.github.io/site/assets/har-avital/night-web.jpg", "https://avivshelly48.github.io/site/assets/har-avital/side-web.jpg"],
     "facts": [
       { "k": "floors", "v": "9", "l": "קומות" },
       { "k": "build", "v": "בוטיק", "l": "מגדל מגורים" },
       { "k": "key", "v": "LED", "l": "חזית מוארת" }
     ],
+    "description": "פרויקט הדגל שלנו — חזית פחם אלגנטית, עמוד עץ חם ומרפסות מרחפות. תאורת LED לינארית מדגישה כל קומה; בלילה הבניין זוהר. שפה אדריכלית עכשווית, מהתכנון ועד מסירת המפתח.",
     "featured": true,
-    "order": 0
+    "order": 1
   },
   {
     "title": "עצמאות · פינוי-בינוי",
@@ -21,33 +22,16 @@
     "cat": "renewal",
     "sale": "בביצוע",
     "stage": 2,
-    "image": "assets/uploads/render-independence.jpg",
-    "gallery": ["assets/uploads/render-independence.jpg", "assets/uploads/render-interior.jpg"],
-    "description": "פרויקט הדגל של שלי אורבן בלב יבנה — פינוי-בינוי שמסמן נקודת מפנה בהתחדשות העירונית של העיר. שלושה מגדלי יוקרה ו-273 דירות חדשות במקום 64 ותיקות, עם גישה ישירה לפארק נחל יבנה וסטנדרט תכנון ובנייה ברמת רוטשילד — מהתכנון ועד מסירת המפתח.",
+    "image": "https://avivshelly48.github.io/site/assets/uploads/render-independence.jpg",
+    "gallery": ["https://avivshelly48.github.io/site/assets/uploads/render-independence.jpg", "https://avivshelly48.github.io/site/assets/uploads/render-interior.jpg"],
     "facts": [
-      { "k": "units", "v": "273", "l": "יח\"ד חדשות" },
-      { "k": "renew", "v": "64", "l": "דירות ותיקות" },
-      { "k": "build", "v": "3", "l": "מגדלי יוקרה" }
-    ],
-    "featured": false,
-    "order": 1
-  },
-  {
-    "title": "מיכאל",
-    "location": "מתחם מגורי יוקרה",
-    "cat": "build",
-    "sale": "בשיווק",
-    "stage": 2,
-    "image": "assets/uploads/render-michael.jpg",
-    "gallery": ["assets/uploads/render-michael.jpg", "assets/uploads/render-tower.jpg"],
-    "description": "מתחם מגורים יוקרתי — שלושה מגדלי בוטיק לבנים הניצבים בלב פארק מטופח. אדריכלות נקייה ועכשווית, מרפסות מוצלות ושפע ירק, בסטנדרט בנייה גבוה במיוחד ובאיכות חסרת פשרות — מהתכנון ועד מסירת המפתח.",
-    "facts": [
+      { "k": "units", "v": "202", "l": "יח״ד חדשות" },
       { "k": "build", "v": "3", "l": "מגדלי מגורים" },
-      { "k": "park", "v": "פארק", "l": "מרחב ירוק" },
-      { "k": "key", "v": "בוטיק", "l": "סטנדרט יוקרה" }
+      { "k": "park", "v": "מסחר", "l": "קומת מסחר עירוני" }
     ],
+    "description": "פרויקט פינוי-בינוי בלב יבנה — מרכז מסחרי עירוני שמעליו שלושה מגדלי מגורים מודרניים, גינה לרווחת הדיירים וחניון תת-קרקעי רחב. 202 יחידות דיור חדשות בתמהיל מגוון של דירות 4–5–6 חד׳, פנטהאוזים ודירות גן — בנגישות נוחה לצירי תחבורה ולטיילת נחל יבנה.",
     "featured": false,
-    "order": 2
+    "order": 10
   },
   {
     "title": "קרן היסוד · מתחם הצעירים",
@@ -55,15 +39,15 @@
     "cat": "renewal",
     "sale": "בשיווק",
     "stage": 2,
-    "image": "assets/proj-keren.jpg",
-    "description": "מתחם התחדשות עירונית בלב אשדוד — 144 יחידות דיור חדשות לצד 144 דירות ותיקות המתחדשות, בבניין בן 7 קומות. דיור איכותי ונגיש לצעירים, עם מרחב ציבורי וקהילתי מתחדש.",
+    "image": "https://avivshelly48.github.io/site/assets/proj-keren.jpg",
     "facts": [
-      { "k": "units", "v": "144", "l": "יח\"ד חדשות" },
-      { "k": "floors", "v": "7", "l": "קומות" },
-      { "k": "renew", "v": "144", "l": "דירות מתחדשות" }
+      { "k": "renew", "v": "144", "l": "דירות מתחדשות" },
+      { "k": "units", "v": "138", "l": "דירות חדשות" },
+      { "k": "build", "v": "2", "l": "שלבי ביצוע" }
     ],
+    "description": "מתחם התחדשות עירונית למשפחות צעירות בלב אשדוד, בשני שלבי ביצוע — שלב א׳: 72 דירות קיימות ו-66 דירות חדשות; שלב ב׳: 72 קיימות ו-72 חדשות. דירות 3–4 חדרים ודירות גג בעיצוב מודרני ובסטנדרט בנייה גבוה, בקרבת פארק אשדוד-ים, האמפי תיאטרון וחופי העיר.",
     "featured": false,
-    "order": 3
+    "order": 20
   },
   {
     "title": "הציונות 10 · סיטי פארק",
@@ -71,15 +55,15 @@
     "cat": "sale",
     "sale": "בשיווק",
     "stage": 2,
-    "image": "assets/proj-142.jpg",
-    "description": "פרויקט 'מחיר למשתכן' ייחודי בלב אשדוד — שלושה בנייני מגורים בני 9 קומות מעל שני מפלסי חניה תת-קרקעית. נגישות עירונית, חניה נוחה ואיכות חיים גבוהה.",
+    "image": "https://avivshelly48.github.io/site/assets/proj-142.jpg",
     "facts": [
       { "k": "floors", "v": "9", "l": "קומות" },
       { "k": "build", "v": "3", "l": "בנייני מגורים" },
       { "k": "park", "v": "2", "l": "מפלסי חניה" }
     ],
+    "description": "פרויקט 'מחיר למשתכן' ייחודי בלב אשדוד, בפריים-לוקיישן מול פארק ירוק ומרהיב — שלושה בנייני מגורים בני 9 קומות מעל שני מפלסי חניון תת-קרקעי. דירות מרווחות בתכנון ייחודי עם מפרט מפנק ומתקדם, בסטנדרט בנייה גבוה במיוחד, לזוגות צעירים ולמשפחות.",
     "featured": false,
-    "order": 4
+    "order": 30
   },
   {
     "title": "הלילך",
@@ -87,30 +71,15 @@
     "cat": "renewal",
     "sale": "בשיווק",
     "stage": 2,
-    "image": "assets/proj-lilac.jpg",
-    "description": "פרויקט התחדשות עירונית במרכז יבנה — חידוש מתחם מגורים ותיק לכדי בניין חדש ומודרני, עם ליווי דיירים מלא לאורך כל הדרך, מהתכנון ועד המסירה.",
+    "image": "https://avivshelly48.github.io/site/assets/proj-lilac.jpg",
+    "gallery": ["https://avivshelly48.github.io/site/assets/proj-lilac.jpg", "https://avivshelly48.github.io/site/assets/proj-lilac3.jpg", "https://avivshelly48.github.io/site/assets/proj-lilac5.jpg"],
     "facts": [
-      { "k": "renew", "v": "תמ\"א", "l": "פינוי-בינוי" },
-      { "k": "floors", "v": "מגורים", "l": "בנייה חדשה" },
-      { "k": "key", "v": "ליווי", "l": "דיירים מלא" }
+      { "k": "build", "v": "6", "l": "בניינים ברחוב" },
+      { "k": "renew", "v": "3+3", "l": "תמ״א 38 ופינוי-בינוי" },
+      { "k": "key", "v": "בוטיק", "l": "בנייני מגורים" }
     ],
+    "description": "התחדשות של רחוב שלם בלב יבנה — שישה בניינים מודרניים שישנו את פני הרחוב והשכונה: שלושה בתמ״א 38 ושלושה בפינוי-בינוי שבמקומם יוקמו שלושה מגדלי מגורים. בנייני בוטיק בעיצוב נקי ואורבני, סביב גינה ציבורית מטופחת — שילוב מנצח של קהילה, שקט וחיים עירוניים תוססים.",
     "featured": false,
-    "order": 5
-  },
-  {
-    "title": "שערי העיר · רובע 9",
-    "location": "אשדוד",
-    "cat": "build",
-    "sale": "בתכנון",
-    "stage": 1,
-    "image": "assets/proj-independence.jpg",
-    "description": "מתחם מגורים ותעסוקה ברובע 9 באשדוד — כ-240 יחידות דיור לצד פארק תעסוקה עם משרדים ומסחר. שכונה חדשה שמשלבת מגורים, עבודה ופנאי תחת קורת גג אחת.",
-    "facts": [
-      { "k": "units", "v": "כ-240", "l": "יח\"ד" },
-      { "k": "build", "v": "מגורים", "l": "+ תעסוקה" },
-      { "k": "park", "v": "מסחר", "l": "ומשרדים" }
-    ],
-    "featured": false,
-    "order": 6
+    "order": 40
   }
 ]
