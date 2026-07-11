@@ -6,6 +6,7 @@
 <title>שלי אורבן — הר אביטל · חוויה אימרסיבית</title>
 <meta name="description" content="הר אביטל — הבית הבא שלכם. נדל״ן · התחדשות עירונית · בנייה. חוויה אימרסיבית בהשראת Active Theory × Obys." />
 <link rel="icon" href="assets/s-mark-green.png" />
+<script>window.SHELLY_BASE44_API = "https://app.base44.com/api/apps/6a2ff9d8f0f6cef4ef4c3d65/functions";</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -13,7 +14,6 @@
 <!-- ⚙️ Base44 data source: set this to the public functions base URL to pull projects/units live.
      Leave empty to use embedded data. Example:
      window.SHELLY_BASE44_API = "https://app.base44.com/api/apps/<APP_ID>/functions"; -->
-<script>window.SHELLY_BASE44_API = "https://app.base44.com/api/apps/6a2ff9d8f0f6cef4ef4c3d65/functions";</script>
 
 <style>
   :root{
@@ -49,17 +49,17 @@
   /* loader */
   #loader{position:fixed;inset:0;z-index:100;background:var(--bg);
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    transition:opacity .9s ease .15s, visibility .9s ease .15s;}
+    transition:opacity 1.5s ease .2s, visibility 1.5s ease .2s;}
   #loader.done{opacity:0;visibility:hidden;pointer-events:none;}
   #loader::before{content:"";position:absolute;inset:0;opacity:.5;
     background-image:linear-gradient(var(--hair-soft) 1px,transparent 1px),linear-gradient(90deg,var(--hair-soft) 1px,transparent 1px);
     background-size:46px 46px;-webkit-mask:radial-gradient(circle at 50% 46%,#000,transparent 70%);mask:radial-gradient(circle at 50% 46%,#000,transparent 70%);}
-  .load-mark{width:46px;margin-bottom:24px;opacity:0;animation:fu 1s ease .1s forwards;position:relative;}
-  .load-word{font-family:var(--serif);font-weight:400;font-size:13px;letter-spacing:.62em;
-    color:var(--ink-dim);margin-bottom:22px;padding-right:.62em;opacity:0;animation:fu 1s ease .25s forwards;position:relative;}
-  .load-bar{width:min(220px,54vw);height:1px;background:var(--hair);position:relative;overflow:hidden;}
-  .load-fill{position:absolute;inset-block:0;right:0;width:0;background:var(--green);}
-  .load-pct{margin-top:14px;font-size:10px;letter-spacing:.34em;color:var(--ink-faint);position:relative;}
+  .load-mark{display:none;}
+  .load-word{color:var(--ink);margin-bottom:34px;opacity:0;animation:lgin 2.2s cubic-bezier(.16,.6,.2,1) .3s forwards;position:relative;}
+  @keyframes lgin{from{opacity:0;transform:translateY(16px) scale(.97)}60%{opacity:1}to{opacity:1;transform:none}}
+  .load-bar{width:min(250px,58vw);height:1px;background:var(--hair-soft);position:relative;overflow:hidden;opacity:0;animation:fu 1.6s ease 1.1s forwards;}
+  .load-fill{position:absolute;inset-block:0;right:0;width:0;background:var(--green-deep);transition:width .6s cubic-bezier(.3,.7,.3,1);}
+
   @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
   /* nav */
@@ -69,7 +69,6 @@
   #nav:not(.shrunk) .brand .bw,#nav:not(.shrunk) .nav-links a{color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.4);}
   #nav:not(.shrunk) .nav-cta{border-color:rgba(255,255,255,.7);color:#fff;}
   .brand{display:flex;align-items:center;gap:11px;}
-  .brand img{width:26px;height:auto;}
   .brand .bw{line-height:1;transition:color .4s;color:var(--ink);}
   /* SHELLY GROUP logo — currentColor via mask, crisp at any size */
   .logo-sg{display:inline-block;background:currentColor;
@@ -82,6 +81,7 @@
   .nav-links a{position:relative;padding-bottom:4px;transition:color .3s;}
   .nav-links a::after{content:"";position:absolute;bottom:0;right:0;width:0;height:1px;background:var(--green);transition:width .35s;}
   .nav-links a:hover::after{width:100%;}
+  #nav .nav-links a:hover{color:var(--green-deep);text-shadow:none;}
   .nav-cta{font-size:13px;border:1px solid var(--ink);padding:9px 18px;border-radius:1px;transition:.3s;}
   .nav-cta:hover{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important;}
   .nav-cb{position:absolute;width:1px;height:1px;opacity:0;margin:-1px;pointer-events:none;}
@@ -481,16 +481,14 @@
 
 <!-- Loader -->
 <div id="loader">
-  <img class="load-mark" src="assets/s-mark-green.png" alt="" />
-  <div class="load-word"><span class="logo-sg" role="img" aria-label="SHELLY GROUP" style="width:168px;height:47px;"></span></div>
+  <div class="load-word"><span class="logo-sg" role="img" aria-label="SHELLY GROUP" style="width:min(236px,64vw);height:66px;"></span></div>
   <div class="load-bar"><div class="load-fill" id="loadFill"></div></div>
-  <div class="load-pct"><span id="loadPct">0</span> / 100</div>
 </div>
 
 <!-- Nav -->
 <nav id="nav">
   <input type="checkbox" id="navCb" class="nav-cb" aria-label="פתיחת תפריט ניווט" />
-  <a class="brand" href="#top"><img src="assets/s-mark-green.png" alt="" /><span class="bw"><span class="logo-sg" role="img" aria-label="SHELLY GROUP"></span></span></a>
+  <a class="brand" href="#top"><span class="bw"><span class="logo-sg" role="img" aria-label="SHELLY GROUP"></span></span></a>
   <div class="nav-links" id="navLinks">
     <a href="#projects">פרויקטים</a>
     <a href="#availability">דירות זמינות</a>
@@ -798,10 +796,12 @@
   window.__loaderFinish=finish;
   function tick(){
     var sp = window.__seqProgress ? window.__seqProgress() : Math.min(1,(Date.now()-t0)/1500);
-    var p = Math.round(sp*100);
-    fill.style.width=p+'%'; pct.textContent=p;
-    if((window.__seqReady && p>=100) || (!window.__seqProgress && p>=100) || Date.now()-t0>8000){ setTimeout(finish,300); }
-    else setTimeout(tick, 60);
+    /* pace the bar against a calm clock — the logo deserves a beat of stillness */
+    var tp = Math.min(1,(Date.now()-t0)/2800);
+    var p = Math.round(Math.min(sp,tp)*100);
+    fill.style.width=p+'%'; if(pct) pct.textContent=p;
+    if(((window.__seqReady||!window.__seqProgress) && p>=100) || Date.now()-t0>8000){ setTimeout(finish,450); }
+    else setTimeout(tick, 80);
   }
   addEventListener('load',function(){setTimeout(tick,150);});
   setTimeout(function(){if(!done && Date.now()-t0>1000) tick();},1100);
