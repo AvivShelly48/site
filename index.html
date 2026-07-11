@@ -208,6 +208,10 @@
   .pcard:hover .pcard-img img{transform:scale(1.06);}
   .pcard-tag{position:absolute;top:14px;inset-inline-end:14px;font-size:10.5px;letter-spacing:.14em;font-weight:700;
     color:var(--char);background:var(--led);padding:5px 12px;border-radius:100px;box-shadow:0 6px 16px -8px rgba(0,0,0,.45);}
+  /* צבעי סטטוס: בשיווק=ירוק · בתכנון=צהוב · אוכלס/הושלם=שחור */
+  .pcard-tag.t-mark{background:var(--green-deep);color:#fff;}
+  .pcard-tag.t-plan{background:#ffd84d;color:#5b4410;}
+  .pcard-tag.t-done{background:var(--ink);color:#fff;}
   .pcard-body{padding:20px 22px 20px;display:flex;flex-direction:column;flex:1;}
   .pcard-ttl{font-family:var(--serif);font-weight:500;font-size:23px;line-height:1.15;color:var(--ink);}
   .pcard-loc{font-size:13.5px;color:var(--ink-dim);margin-top:8px;letter-spacing:.03em;display:flex;align-items:center;gap:7px;}
@@ -270,6 +274,9 @@
 
   .lb-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .lb-meta .lb-sale{font-size:11px;letter-spacing:.1em;font-weight:600;color:var(--green-deep);border:1px solid rgba(95,156,54,.4);border-radius:2px;padding:3px 9px;}
+  .lb-meta .lb-sale.t-mark{background:var(--green-deep);color:#fff;border-color:var(--green-deep);}
+  .lb-meta .lb-sale.t-plan{background:#ffd84d;color:#5b4410;border-color:#e6bd2e;}
+  .lb-meta .lb-sale.t-done{background:var(--ink);color:#fff;border-color:var(--ink);}
   /* fact icons row */
   .lb-facts{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;}
   .lb-facts .fact{flex:1 1 0;min-width:88px;border:1px solid var(--hair-soft);border-radius:6px;padding:13px 12px;background:#fff;}
@@ -651,7 +658,7 @@
     <article class="feat reveal" data-project="feat" data-hot>
       <div class="feat-img"><img src="assets/har-avital/day-web.jpg" alt="הר אביטל" /></div>
       <div class="feat-copy">
-        <span class="badge">פרויקט הדגל · בשיווק</span>
+        <span class="badge">פרויקט הדגל · בתכנון</span>
         <h3>הר אביטל</h3>
         <div class="loc">מגדל מגורים בוטיק · שפה אדריכלית עכשווית</div>
         <p>חזית פחם אלגנטית, עמוד עץ חם ומרפסות מרחפות. תאורת LED לינארית שמדגישה כל קומה — בלילה הבניין זוהר.</p>
@@ -1075,6 +1082,13 @@
   /* cat: renewal=התחדשות עירונית · sale=מחיר למשתכן · build=בנייה למגורים · commercial=מסחרי
      stage: 1=רישוי · 2=ביצוע · 3=אכלוס.  Data sourced from shellyurban.co.il */
   var CAT={renewal:"התחדשות עירונית", sale:"מחיר למשתכן", build:"בנייה למגורים", commercial:"מסחרי"};
+  function tagClass(sale){
+    sale=sale||"";
+    if(sale.indexOf("שיווק")!==-1) return "t-mark";
+    if(sale.indexOf("תכנון")!==-1) return "t-plan";
+    if(sale.indexOf("אוכלס")!==-1||sale.indexOf("הושלם")!==-1||sale.indexOf("נמסר")!==-1) return "t-done";
+    return "";
+  }
   var PROJECTS = [
     { title:"עצמאות · פינוי-בינוי", location:"יבנה", cat:"renewal", sale:"בתכנון", stage:1,
       image:"assets/uploads/render-independence.jpg",
@@ -1127,7 +1141,7 @@
       var d=i%3===1?'d1':(i%3===2?'d2':'');
       return '<article class="pcard reveal '+d+'" data-hot tabindex="0" aria-label="'+p.title+'">'+
         '<div class="pcard-img"><img src="'+p.image+'" alt="'+('הדמיית '+p.title+(p.location?' — '+p.location:''))+'" loading="lazy" />'+
-        '<span class="pcard-tag">'+(p.sale||CAT[p.cat]||'')+'</span></div>'+
+        '<span class="pcard-tag '+tagClass(p.sale)+'">'+(p.sale||CAT[p.cat]||'')+'</span></div>'+
         '<div class="pcard-body"><div class="pcard-ttl">'+p.title+'</div>'+
         '<div class="pcard-loc">'+p.location+'</div>'+
         '<div class="pcard-facts">'+chips(p)+'</div>'+
@@ -1172,6 +1186,7 @@
     curCat=CAT[p.cat]||''; curTitle=p.title||'';
     lbCat.textContent=curCat;
     lbSale.textContent=p.sale||''; lbSale.style.display=p.sale?'':'none';
+    lbSale.className='lb-sale '+tagClass(p.sale);
     /* animated category overlay — renewal sweeps old→new, marketing pulses */
     var cw;
     if(p.cat==='renewal') cw='<div class="catanim renewal"><span class="ca-lab">'+CAT.renewal+'</span><span class="ca-ba"><b>ישן</b><span class="ar">→</span><b>חדש</b></span></div>';
