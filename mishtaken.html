@@ -40,6 +40,13 @@
   .nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
     padding:14px clamp(18px,5vw,64px);background:rgba(241,239,234,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--hair-soft);}
   .nav .brand{font-family:var(--serif);font-weight:600;font-size:21px;letter-spacing:.12em;}
+  /* SHELLY GROUP logo — currentColor via mask, crisp at any size */
+  .logo-sg{display:inline-block;background:currentColor;
+    -webkit-mask:url(assets/logo-shelly-group.svg) no-repeat center / contain;
+    mask:url(assets/logo-shelly-group.svg) no-repeat center / contain;}
+  .nav .brand .logo-sg{width:104px;height:29px;vertical-align:middle;}
+  .foot .fbrand .logo-sg{width:126px;height:35px;}
+
   .nav .brand span{color:var(--green-deep);font-family:var(--sans);font-size:10px;letter-spacing:.3em;margin-inline-start:6px;}
   .nav .nlinks{display:flex;align-items:center;gap:22px;font-size:14px;}
   .nav .nlinks a.back{color:var(--ink-dim);}
@@ -164,7 +171,7 @@
   .g5-chip .g{font-family:var(--serif);color:var(--led);font-size:15px;letter-spacing:.02em;background:rgba(243,214,160,.1);
     border:1px solid rgba(243,214,160,.45);border-radius:100px;min-width:30px;height:30px;display:grid;place-items:center;padding:0 4px;}
   
-  .foot .fbrand span{color:var(--green-bright);font-family:var(--sans);font-size:10px;letter-spacing:.3em;margin-inline-start:6px;}
+  .foot .fbrand .logo-sg{color:#fff;margin-inline-start:0;}
   .foot a{color:rgba(255,255,255,.7);}
   .foot .fbot{padding-top:22px;font-size:12px;color:rgba(255,255,255,.6);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
   .foot .fsocial{display:flex;gap:10px;margin-top:16px;}
@@ -185,7 +192,7 @@
 
 <!-- NAV -->
 <nav class="nav">
-  <a class="brand" href="index.html">SHELLY<span>GROUP</span></a>
+  <a class="brand" href="index.html"><span class="logo-sg" role="img" aria-label="SHELLY GROUP"></span></a>
   <div class="nlinks">
     <a class="back" href="index.html">← חזרה לאתר</a>
     <a class="ncta" href="https://dira.moch.gov.il/ProjectsList" target="_blank" rel="noopener">הרשמה להגרלה</a>
@@ -364,7 +371,7 @@
 <footer class="foot">
   <div class="ftop">
     <div>
-      <div class="fbrand">SHELLY<span>GROUP</span></div>
+      <div class="fbrand"><span class="logo-sg" role="img" aria-label="SHELLY GROUP"></span></div>
       <a class="g5-chip" href="contracting.html" title="קבלן רשום סיווג ג׳5"><span class="g">ג׳5</span> קבלן רשום בסיווג הגבוה ביותר · ביצוע עצמי מאז 1996</a>
       <p style="margin-top:12px;max-width:36ch;font-size:14px;">הציונות 10 · סיטי פארק, אשדוד · מחיר למשתכן — מהתכנון ועד מסירת המפתח.</p>
       <div class="fsocial">

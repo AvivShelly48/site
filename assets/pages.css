@@ -118,7 +118,7 @@ h2 em{font-style:normal;color:var(--green-deep);}
 .foot{background:var(--char);color:rgba(255,255,255,.6);padding:48px clamp(18px,5vw,64px) 36px;}
 .foot .ftop{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:26px;}
 .foot .fbrand{font-family:var(--serif);font-weight:600;font-size:22px;letter-spacing:.12em;color:#fff;}
-.foot .fbrand span{color:var(--green-bright);font-family:var(--sans);font-size:10px;letter-spacing:.3em;margin-inline-start:6px;}
+.foot .fbrand .logo-sg{color:#fff;margin-inline-start:0;}
 .foot .fcol{display:flex;flex-direction:column;gap:8px;font-size:14px;}
 .foot .fcol h5{font-size:12px;letter-spacing:.12em;color:var(--ink-faint);margin-bottom:4px;font-weight:600;}
 .foot a:hover{color:#fff;}
@@ -161,3 +161,10 @@ h2,.hero h1,.cta h3,.member h3{letter-spacing:.05em;}
   background:rgba(243,214,160,.07);border:1px solid rgba(243,214,160,.38);color:#fff;font-size:12.5px;font-weight:500;}
 .g5-chip .g{font-family:var(--serif);color:var(--led);font-size:15px;letter-spacing:.02em;background:rgba(243,214,160,.1);
   border:1px solid rgba(243,214,160,.45);border-radius:100px;min-width:30px;height:30px;display:grid;place-items:center;padding:0 4px;}
+
+/* SHELLY GROUP logo — currentColor via mask */
+.logo-sg{display:inline-block;background:currentColor;
+  -webkit-mask:url(logo-shelly-group.svg) no-repeat center / contain;
+  mask:url(logo-shelly-group.svg) no-repeat center / contain;}
+.nav .brand .logo-sg{width:104px;height:29px;vertical-align:middle;}
+.foot .fbrand .logo-sg{width:126px;height:35px;}
