@@ -133,7 +133,11 @@
   .cchap.live{opacity:1;}
   .cchap a,.cchap button{pointer-events:auto;}
   /* captions sit high on the sky beside the building and POP in on scroll */
-  .cpanel{position:absolute;inset-inline-start:clamp(20px,7vw,110px);top:30%;transform:translateY(-30%);max-width:min(42vw,470px);}
+  .cpanel{position:absolute;inset-inline-start:clamp(20px,7vw,110px);top:30%;transform:translateY(-30%);max-width:min(46vw,520px);}
+  .cpanel::before{content:"";position:absolute;inset:-46px -70px;z-index:-1;border-radius:40px;pointer-events:none;
+    background:radial-gradient(62% 58% at 62% 42%, rgba(14,12,20,.22), transparent 72%);}
+  .cino-chapters.on-light .cpanel::before{background:radial-gradient(62% 58% at 62% 42%, rgba(255,255,255,.38), transparent 72%);}
+  .cpanel .eyebrow{color:inherit;opacity:.95;font-size:clamp(13px,1.15vw,15px);font-weight:700;letter-spacing:.24em;}
   .cino-chapters:not(.on-light) .cpanel{text-shadow:0 2px 24px rgba(0,0,0,.4);}
   .cpanel>*{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.85,.25,1),transform .8s cubic-bezier(.2,.85,.25,1);}
   .cchap.live .cpanel>*{opacity:1;transform:none;}
@@ -142,17 +146,17 @@
   .cchap.live .cpanel>*:nth-child(3){transition-delay:.21s}
   .cchap.live .cpanel>*:nth-child(4){transition-delay:.29s}
   .cpanel .ce{margin-bottom:18px;}
-  .cpanel .csub{font-size:14.5px;margin-top:14px;letter-spacing:.02em;}
+  .cpanel .csub{font-size:clamp(15px,1.3vw,17.5px);font-weight:500;margin-top:16px;letter-spacing:.02em;opacity:.95;}
   .cpanel h1{font-family:var(--serif);font-weight:500;line-height:1.04;font-size:clamp(36px,5vw,80px);letter-spacing:-.01em;}
   .cpanel h1 em,.cpanel h2 em,.cpanel .big b{font-style:normal;color:var(--acc);}
   .cpanel h2{font-family:var(--serif);font-weight:500;line-height:1.1;font-size:clamp(27px,3.6vw,50px);}
   .cpanel .big{font-family:var(--serif);font-weight:400;line-height:1.2;font-size:clamp(24px,3.3vw,48px);}
-  .cpanel .ctext{margin-top:20px;color:inherit;opacity:.92;font-size:clamp(15px,1.4vw,17px);max-width:40ch;}
+  .cpanel .ctext{margin-top:20px;color:inherit;opacity:.95;font-size:clamp(16px,1.6vw,19.5px);font-weight:400;line-height:1.7;max-width:40ch;}
   .cpanel .ctext b{color:var(--acc)!important;}
-  .cpanel .ccta{margin-top:30px;display:inline-flex;align-items:center;gap:13px;font-size:14px;letter-spacing:.05em;color:inherit;}
+  .cpanel .ccta{margin-top:30px;display:inline-flex;align-items:center;gap:13px;font-size:15.5px;font-weight:600;letter-spacing:.05em;color:inherit;}
   .cpanel .ccta .ln2{width:46px;height:1px;background:var(--acc);transition:width .4s;}
   .cpanel .ccta:hover .ln2{width:74px;}
-  .cpanel .dnum{font-family:var(--serif);font-size:13px;letter-spacing:.3em;color:var(--acc);margin-bottom:14px;}
+  .cpanel .dnum{font-family:var(--serif);font-size:clamp(13px,1.1vw,15px);letter-spacing:.32em;color:var(--acc);margin-bottom:14px;font-weight:600;}
   .cpanel .led-bars{display:flex;gap:6px;margin-top:20px;max-width:240px;}
   .cpanel .led-bars i{height:2px;flex:1;background:var(--acc);opacity:.85;}
 
@@ -160,7 +164,7 @@
   .cino-rail i{width:7px;height:7px;border-radius:50%;border:1px solid currentColor;opacity:.4;transition:.35s;color:#fff;}
   .cino-chapters.on-light ~ .cino-rail i{color:#1b1922;}
   .cino-rail i.on{opacity:1;background:currentColor;}
-  .cino-count{position:absolute;inset-inline-start:clamp(20px,7vw,110px);top:clamp(86px,13vh,128px);z-index:6;
+  .cino-count{position:absolute;inset-inline-end:clamp(22px,4vw,64px);top:clamp(86px,12vh,120px);z-index:6;
     font-family:var(--serif);font-size:13px;letter-spacing:.34em;color:#fff;opacity:.8;text-shadow:0 1px 10px rgba(0,0,0,.3);}
   .cino-count b{color:var(--acc);font-weight:500;}
   .cino-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:9px;
@@ -643,40 +647,40 @@
     <!-- 1 · Day -->
     <div class="cchap" data-ch="0">
       <div class="cpanel">
-        <div class="eyebrow ce">נדל״ן · התחדשות עירונית · בנייה</div>
+        <div class="eyebrow ce">שלי גרופ · יזם שהוא גם הקבלן המבצע</div>
         <h1>כאן ייבנה<br><em>הבית הבא שלכם.</em></h1>
-        <div class="csub ce">שלי גרופ — יזם שהוא גם הקבלן המבצע · סיווג ג׳5 · מאז 1996</div>
+        <div class="csub ce">התחדשות עירונית · בנייה · מחיר למשתכן — בסיווג ג׳5, מאז 1996</div>
         <a href="#projects" class="ccta" data-hot><span class="ln2"></span> גלו את הפרויקטים</a>
       </div>
     </div>
     <!-- 2 · Golden hour -->
     <div class="cchap" data-ch="1">
       <div class="cpanel">
-        <div class="dnum">01</div>
+        <div class="dnum">01 — היוקרה</div>
         <h2><em>יוקרה</em> רואים.</h2>
-        <p class="ctext">בכל פרט — בחזית, בלובי ובמרפסת.</p>
+        <p class="ctext">אדריכלות מוקפדת, חומרים עשירים וגימור ללא פשרות — בחזית, בלובי ובכל מרפסת.</p>
       </div>
     </div>
     <!-- 3 · Sunset -->
     <div class="cchap" data-ch="2">
       <div class="cpanel">
-        <div class="dnum">02</div>
+        <div class="dnum">02 — הביצוע</div>
         <h2><em>מצוינות</em> מרגישים.</h2>
-        <p class="ctext">בגימור, בחומרים ובאיכות הבנייה.</p>
+        <p class="ctext">ביצוע עצמי בסיווג ג׳5 — איכות בנייה שנמדדת בפרטים הקטנים ביותר.</p>
       </div>
     </div>
     <!-- 4 · Dusk / approaching the entrance -->
     <div class="cchap" data-ch="3">
       <div class="cpanel">
-        <div class="dnum">03</div>
+        <div class="dnum">03 — האחריות</div>
         <h2><em>ביטחון</em> חשים.</h2>
-        <p class="ctext">ליווי מלא — מהתכנון ועד מסירת המפתח.</p>
+        <p class="ctext">יזם וקבלן באותו בית — אחריות אחת מלאה, מהחוזה ועד מסירת המפתח.</p>
       </div>
     </div>
     <!-- 5 · Lobby (inside) -->
     <div class="cchap" data-ch="4">
       <div class="cpanel">
-        <div class="dnum">הלובי · קומת הכניסה</div>
+        <div class="dnum">04 — הלובי</div>
         <h2>ברוכים הבאים <em>הביתה.</em></h2>
         <p class="ctext">כאן מתחילים החיים החדשים שלכם.</p>
         <a href="#projects" class="ccta" data-hot><span class="ln2"></span> כנסו לפרויקטים</a>
