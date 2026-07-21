@@ -5,8 +5,8 @@
     "cat": "build",
     "sale": "בשיווק",
     "stage": 2,
-    "image": "https://avivshelly48.github.io/site/assets/har-avital/day-web.jpg",
-    "gallery": ["https://avivshelly48.github.io/site/assets/har-avital/day-web.jpg", "https://avivshelly48.github.io/site/assets/har-avital/night-web.jpg", "https://avivshelly48.github.io/site/assets/har-avital/side-web.jpg"],
+    "image": "https://shellyurban.co.il/assets/har-avital/day-web.jpg",
+    "gallery": ["https://shellyurban.co.il/assets/har-avital/day-web.jpg", "https://shellyurban.co.il/assets/har-avital/night-web.jpg", "https://shellyurban.co.il/assets/har-avital/side-web.jpg"],
     "facts": [
       { "k": "floors", "v": "9", "l": "קומות" },
       { "k": "build", "v": "בוטיק", "l": "מגדל מגורים" },
@@ -22,8 +22,8 @@
     "cat": "renewal",
     "sale": "בביצוע",
     "stage": 2,
-    "image": "https://avivshelly48.github.io/site/assets/uploads/render-independence.jpg",
-    "gallery": ["https://avivshelly48.github.io/site/assets/uploads/render-independence.jpg", "https://avivshelly48.github.io/site/assets/uploads/render-interior.jpg"],
+    "image": "https://shellyurban.co.il/assets/uploads/render-independence.jpg",
+    "gallery": ["https://shellyurban.co.il/assets/uploads/render-independence.jpg", "https://shellyurban.co.il/assets/uploads/render-interior.jpg"],
     "facts": [
       { "k": "units", "v": "202", "l": "יח״ד חדשות" },
       { "k": "build", "v": "3", "l": "מגדלי מגורים" },
@@ -39,7 +39,7 @@
     "cat": "renewal",
     "sale": "בשיווק",
     "stage": 2,
-    "image": "https://avivshelly48.github.io/site/assets/proj-keren.jpg",
+    "image": "https://shellyurban.co.il/assets/proj-keren.jpg",
     "facts": [
       { "k": "renew", "v": "144", "l": "דירות מתחדשות" },
       { "k": "units", "v": "138", "l": "דירות חדשות" },
@@ -55,7 +55,7 @@
     "cat": "sale",
     "sale": "בשיווק",
     "stage": 2,
-    "image": "https://avivshelly48.github.io/site/assets/proj-142.jpg",
+    "image": "https://shellyurban.co.il/assets/proj-142.jpg",
     "facts": [
       { "k": "floors", "v": "9", "l": "קומות" },
       { "k": "build", "v": "3", "l": "בנייני מגורים" },
@@ -71,8 +71,8 @@
     "cat": "renewal",
     "sale": "בשיווק",
     "stage": 2,
-    "image": "https://avivshelly48.github.io/site/assets/proj-lilac.jpg",
-    "gallery": ["https://avivshelly48.github.io/site/assets/proj-lilac.jpg", "https://avivshelly48.github.io/site/assets/proj-lilac3.jpg", "https://avivshelly48.github.io/site/assets/proj-lilac5.jpg"],
+    "image": "https://shellyurban.co.il/assets/proj-lilac.jpg",
+    "gallery": ["https://shellyurban.co.il/assets/proj-lilac.jpg", "https://shellyurban.co.il/assets/proj-lilac3.jpg", "https://shellyurban.co.il/assets/proj-lilac5.jpg"],
     "facts": [
       { "k": "build", "v": "6", "l": "בניינים ברחוב" },
       { "k": "renew", "v": "3+3", "l": "תמ״א 38 ופינוי-בינוי" },

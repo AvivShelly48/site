@@ -16,4 +16,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://avivshelly48.github.io/site/sitemap.xml
+Sitemap: https://shellyurban.co.il/sitemap.xml
