@@ -434,6 +434,8 @@
   .unit-proj{font-size:13px;color:var(--green-deep);font-weight:600;letter-spacing:.02em;margin-top:6px;}
   .unit-price{margin-top:9px;font-size:12.5px;color:var(--ink-dim);font-weight:500;}
   .unit-price b{font-weight:700;color:var(--ink);}
+  .unit-mail{display:block;margin-top:9px;text-align:center;font-size:12.5px;font-weight:600;color:var(--green-deep);}
+  .unit-mail:hover{text-decoration:underline;}
   .unit-btn{margin-top:14px;width:100%;border:none;border-radius:9px;padding:11px;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;transition:.25s;}
   .unit-btn.go{background:var(--green-deep);color:#fff;}
   .unit-btn.go:hover{background:#2f5417;}
@@ -1420,13 +1422,13 @@
 <script>
 (function(){
   var SAMPLE=[
-    {project:"עצמאות · פינוי-בינוי", location:"יבנה", rooms:5, priceFrom:2640000, status:"available", image:"assets/uploads/render-independence.jpg"},
-    {project:"עצמאות · פינוי-בינוי", location:"יבנה", rooms:4, priceFrom:2180000, status:"available", image:"assets/uploads/render-interior.jpg"},
-    {project:"הלילך", location:"יבנה", rooms:4, priceFrom:2420000, status:"available", image:"assets/proj-lilac.jpg"},
-    {project:"הלילך", location:"יבנה", rooms:5, priceFrom:2780000, status:"reserved", image:"assets/proj-lilac3.jpg"},
-    {project:"קרן היסוד · מתחם הצעירים", location:"אשדוד", rooms:3, priceFrom:1790000, status:"available", image:"assets/proj-keren.jpg"},
-    {project:"קרן היסוד · מתחם הצעירים", location:"אשדוד", rooms:4, priceFrom:2050000, status:"reserved", image:"assets/proj-independence3.jpg"},
-    {project:"הציונות 10 · סיטי פארק", location:"אשדוד", rooms:4, priceFrom:0, status:"available", image:"assets/proj-142.jpg"}
+    {project:"עצמאות · פינוי-בינוי", location:"יבנה", rooms:5, status:"available", image:"assets/uploads/render-independence.jpg"},
+    {project:"עצמאות · פינוי-בינוי", location:"יבנה", rooms:4, status:"available", image:"assets/uploads/render-interior.jpg"},
+    {project:"הלילך", location:"יבנה", rooms:4, status:"available", image:"assets/proj-lilac.jpg"},
+    {project:"הלילך", location:"יבנה", rooms:5, status:"reserved", image:"assets/proj-lilac3.jpg"},
+    {project:"קרן היסוד · מתחם הצעירים", location:"אשדוד", rooms:3, status:"available", image:"assets/proj-keren.jpg"},
+    {project:"קרן היסוד · מתחם הצעירים", location:"אשדוד", rooms:4, status:"reserved", image:"assets/proj-independence3.jpg"},
+    {project:"הציונות 10 · סיטי פארק", location:"אשדוד", rooms:4, status:"available", image:"assets/proj-142.jpg"}
   ];
   var BADGE={available:["available","🟢 פנוי"],reserved:["reserved","🟡 בהמתנה"],sold:["sold","🔴 נמכר"]};
   var grid=document.getElementById('availGrid'), filt=document.getElementById('availFilter'), note=document.getElementById('availNote');
@@ -1446,7 +1448,7 @@
     var nm=document.getElementById('lf-name'); if(nm) setTimeout(function(){nm.focus();},400);
   }
   function card(u){
-    var b=BADGE[u.status]||BADGE.available, sold=u.status==='sold', l=loc(u), pr=priceOf(u);
+    var b=BADGE[u.status]||BADGE.available, sold=u.status==='sold', l=loc(u);
     var el=document.createElement('article'); el.className='unit-card'+(sold?' sold':'');
     el.innerHTML=
       '<div class="unit-img"><img src="'+u.image+'" alt="הדמיית '+u.project+'" loading="lazy" />'+
@@ -1455,13 +1457,16 @@
       '<div class="unit-body">'+
         '<div class="unit-title">דירת '+u.rooms+' חדרים</div>'+
         '<div class="unit-proj">'+u.project+(l?' · '+l:'')+'</div>'+
-        (pr?'<div class="unit-price">'+(sold?'נמכר':'מחיר החל מ־ <b>'+nis(pr)+'</b>')+'</div>':'')+
+        '<div class="unit-price">'+(sold?'נמכר':'מחיר ופרטים — <b>בשיחה אישית</b>')+'</div>'+
       '</div>';
     var btn=document.createElement('button');
     if(sold){btn.className='unit-btn off';btn.textContent='נמכר';btn.disabled=true;}
-    else{btn.className='unit-btn go';btn.textContent=(u.status==='reserved'?'בקשת מידע · בהמתנה':'שריינו דירה זו');
+    else{btn.className='unit-btn go';btn.textContent=(u.status==='reserved'?'בקשת מידע · בהמתנה':'לתיאום פגישה');
       btn.addEventListener('click',function(){reserve(u);});}
     el.querySelector('.unit-body').appendChild(btn);
+    if(!sold){var ml=document.createElement('a');ml.className='unit-mail';
+      ml.href='mailto:Office@shellyurban.co.il?subject='+encodeURIComponent('התעניינות בדירת '+u.rooms+' חדרים · '+u.project);
+      ml.textContent='או צרו קשר במייל ›';el.querySelector('.unit-body').appendChild(ml);}
     return el;
   }
   function render(list, sample){
@@ -1479,7 +1484,7 @@
     chip('הכל','__all'); projects.forEach(function(p){chip(p.split(' · ')[0].split(',')[0],p);});
     paint();
     var avail=list.filter(function(u){return u.status==='available';}).length;
-    note.textContent='כעת '+avail+' דירות פנויות. כל התמונות הן הדמיות אדריכליות להמחשה בלבד ואינן מהוות מצג מחייב. '+(sample?'נתוני המלאי והמחירים להמחשה — יתעדכנו אוטומטית ממערכת המכירות.':'');
+    note.textContent='כעת '+avail+' דירות פנויות. כל התמונות הן הדמיות אדריכליות להמחשה בלבד ואינן מהוות מצג מחייב. '+(sample?'נתוני המלאי להמחשה — יתעדכנו אוטומטית ממערכת המכירות.':'');
   }
   var API=(window.SHELLY_BASE44_API||"").replace(/\/+$/,"");
   if(API){
