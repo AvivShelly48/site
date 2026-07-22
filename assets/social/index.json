@@ -1,4 +1,7 @@
 {
+  "version": 2,
+  "released": "2026-07-22T15:20Z",
+  "note": "bump 'version' on every asset update; agent should verify this field post-deploy before publishing",
   "generated_for": "Meta Graph API (Facebook/Instagram)",
   "count": 56,
   "assets": [
