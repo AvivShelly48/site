@@ -186,7 +186,7 @@
   .scene-head h2{font-family:var(--serif);font-weight:500;line-height:1.08;font-size:clamp(30px,4.4vw,58px);letter-spacing:-.01em;margin-top:18px;}
   .scene-head h2 em{font-style:normal;color:var(--green);}
   .scene-head .lead{margin-top:22px;max-width:52ch;color:var(--ink-dim);font-size:clamp(15px,1.4vw,17.5px);}
-  .scene-num{position:absolute;top:clamp(40px,7vw,90px);inset-inline-end:clamp(20px,7vw,140px);font-family:var(--serif);font-size:13px;letter-spacing:.3em;color:var(--ink-dim);}
+  .scene-num{display:block;margin:0 0 clamp(12px,1.5vw,20px);font-family:var(--serif);font-weight:500;font-size:clamp(16px,1.7vw,22px);letter-spacing:.12em;color:var(--ink-dim);}
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1);will-change:opacity,transform;}
   .reveal.in{opacity:1;transform:none;}
   .d1{transition-delay:.1s}.d2{transition-delay:.2s}
@@ -513,7 +513,8 @@
   .faq-more a:hover{text-decoration:underline;}
 
   /* Legacy gallery — נבנה. נמסר. אוכלס. */
-  #legacy{background:linear-gradient(180deg,#232127 0%,#2c2a30 100%);color:#fff;}
+  #legacy{background:linear-gradient(180deg,#232127 0%,#2c2a30 100%);color:#fff;padding-block:clamp(64px,10vw,120px);}
+  #availability,#faq{padding-top:clamp(48px,7vw,80px);}
   #legacy .scene-num{color:rgba(255,255,255,.5);}
   #legacy .eyebrow{color:var(--led);}
   #legacy .scene-head h2{color:#fff;}
