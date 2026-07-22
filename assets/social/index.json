@@ -1,0 +1,398 @@
+{
+  "generated_for": "Meta Graph API (Facebook/Instagram)",
+  "count": 56,
+  "assets": [
+    {
+      "project": "beer-ganim",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/beer-ganim-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "beer-ganim",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/beer-ganim-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "beer-ganim",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/beer-ganim-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "beer-ganim",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/beer-ganim-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "city-dream",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/city-dream-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "city-dream",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/city-dream-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "city-dream",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/city-dream-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "city-dream",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/city-dream-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "city-park",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/city-park-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "city-park",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/city-park-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "city-park",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/city-park-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "city-park",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/city-park-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "hamifras-towers",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/hamifras-towers-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "hamifras-towers",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/hamifras-towers-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "hamifras-towers",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/hamifras-towers-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "hamifras-towers",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/hamifras-towers-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "har-avital",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/har-avital-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "har-avital-night",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/har-avital-night-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "har-avital-night",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/har-avital-night-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "har-avital-night",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/har-avital-night-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "har-avital-night",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/har-avital-night-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "har-avital",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/har-avital-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "har-avital",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/har-avital-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "har-avital",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/har-avital-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "imri-shefer",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/imri-shefer-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "imri-shefer",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/imri-shefer-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "imri-shefer",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/imri-shefer-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "imri-shefer",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/imri-shefer-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "independence",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/independence-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "independence",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/independence-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "independence",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/independence-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "independence",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/independence-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "ir-hayayin",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/ir-hayayin-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "ir-hayayin",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/ir-hayayin-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "ir-hayayin",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/ir-hayayin-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "ir-hayayin",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/ir-hayayin-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "keren-hayesod",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/keren-hayesod-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "keren-hayesod",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/keren-hayesod-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "keren-hayesod",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/keren-hayesod-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "keren-hayesod",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/keren-hayesod-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "keter-david",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/keter-david-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "keter-david",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/keter-david-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "keter-david",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/keter-david-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "keter-david",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/keter-david-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "la-deauville",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/la-deauville-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "la-deauville",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/la-deauville-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "la-deauville",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/la-deauville-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "la-deauville",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/la-deauville-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "lilac",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/lilac-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "lilac",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/lilac-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "lilac",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/lilac-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "lilac",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/lilac-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "project": "shapira",
+      "format": "fb",
+      "url": "https://shellygroup.co.il/assets/social/shapira-fb.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "project": "shapira",
+      "format": "portrait",
+      "url": "https://shellygroup.co.il/assets/social/shapira-portrait.jpg",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "project": "shapira",
+      "format": "square",
+      "url": "https://shellygroup.co.il/assets/social/shapira-square.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "project": "shapira",
+      "format": "stories",
+      "url": "https://shellygroup.co.il/assets/social/shapira-stories.jpg",
+      "width": 1080,
+      "height": 1920
+    }
+  ]
+}
