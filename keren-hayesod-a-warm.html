@@ -1,0 +1,118 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>קרן היסוד · הבית שמתחיל בקרוב</title><meta name="description" content="מתחם הצעירים קרן היסוד, אשדוד — דירות במחיר למשתכן במרחק הליכה מהים. השאירו פרטים."><meta name="robots" content="noindex"><link rel="icon" href="assets/s-mark-green.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet"><style>
+:root{--bg:#f2efe9;--card:#fff;--ink:#211f26;--ink-2:#5c5750;--gold:#c99a3f;--gold-d:#a97d28;
+--char:#26242b;--green:#5f9c36;--green-d:#447327;--hair:rgba(33,31,38,.12);--serif:"Frank Ruhl Libre",serif;--sans:"Assistant",system-ui,sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(18px,5vw,48px)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.1;letter-spacing:-.01em}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.22em;color:var(--gold-d)}
+.btn{display:inline-flex;align-items:center;gap:9px;background:var(--green);color:#fff;border:none;cursor:pointer;
+font-family:inherit;font-weight:600;font-size:16px;padding:14px 30px;border-radius:100px;transition:.2s}
+.btn:hover{background:var(--green-d)}
+.btn.gold{background:var(--gold);}.btn.gold:hover{background:var(--gold-d)}
+/* topbar */
+.top{position:sticky;top:0;z-index:40;background:rgba(38,36,43,.92);backdrop-filter:blur(8px);color:#fff}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:13px}
+.top .brand{font-family:var(--serif);font-weight:700;letter-spacing:.06em;font-size:19px}
+.top .brand small{font-size:11px;letter-spacing:.35em;opacity:.7;display:block;margin-top:-4px}
+.top .tcta{font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.35);border-radius:100px;padding:7px 18px}
+/* gallery */
+.sec{padding-block:clamp(46px,7vw,86px)}
+.sec-h{text-align:center;max-width:640px;margin:0 auto clamp(26px,4vw,42px)}
+.sec-h h2{font-size:clamp(26px,3.6vw,42px);margin-top:8px}
+.sec-h p{color:var(--ink-2);font-size:16px;margin-top:12px}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gal figure{margin:0;border-radius:12px;overflow:hidden;aspect-ratio:3/2;background:#ddd}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.gal figure:hover img{transform:scale(1.05)}
+@media(max-width:720px){.gal{grid-template-columns:repeat(2,1fr)}}
+/* reel */
+.reel{display:flex;justify-content:center}
+.reel video{width:min(340px,86vw);aspect-ratio:9/16;border-radius:20px;background:#000;box-shadow:0 30px 60px -25px rgba(0,0,0,.5);object-fit:cover}
+/* lead form */
+.lead{background:var(--char);color:#fff;border-radius:20px;padding:clamp(28px,5vw,52px);max-width:560px;margin:0 auto;text-align:center}
+.lead h2{color:#fff;font-size:clamp(24px,3.2vw,36px)}
+.lead p{color:rgba(255,255,255,.68);margin-top:10px;font-size:15.5px}
+.lead form{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+.lead input{font-family:inherit;font-size:16px;padding:14px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.18);
+background:rgba(255,255,255,.06);color:#fff;text-align:right}
+.lead input::placeholder{color:rgba(255,255,255,.5)}
+.lead input:focus{outline:2px solid var(--gold)}
+.lead .btn{justify-content:center;width:100%;margin-top:4px}
+.lead [data-lead-status]{min-height:18px;font-size:13.5px;margin-top:4px;color:var(--gold)}
+.lead [data-lead-status][data-ok="0"]{color:#ff9a8a}
+.lead .fine{font-size:12px;color:rgba(255,255,255,.4);margin-top:10px}
+.wa{display:inline-flex;gap:8px;align-items:center;color:var(--green);font-weight:600;margin-top:16px;font-size:15px}
+/* offer chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+.chip{background:var(--card);border:1px solid var(--hair);border-radius:100px;padding:8px 18px;font-size:14px;font-weight:600}
+.chip b{color:var(--gold-d)}
+footer{background:var(--char);color:rgba(255,255,255,.6);text-align:center;padding:34px 18px;font-size:13px}
+footer b{color:#fff;font-family:var(--serif);letter-spacing:.05em}
+/* hero variants */
+.hero{position:relative;color:#fff;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,24,.55),rgba(20,18,24,.75))}
+.hero .wrap{position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(16px);animation:rise .8s .1s forwards cubic-bezier(.2,.8,.2,1)}
+.reveal.d1{animation-delay:.22s}.reveal.d2{animation-delay:.36s}.reveal.d3{animation-delay:.5s}
+@keyframes rise{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.reveal{animation:none;opacity:1;transform:none}}
+</style></head><body>  <header class="top"><div class="wrap"><div class="brand">SHELLY<small>GROUP</small></div>
+    <a class="tcta" href="#lead">לפרטים ←</a></div></header>
+  <section class="hero" style="min-height:88vh;display:flex;align-items:center;text-align:center">
+    <div class="hero-bg"><img src="assets/social/keren-hayesod-02.jpg" alt="מתחם הצעירים קרן היסוד בשעת דמדומים"></div>
+    <div class="wrap"><div style="max-width:720px;margin:0 auto;padding-block:60px">
+      <span class="eyebrow reveal" style="color:#f3d6a0">מתחם הצעירים · קרן היסוד · אשדוד</span>
+      <h1 class="reveal d1" style="font-size:clamp(34px,6vw,68px);margin-top:14px">יש רגעים<br>שחווים רק שגרים קרוב.</h1>
+      <p class="reveal d2" style="font-size:clamp(16px,1.8vw,20px);color:rgba(255,255,255,.82);margin-top:18px;max-width:52ch;margin-inline:auto">
+        בית ראשון לזוגות צעירים, במרחק הליכה מהים — קהילה, שקט וחיים עירוניים, במחיר של מתחם הצעירים.</p>
+      <div class="reveal d3" style="margin-top:30px"><a class="btn" href="#lead">קבלו פרטים ←</a></div>
+    </div></div>
+  </section>
+  <section class="sec" id="gallery">
+    <div class="wrap">
+      <div class="sec-h"><span class="eyebrow">גלריית הפרויקט</span><h2>ככה זה נראה</h2>
+        <p>הדמיות אדריכליות של מתחם הצעירים בקרן היסוד, אשדוד — מגורים בסטנדרט גבוה במרחק הליכה מהים.</p></div>
+      <div class="gal" id="gal">
+        <figure><img src="assets/social/keren-hayesod-01.jpg" alt="הדמיית מתחם הצעירים קרן היסוד 1" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+        <figure><img src="assets/social/keren-hayesod-02.jpg" alt="הדמיית מתחם הצעירים קרן היסוד 2" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+        <figure><img src="assets/social/keren-hayesod-03.jpg" alt="הדמיית מתחם הצעירים קרן היסוד 3" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+        <figure><img src="assets/social/keren-hayesod-04.jpg" alt="הדמיית מתחם הצעירים קרן היסוד 4" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+        <figure><img src="assets/social/keren-hayesod-05.jpg" alt="הדמיית מתחם הצעירים קרן היסוד 5" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+        <figure><img src="assets/social/keren-hayesod-06.jpg" alt="הדמיית מתחם הצעירים קרן היסוד 6" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      </div>
+    </div>
+  </section>
+  <section class="sec" id="reel" style="background:linear-gradient(180deg,#ecebe5,#f2efe9)">
+    <div class="wrap">
+      <div class="sec-h"><span class="eyebrow">רגע מהחיים כאן</span><h2>יש רגעים שחווים רק שגרים קרוב</h2></div>
+      <div class="reel">
+        <video src="assets/video/keren-hayesod-reel-web.mp4" poster="assets/social/keren-hayesod-02.jpg"
+          controls playsinline preload="metadata" onerror="this.closest('.reel').innerHTML='<img src=&quot;assets/social/keren-hayesod-02.jpg&quot; style=&quot;width:min(340px,86vw);border-radius:20px&quot; alt=&quot;קרן היסוד&quot;>'"></video>
+      </div>
+    </div>
+  </section>
+  <section class="sec" id="lead">
+    <div class="wrap">
+      <div class="lead">
+        <h2>נשמח להכיר</h2><p>השאירו שם וטלפון — נחזור אליכם עם כל הפרטים, ללא התחייבות.</p>
+        <form data-lead data-variant="a-warm">
+          <input name="name" type="text" placeholder="שם מלא" autocomplete="name">
+          <input name="phone" type="tel" placeholder="טלפון נייד" autocomplete="tel" inputmode="tel">
+          <button class="btn gold" type="submit">שליחה ופתיחת וואטסאפ ←</button>
+          <div data-lead-status></div>
+        </form>
+        <a class="wa" href="https://wa.me/972542025700" target="_blank" rel="noopener">או דברו איתנו ישירות בוואטסאפ</a>
+        <div class="fine">השארת הפרטים מהווה הסכמה ליצירת קשר. הדמיות להמחשה בלבד.</div>
+      </div>
+    </div>
+  </section>
+  <footer><b>SHELLY GROUP</b> · קרן היסוד — מתחם הצעירים, אשדוד · יזם וקבלן מבצע בסיווג ג׳5<br>
+    <span style="opacity:.6">כל הזכויות שמורות · דני שלי מהנדסים בע״מ</span></footer>
+  <script src="assets/lead.js"></script>
+</body></html>
