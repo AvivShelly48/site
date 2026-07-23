@@ -41,6 +41,11 @@ font-family:inherit;font-weight:600;font-size:16px;padding:14px 30px;border-radi
 background:rgba(255,255,255,.06);color:#fff;text-align:right}
 .lead input::placeholder{color:rgba(255,255,255,.5)}
 .lead input:focus{outline:2px solid var(--gold)}
+.lead select{font-family:inherit;font-size:15px;padding:13px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;width:100%}
+.lead select:focus{outline:2px solid var(--gold)}
+.lead select option{color:#211f26}
+.lead .frow2{display:flex;gap:12px}
+.lead .frow2 select{flex:1}
 .lead .btn{justify-content:center;width:100%;margin-top:4px}
 .lead [data-lead-status]{min-height:18px;font-size:13.5px;margin-top:4px;color:var(--gold)}
 .lead [data-lead-status][data-ok="0"]{color:#ff9a8a}
@@ -112,6 +117,19 @@ footer b{color:#fff;font-family:var(--serif);letter-spacing:.05em}
         <form data-lead data-variant="b-clear">
           <input name="name" type="text" placeholder="שם מלא" autocomplete="name">
           <input name="phone" type="tel" placeholder="טלפון נייד" autocomplete="tel" inputmode="tel">
+          <input name="email" type="email" placeholder="אימייל (לקבלת אישור · לא חובה)" autocomplete="email">
+          <div class="frow2">
+            <select name="rooms" aria-label="מספר חדרים">
+              <option value="">מספר חדרים</option>
+              <option value="3">3 חדרים</option><option value="4">4 חדרים</option>
+              <option value="5">5 חדרים</option><option value="5+">5+ / פנטהאוז</option>
+            </select>
+            <select name="timeline" aria-label="מתי מתכננים לרכוש">
+              <option value="">מתי מתכננים?</option>
+              <option value="מיידי">מיידי</option><option value="3-6 חודשים">3–6 חודשים</option>
+              <option value="השנה">במהלך השנה</option><option value="בודק">רק בודק/ת</option>
+            </select>
+          </div>
           <button class="btn gold" type="submit">שליחה ופתיחת וואטסאפ ←</button>
           <div data-lead-status></div>
         </form>
