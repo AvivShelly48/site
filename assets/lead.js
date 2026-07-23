@@ -1,10 +1,10 @@
 /* ============================================================
    lead.js — לכידת ליד לקמפיין, משותף לכל דפי הנחיתה
    פעולה כפולה בלחיצה אחת:
-     1. רישום הליד ב-CRM (Base44 · submitLead) — עם גיבוי localStorage
+     1. רישום הליד ב-CRM (Base44 · submitLead). כישלון → console + תור pendingLeads
      2. פתיחת וואטסאפ עם הודעה מוכנה
    שימוש בדף:  <form data-lead data-variant="a-warm"> ... </form>
-   שדות בטופס:  name (חובה) · phone (חובה) · email · rooms · timeline
+   שדות בסכמה: name*, phone*, email, project, rooms, budget, timeline, message, source, status
    ============================================================ */
 (function () {
   "use strict";
@@ -12,7 +12,7 @@
   var CONFIG = {
     whatsapp: "972542025700",
     project: "קרן היסוד · מתחם הצעירים",
-    // פונקציית קליטת לידים ב-Base44 (מפעילה גם מייל אישור ממותג כשיש email)
+    // מפעיל גם מייל אישור ממותג בעברית כשמצורף email
     leadEndpoint: "https://app.base44.com/api/apps/6831d279a324b0b9eda7a0f4/functions/submitLead"
   };
 
@@ -25,46 +25,42 @@
   function validPhone(p) { var d = digits(p); return d.length >= 9 && d.length <= 11; }
   function val(form, name) { var el = form.querySelector('[name="' + name + '"]'); return el ? el.value.trim() : ""; }
 
-  function waMessage(payload, variant) {
+  function waMessage(p, variant) {
     var parts = [];
-    if (payload.name) parts.push("שמי " + payload.name);
+    if (p.name) parts.push("שמי " + p.name);
     parts.push("הגעתי מדף הנחיתה של " + CONFIG.project + " ורוצה לקבל פרטים על הדירות");
-    if (payload.rooms) parts.push("מעוניין/ת ב-" + payload.rooms + " חדרים");
-    if (payload.timeline) parts.push("טווח זמן: " + payload.timeline);
+    if (p.rooms) parts.push("מעוניין/ת ב-" + p.rooms + " חדרים");
+    if (p.timeline) parts.push("טווח זמן: " + p.timeline);
     return parts.join(". ") + ". (" + (VARIANT_LABEL[variant] || variant) + ")";
   }
 
-  function saveBackup(payload, reason) {
+  function queueBackup(payload, status) {
     try {
-      var KEY = "shelly_lead_backup";
-      var arr = JSON.parse(localStorage.getItem(KEY) || "[]");
-      arr.push({ payload: payload, reason: reason, at: new Date().toISOString() });
-      localStorage.setItem(KEY, JSON.stringify(arr));
+      var q = JSON.parse(localStorage.getItem("pendingLeads") || "[]");
+      q.push({ payload: payload, at: Date.now(), status: status });
+      localStorage.setItem("pendingLeads", JSON.stringify(q));
     } catch (e) { /* localStorage unavailable */ }
   }
 
+  // רישום ל-CRM. לא חוסם את המשתמש; לא בולע כישלון — לא לאבד ליד בשקט.
   function recordLead(payload) {
-    // רישום ל-CRM. לא חוסם את הוואטסאפ. הצלחה = 201; אחרת console + גיבוי.
-    try {
-      fetch(CONFIG.leadEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).then(function (res) {
-        if (res.status !== 201) {
-          console.error("[lead] submitLead returned HTTP " + res.status + " (expected 201) — lead saved to localStorage backup", payload);
-          saveBackup(payload, "http_" + res.status);
+    fetch(CONFIG.leadEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) {
+        if (!r.ok) {
+          console.error("lead POST failed", r.status);
+          queueBackup(payload, r.status);
         } else {
-          console.info("[lead] submitLead OK (201)");
+          console.info("lead POST ok", r.status);
         }
-      }).catch(function (err) {
-        console.error("[lead] submitLead network error — lead saved to localStorage backup", err, payload);
-        saveBackup(payload, "network");
+      })
+      .catch(function (e) {
+        console.error("lead POST error", e);
+        queueBackup(payload, "network");
       });
-    } catch (e) {
-      console.error("[lead] submitLead threw — lead saved to localStorage backup", e, payload);
-      saveBackup(payload, "exception");
-    }
   }
 
   function openWhatsApp(payload, variant) {
@@ -79,6 +75,7 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var name = val(form, "name"), phone = val(form, "phone");
+      var email = val(form, "email"), rooms = val(form, "rooms"), timeline = val(form, "timeline");
 
       if (!validPhone(phone)) {
         if (status) { status.textContent = "מספר טלפון לא תקין — בדקו ונסו שוב."; status.dataset.ok = "0"; }
@@ -86,18 +83,18 @@
         return;
       }
 
+      // רק שדות מהסכמה; אופציונליים ריקים מושמטים; page מקופל לתוך message
       var payload = {
         name: name,
         phone: phone,
-        email: val(form, "email"),
-        rooms: val(form, "rooms"),
-        timeline: val(form, "timeline"),
         project: CONFIG.project,
         source: "landing:" + variant,
         status: "חדשה",
-        message: "ליד מדף נחיתה — קרן היסוד",
-        page: location.pathname
+        message: "ליד מדף נחיתה — קרן היסוד · " + location.pathname
       };
+      if (email) payload.email = email;
+      if (rooms) payload.rooms = rooms;
+      if (timeline) payload.timeline = timeline;
 
       recordLead(payload);
 
