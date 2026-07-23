@@ -1,0 +1,119 @@
+{
+  "campaign": "keren-hayesod",
+  "project": "מתחם הצעירים · קרן היסוד · אשדוד",
+  "count": 16,
+  "assets": [
+    {
+      "name": "post-01",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-01.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-02",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-02.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-03",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-03.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-04",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-04.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-05",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-05.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-06",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-06.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-07",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-07.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-08",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-08.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-09",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-09.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-10",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-10.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-11",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-11.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "post-12",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/post-12.jpg",
+      "width": 1080,
+      "height": 1080,
+      "type": "finished_post"
+    },
+    {
+      "name": "render-dusk",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/render-dusk.jpg",
+      "width": 1080,
+      "height": 675,
+      "type": "render"
+    },
+    {
+      "name": "render-day",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/render-day.jpg",
+      "width": 1080,
+      "height": 675,
+      "type": "render"
+    },
+    {
+      "name": "composite",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/composite.jpg",
+      "width": 768,
+      "height": 1376,
+      "type": "asset"
+    },
+    {
+      "name": "logo-dark",
+      "url": "https://shellygroup.co.il/assets/campaign/keren-hayesod/logo-dark.png",
+      "width": 1080,
+      "height": 301,
+      "type": "asset"
+    }
+  ]
+}
