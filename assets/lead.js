@@ -10,6 +10,7 @@
     whatsapp: "972542025700",
     project: "קרן היסוד · מתחם הצעירים",
     leadEndpoint: "https://app.base44.com/api/apps/6a621a13ad33551ddd2b220c/functions/receiveLead",
+    videoUrl: "https://res.cloudinary.com/qwjrim41/video/upload/f_auto,q_auto/v1784870055/%D7%99%D7%A9_%D7%A8%D7%92%D7%A2%D7%99%D7%9D_%D7%A9%D7%97%D7%95%D7%95%D7%99%D7%9D_%D7%A8%D7%A7_%D7%A9%D7%92%D7%A8%D7%99%D7%9D_%D7%A7%D7%A8%D7%95%D7%91_ss59uq.mp4",
     allowedRooms: [2.5, 3, 4]
   };
 
@@ -111,6 +112,20 @@
       '<option value="4">4 חדרים</option>';
   }
 
+  function attachCloudinaryVideo() {
+    var videos = document.querySelectorAll("video");
+    for (var i = 0; i < videos.length; i++) {
+      var video = videos[i];
+      var current = video.getAttribute("src") || "";
+      if (current.indexOf("keren-hayesod-reel-web.mp4") !== -1 || current.indexOf("cloudinary.com/qwjrim41") !== -1) {
+        video.src = CONFIG.videoUrl;
+        video.setAttribute("playsinline", "");
+        video.setAttribute("preload", "metadata");
+        video.load();
+      }
+    }
+  }
+
   function attachDirectWhatsAppLinks() {
     var links = document.querySelectorAll('a[href*="wa.me/972542025700"]');
     for (var i = 0; i < links.length; i++) {
@@ -184,6 +199,7 @@
   function init() {
     flushQueue();
     window.addEventListener("online", flushQueue);
+    attachCloudinaryVideo();
     var forms = document.querySelectorAll("form[data-lead]");
     for (var i = 0; i < forms.length; i++) attach(forms[i]);
     attachDirectWhatsAppLinks();
