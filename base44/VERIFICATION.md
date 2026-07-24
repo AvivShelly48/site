@@ -11,10 +11,17 @@ Verified from the repository on 2026-07-24:
   backend function.
 - `submitLead.js` returns `201` after creating a Lead, `400` for missing
   required fields, `405` for unsupported methods, and `500` on an exception.
-- CORS explicitly allows `POST`, `OPTIONS`, `Content-Type`, and `Accept`.
+- CORS allows `POST`, `OPTIONS`, `Content-Type`, and `Accept`, and returns an
+  allow-origin header only for `shellygroup.co.il` and `www.shellygroup.co.il`.
 - The form reports loading, success, and failure states. A failed submission
   is not converted into a false success or silently discarded.
-- A honeypot field and a 30-second browser-side submission throttle are active.
+- A honeypot field, a 30-second browser-side submission throttle, and a
+  server-side per-client throttle are active. The server allows at most five
+  requests per ten minutes for an IP-derived key and returns `429` with
+  `Retry-After` when exceeded.
+- The checked-in server limiter is intentionally dependency-free and scoped to
+  a warm function isolate. A platform/edge limiter or Turnstile is still
+  recommended for globally durable protection across multiple instances.
 - No Turnstile configuration or site key exists in the repository, so
   Turnstile was not added and no secret was invented.
 
@@ -28,6 +35,8 @@ Not verified without Base44 access or an authorized production test:
   currently succeed in production.
 - Whether the public endpoint's deployed CORS settings match the checked-in
   function.
+- Whether Base44 preserves the documented forwarding headers and warm-isolate
+  lifetime used by the checked-in server-side rate limiter.
 
 The repository is not a Base44 CLI-linked project (`base44/config.jsonc` is
 absent), and the current environment could not authenticate through the Base44
