@@ -21,6 +21,7 @@
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="שלי גרופ — פרויקט מגורים" />
 <script>window.SHELLY_BASE44_API = "https://app.base44.com/api/apps/6a2ff9d8f0f6cef4ef4c3d65/functions";</script>
+<link rel="preload" as="image" href="assets/building/day.webp" fetchpriority="high" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -202,7 +203,1064 @@
   .feat .feat-copy .badge{align-self:flex-start;font-size:11px;letter-spacing:.2em;font-weight:600;color:var(--led);border:1px solid rgba(243,214,160,.4);border-radius:2px;padding:5px 11px;}
   .feat .feat-copy h3{font-family:var(--serif);font-weight:500;font-size:clamp(30px,3.6vw,50px);margin:22px 0 0;line-height:1.05;}
   .feat .feat-copy .loc{color:rgba(255,255,255,.6);font-size:14px;margin-top:12px;letter-spacing:.04em;}
-  .feat .feat-copy p{color:rgba(255,255,255,.78);font-size:15px;margin-top…21473 tokens truncated… שלי גרופ, ברישיון קבלן ג׳5." },
+  .feat .feat-copy p{color:rgba(255,255,255,.78);font-size:15px;margin-top:20px;max-width:42ch;}
+  .feat .feat-copy .more{margin-top:30px;display:inline-flex;align-items:center;gap:13px;font-size:13.5px;letter-spacing:.05em;color:#fff;}
+  .feat .feat-copy .more .ln2{width:42px;height:1px;background:var(--led);transition:width .4s;}
+  .feat:hover .feat-copy .more .ln2{width:70px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(18px,2vw,28px);}
+  /* inviting soft cards: image on top, light info panel below */
+  .pcard{position:relative;display:flex;flex-direction:column;background:var(--bg2);border:1px solid var(--hair-soft);
+    border-radius:16px;overflow:hidden;cursor:pointer;box-shadow:0 1px 2px rgba(23,21,26,.04);
+    transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s,border-color .55s;}
+  .pcard:hover,.pcard:focus-visible{transform:translateY(-6px);box-shadow:0 26px 50px -26px rgba(23,21,26,.36);border-color:var(--hair);outline:none;}
+  .pcard-img{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--char);}
+  .pcard-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1);}
+  .pcard:hover .pcard-img img{transform:scale(1.06);}
+  .pcard-tag{position:absolute;top:14px;inset-inline-end:14px;font-size:10.5px;letter-spacing:.14em;font-weight:700;
+    color:var(--char);background:var(--led);padding:5px 12px;border-radius:100px;box-shadow:0 6px 16px -8px rgba(0,0,0,.45);}
+  /* צבעי סטטוס: בשיווק=ירוק · בתכנון=צהוב · אוכלס/הושלם=שחור */
+  .pcard-tag.t-mark{background:var(--green-deep);color:#fff;}
+  .pcard-tag.t-plan{background:#ffd84d;color:#5b4410;}
+  .pcard-tag.t-done{background:var(--ink);color:#fff;}
+  .pcard-body{padding:20px 22px 20px;display:flex;flex-direction:column;flex:1;}
+  .pcard-ttl{font-family:var(--serif);font-weight:500;font-size:23px;line-height:1.15;color:var(--ink);}
+  .pcard-loc{font-size:13.5px;color:var(--ink-dim);margin-top:8px;letter-spacing:.03em;display:flex;align-items:center;gap:7px;}
+  .pcard-loc::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green);flex:none;}
+  .pcard-facts{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px;}
+  .pcard-facts span{font-size:12px;font-weight:600;color:var(--green-deep);background:rgba(95,156,54,.10);
+    border:1px solid rgba(95,156,54,.18);border-radius:100px;padding:4px 11px;}
+  .pcard-cta{margin-top:auto;padding-top:17px;margin-top:17px;display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid var(--hair-soft);}
+  .pcard-cta b{font-weight:600;font-size:13px;letter-spacing:.03em;color:var(--green);}
+  .pcard-cta i{font-style:normal;font-size:16px;color:var(--green);transition:transform .35s;}
+  .pcard:hover .pcard-cta i{transform:translateX(-6px);}
+
+  .lb{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px);background:rgba(18,16,22,.86);backdrop-filter:blur(10px);opacity:0;transition:opacity .4s;}
+  .lb.on{display:flex;opacity:1;}
+  .lb-card{position:relative;max-width:1040px;width:100%;max-height:90vh;overflow-y:auto;overflow-x:hidden;background:transparent;
+    transform:translateY(22px) scale(.985);transition:transform .55s cubic-bezier(.2,.8,.2,1);scrollbar-width:none;}
+  .lb-card::-webkit-scrollbar{display:none;}
+  .lb.on .lb-card{transform:none;}
+  .lb-card .lb-img{position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:var(--char);}
+  .lb-card .lb-img img{width:100%;height:100%;object-fit:cover;}
+  /* floating luxe info card overlapping the image */
+  .lb-card .lb-body{position:relative;z-index:6;width:min(560px,90%);margin:-160px auto 6px;margin-inline-start:clamp(16px,4%,56px);
+    background:var(--bg2);border-radius:18px;padding:clamp(26px,3vw,42px);display:flex;flex-direction:column;
+    box-shadow:0 44px 90px -42px rgba(14,12,20,.62),0 0 0 1px var(--hair-soft);}
+  .lb-card .lb-body .lb-meta .st{font-size:11px;letter-spacing:.16em;font-weight:600;color:var(--green-deep);background:rgba(95,156,54,.14);padding:5px 12px;border-radius:100px;}
+  .lb-card .lb-body h3{font-family:var(--serif);font-weight:500;font-size:clamp(28px,3vw,42px);margin:14px 0 0;line-height:1.04;}
+  .lb-card .lb-body .loc{color:var(--ink-dim);font-size:14px;margin-top:11px;letter-spacing:.04em;}
+  .lb-card .lb-body p{color:var(--ink-dim);font-size:15px;margin-top:18px;line-height:1.7;}
+  .lb-card .lb-body .lb-cta{margin-top:26px;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;
+    background:var(--ink);color:#fff;padding:13px 24px;border-radius:100px;font-size:13.5px;font-weight:600;border:1px solid var(--ink);transition:.3s;}
+  .lb-card .lb-body .lb-cta:hover{background:var(--green);border-color:var(--green);}
+  .lb-close{position:absolute;top:16px;inset-inline-end:16px;z-index:8;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.94);border:none;cursor:pointer;display:grid;place-items:center;font-size:20px;color:var(--ink);box-shadow:0 8px 24px -8px rgba(0,0,0,.5);}
+  /* animated category overlay on the image (differs for renewal vs marketing) */
+  .lb-img{overflow:hidden;}
+  /* lightbox image gallery thumbnails */
+  .lb-thumbs{position:absolute;inset-inline-start:auto;inset-inline-end:0;bottom:0;z-index:4;display:flex;gap:8px;padding:14px;justify-content:flex-end;background:linear-gradient(290deg,rgba(11,12,11,.5),transparent 70%);}
+  .lb-thumbs:empty{display:none;}
+  .lb-thumbs button{width:56px;height:42px;padding:0;border:2px solid transparent;border-radius:4px;overflow:hidden;cursor:pointer;background:none;opacity:.65;transition:opacity .25s,border-color .25s;}
+  .lb-thumbs button img{width:100%;height:100%;object-fit:cover;display:block;}
+  .lb-thumbs button.on{opacity:1;border-color:#fff;}
+  .lb-thumbs button:hover{opacity:1;}
+  .catanim{position:absolute;top:16px;inset-inline-start:16px;z-index:2;display:inline-flex;align-items:center;gap:9px;
+    padding:9px 15px;border-radius:100px;font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#fff;
+    backdrop-filter:blur(6px);background:rgba(20,18,24,.42);border:1px solid rgba(255,255,255,.22);overflow:hidden;}
+  .catanim .ca-lab{position:relative;z-index:2;}
+  .catanim.renewal{border-color:rgba(132,191,82,.55);}
+  .catanim.renewal::before{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(120deg,transparent 20%,rgba(132,191,82,.55) 50%,transparent 80%);
+    transform:translateX(-120%);animation:sweep 2.4s ease-in-out infinite;}
+  @keyframes sweep{0%{transform:translateX(-120%)}55%,100%{transform:translateX(120%)}}
+  .catanim.renewal .ca-ba{position:relative;z-index:2;display:inline-flex;align-items:center;gap:5px;font-size:11px;opacity:.92;}
+  .catanim.renewal .ca-ba b{font-weight:700;}
+  .catanim.renewal .ca-ba .ar{opacity:.7;}
+  .catanim.sale .ca-dot{position:relative;z-index:2;width:9px;height:9px;border-radius:50%;background:var(--led);box-shadow:0 0 0 0 rgba(243,214,160,.7);animation:pulse 1.6s ease-out infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(243,214,160,.6)}70%{box-shadow:0 0 0 11px rgba(243,214,160,0)}100%{box-shadow:0 0 0 0 rgba(243,214,160,0)}}
+  .catanim.build .ca-dot{width:8px;height:8px;border-radius:1px;background:var(--green-bright);transform:rotate(45deg);}
+  .catanim.commercial{border-color:rgba(168,98,60,.5);}
+  .catanim.commercial .ca-dot{width:8px;height:8px;border-radius:1px;background:var(--wood);transform:rotate(45deg);}
+
+  .lb-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .lb-meta .lb-sale{font-size:11px;letter-spacing:.1em;font-weight:600;color:var(--green-deep);border:1px solid rgba(95,156,54,.4);border-radius:2px;padding:3px 9px;}
+  .lb-meta .lb-sale.t-mark{background:var(--green-deep);color:#fff;border-color:var(--green-deep);}
+  .lb-meta .lb-sale.t-plan{background:#ffd84d;color:#5b4410;border-color:#e6bd2e;}
+  .lb-meta .lb-sale.t-done{background:var(--ink);color:#fff;border-color:var(--ink);}
+  /* fact icons row */
+  .lb-facts{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;}
+  .lb-facts .fact{flex:1 1 0;min-width:88px;border:1px solid var(--hair-soft);border-radius:6px;padding:13px 12px;background:#fff;}
+  .lb-facts .fact svg{width:20px;height:20px;stroke:var(--green);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  .lb-facts .fact b{display:block;font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.1;margin-top:8px;color:var(--ink);}
+  .lb-facts .fact span{display:block;font-size:11.5px;color:var(--ink-dim);margin-top:2px;letter-spacing:.02em;}
+  /* status progress: רישוי → ביצוע → אכלוס */
+  .lb-status{margin-top:26px;}
+  .lb-status .lb-track{position:relative;height:3px;border-radius:3px;background:var(--hair);overflow:hidden;}
+  .lb-status .lb-track i{position:absolute;inset-block:0;inset-inline-start:0;width:0;background:linear-gradient(90deg,var(--green),var(--green-bright));border-radius:3px;}
+  .lb-status .lb-steps{display:flex;justify-content:space-between;margin-top:11px;}
+  .lb-status .lb-steps span{position:relative;font-size:12px;color:var(--ink-faint);letter-spacing:.04em;padding-top:14px;flex:1;text-align:center;transition:color .4s;}
+  .lb-status .lb-steps span::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:var(--bg);border:1.5px solid var(--hair);transition:.4s;}
+  .lb-status .lb-steps span.on{color:var(--ink);font-weight:500;}
+  .lb-status .lb-steps span.on::before{background:var(--green);border-color:var(--green);box-shadow:0 0 0 4px rgba(95,156,54,.14);}
+
+  /* SCENE 05 — EXECUTION */
+  #execution{padding-block:clamp(80px,13vw,160px);background:linear-gradient(180deg,var(--bg) 0%,#ecebe5 100%);border-top:1px solid var(--hair-soft);}
+  .exec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,24px);}
+  .exec-card{position:relative;border-radius:5px;overflow:hidden;aspect-ratio:3/4;background:var(--char);}
+  .exec-card img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.02);transition:transform 1s,filter .5s;}
+  .exec-card:hover img{transform:scale(1.06);}
+  .exec-card .xc{position:absolute;left:0;bottom:0;right:0;padding:20px;color:#fff;background:linear-gradient(0deg,rgba(20,18,24,.8),transparent);}
+  .exec-card .xn{font-family:var(--serif);font-size:13px;letter-spacing:.28em;color:var(--led);}
+  .exec-card .xt{font-family:var(--serif);font-size:20px;font-weight:600;margin-top:6px;}
+  .exec-steps{display:flex;gap:5px;margin-top:clamp(30px,4vw,48px);}
+  .exec-steps i{height:3px;flex:1;background:var(--hair);position:relative;overflow:hidden;}
+  .exec-steps i::after{content:"";position:absolute;inset:0;background:var(--green);transform:scaleX(0);transform-origin:right;transition:transform 1.1s cubic-bezier(.2,.8,.2,1);}
+  .exec-steps.in i::after{transform:scaleX(1);}
+  .exec-steps.in i:nth-child(2)::after{transition-delay:.2s}
+  .exec-steps.in i:nth-child(3)::after{transition-delay:.4s}
+
+  /* G5 trust band — יזם שמבצע לעצמו */
+  .g5-band{margin-top:clamp(34px,5vw,60px);background:#232127;color:#fff;
+    border-radius:20px;padding:clamp(30px,5vw,56px) clamp(22px,4.5vw,52px);position:relative;overflow:hidden;}
+  .g5-bg{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);z-index:0;}
+  .g5-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.9) contrast(1.05);opacity:.5;}
+  .g5-bg::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(30,28,34,.94) 0%,rgba(35,33,39,.86) 55%,rgba(42,39,47,.9) 100%);}
+  .g5-band::before{content:"";position:absolute;inset:0;z-index:1;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:44px 44px;-webkit-mask:radial-gradient(circle at 18% 40%,#000,transparent 72%);mask:radial-gradient(circle at 18% 40%,#000,transparent 72%);}
+  .g5-in{position:relative;z-index:2;display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4.5vw,54px);align-items:center;}
+  .g5-seal{width:clamp(118px,15vw,164px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;position:relative;
+    background:radial-gradient(circle at 32% 28%,#3a3740,#26242a 70%);
+    border:1px solid rgba(243,214,160,.5);box-shadow:0 0 0 7px rgba(243,214,160,.07),0 0 44px rgba(243,214,160,.16),inset 0 0 26px rgba(0,0,0,.5);}
+  .g5-seal::before{content:"";position:absolute;inset:9px;border-radius:50%;border:1px dashed rgba(243,214,160,.45);}
+  .g5-seal>div{text-align:center;}
+  .g5-g{font-family:var(--serif);font-size:clamp(38px,5vw,54px);line-height:1;color:var(--led);text-shadow:0 0 22px rgba(243,214,160,.35);}
+  .g5-t{font-size:10.5px;letter-spacing:.22em;color:rgba(243,214,160,.85);margin-top:6px;font-weight:600;}
+  .g5-b{font-size:9px;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-top:3px;padding-inline:14px;}
+  .g5-eyebrow{font-size:12.5px;letter-spacing:.2em;font-weight:600;color:var(--led);}
+  .g5-band h3{font-family:var(--serif);font-weight:500;font-size:clamp(23px,3.4vw,38px);line-height:1.14;margin-top:10px;}
+  .g5-band h3 em{font-style:normal;color:var(--green-bright);}
+  .g5-band .g5-sub{color:rgba(255,255,255,.72);max-width:60ch;margin-top:12px;font-size:15.5px;line-height:1.8;font-weight:300;}
+  .g5-vals{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.14);border-radius:14px;overflow:hidden;margin-top:24px;}
+  .g5-val{background:rgba(35,33,39,.88);padding:16px 18px;}
+  .g5-val b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(15.5px,1.7vw,19px);color:var(--led);line-height:1.3;}
+  .g5-val span{font-size:12.5px;color:rgba(255,255,255,.62);line-height:1.55;display:block;margin-top:6px;font-weight:300;}
+  .g5-more{margin-top:18px;font-size:13.5px;color:rgba(255,255,255,.6);line-height:1.8;max-width:78ch;font-weight:300;}
+  @media(max-width:760px){.g5-in{grid-template-columns:1fr;justify-items:center;text-align:center;}
+    .g5-vals{grid-template-columns:1fr;width:100%;text-align:right;}
+    .g5-band .g5-sub{margin-inline:auto;}}
+
+  /* SCENE 06 — STATS */
+  #stats{padding-block:clamp(80px,13vw,150px);background:var(--char);color:#fff;}
+  #stats .scene-head h2{color:#fff;}
+  #stats .scene-head .lead{color:rgba(255,255,255,.6);}
+  #stats .scene-num{color:rgba(255,255,255,.6);}
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,30px);}
+  .stat{border-top:1px solid rgba(255,255,255,.15);padding-top:24px;}
+  .stat .num{font-family:var(--serif);font-weight:300;font-size:clamp(44px,6vw,86px);line-height:1;letter-spacing:-.02em;}
+  .stat .num em{font-style:normal;color:var(--green-bright);}
+  .stat .lab{margin-top:14px;color:rgba(255,255,255,.62);font-size:14px;letter-spacing:.03em;}
+
+  /* SCENE 07 — PARTNERS */
+  #partners{padding-block:clamp(70px,11vw,130px);}
+  .logos{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(14px,2vw,30px);align-items:center;}
+  .logos a{display:grid;place-items:center;padding:20px 14px;border:1px solid var(--hair-soft);border-radius:4px;transition:transform .4s,border-color .4s,background .4s;}
+  .logos a:hover{transform:translateY(-5px);border-color:var(--hair);background:#fff;}
+  .logos img{max-height:46px;width:auto;filter:grayscale(1) opacity(.55);transition:filter .45s;}
+  .logos a:hover img{filter:grayscale(0) opacity(1);}
+
+  /* SCENE 08 — CONTACT */
+  #contact{padding-block:clamp(80px,13vw,170px);background:linear-gradient(180deg,#ecebe5 0%,var(--bg) 100%);border-top:1px solid var(--hair-soft);}
+  .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);align-items:center;}
+  .contact-l h2{font-family:var(--serif);font-weight:500;font-size:clamp(32px,4.6vw,62px);line-height:1.06;margin-top:18px;}
+  .contact-l h2 em{font-style:normal;color:var(--green);}
+  .contact-l .lead{margin-top:22px;max-width:42ch;color:var(--ink-dim);font-size:16px;}
+  .contact-ch{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .chan{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);padding:12px 20px;border-radius:2px;font-size:14px;transition:.3s;}
+  .chan:hover{background:var(--ink);color:#fff;}
+  .chan.wa{border-color:var(--green-deep);color:var(--green-deep);}
+  .chan.wa:hover{background:var(--green);border-color:var(--green);color:#fff;}
+  .contact-form{background:#fff;border:1px solid var(--hair-soft);border-radius:6px;padding:clamp(26px,3vw,42px);box-shadow:0 40px 90px -54px rgba(23,21,26,.5);}
+  .contact-form .fl{display:block;font-size:12px;letter-spacing:.12em;color:var(--ink-dim);margin:18px 0 7px;}
+  .contact-form .fl:first-child{margin-top:0;}
+  .contact-form input,.contact-form select,.contact-form textarea{width:100%;font-family:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--hair);border-radius:3px;padding:13px 15px;transition:border-color .3s;}
+  .contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{outline:none;border-color:var(--green);}
+  .contact-form textarea{resize:vertical;min-height:84px;}
+  .contact-form .submit{width:100%;margin-top:26px;background:var(--green);color:#fff;border:none;padding:15px;border-radius:3px;font-size:15px;letter-spacing:.04em;transition:background .3s;}
+  .contact-form .submit:hover{background:var(--green-deep);}
+  .contact-form .submit:disabled{cursor:wait;opacity:.7;}
+  .contact-form .note{margin-top:14px;font-size:11.5px;color:var(--ink-faint);text-align:center;}
+  .contact-form .field-error{display:block;min-height:18px;margin-top:5px;color:#9d2727;font-size:12px;font-weight:500;}
+  .contact-form [aria-invalid="true"]{border-color:#9d2727;}
+  .contact-form .form-status{margin-top:14px;padding:11px 13px;border-radius:3px;font-size:13px;font-weight:600;}
+  .contact-form .form-status:empty{display:none;}
+  .contact-form .form-status[data-state="success"]{color:#315a1d;background:#edf6e7;}
+  .contact-form .form-status[data-state="error"]{color:#842020;background:#faecec;}
+  .contact-form .hp-field{position:absolute!important;inline-size:1px!important;block-size:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;}
+  :focus-visible{outline:3px solid var(--green-bright);outline-offset:3px;}
+  .whatsapp-float{position:fixed;z-index:80;inset-inline-end:20px;bottom:20px;display:flex;align-items:center;gap:9px;
+    padding:12px 16px;border-radius:999px;background:#176b3a;color:#fff;font-weight:700;font-size:13px;
+    box-shadow:0 14px 34px rgba(23,107,58,.32);transition:transform .25s,background .25s;}
+  .whatsapp-float:hover{transform:translateY(-3px);background:#12572f;}
+
+  /* FOOTER */
+  .foot{position:relative;z-index:11;background:var(--char);color:rgba(255,255,255,.6);padding:clamp(48px,7vw,80px) clamp(20px,7vw,140px) 40px;}
+  .foot-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:30px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.12);}
+  .foot .flogo{height:58px;width:auto;display:block;margin-bottom:12px;filter:invert(1);mix-blend-mode:screen;opacity:.92;}
+  .foot .fbrand{font-family:var(--serif);font-weight:600;font-size:24px;letter-spacing:.14em;color:#fff;}
+  /* G5 seal chip — footer quality stamp */
+  .g5-chip{display:inline-flex;align-items:center;gap:10px;margin-top:14px;padding:7px 16px 7px 9px;border-radius:100px;
+    background:rgba(243,214,160,.07);border:1px solid rgba(243,214,160,.38);color:#fff;font-size:12.5px;font-weight:500;}
+  .g5-chip .g{font-family:var(--serif);color:var(--led);font-size:15px;letter-spacing:.02em;background:rgba(243,214,160,.1);
+    border:1px solid rgba(243,214,160,.45);border-radius:100px;min-width:30px;height:30px;display:grid;place-items:center;padding:0 4px;}
+  
+  .foot .fbrand .logo-sg{color:#fff;margin-inline-start:0;}
+  .foot .fcols{display:flex;gap:clamp(34px,6vw,80px);flex-wrap:wrap;font-size:14px;}
+  .foot .fcols a{display:block;padding:5px 0;transition:color .3s;}
+  .foot .fcols a:hover{color:#fff;}
+  .foot .fcols h5{color:#fff;font-weight:500;font-size:12px;letter-spacing:.16em;margin-bottom:10px;}
+  .foot-bot{padding-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:rgba(255,255,255,.6);}
+  .foot .fsocial{display:flex;gap:10px;margin-top:16px;}
+  .foot .fsocial a{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;transition:.25s;}
+  .foot .fsocial a:hover{background:var(--green);border-color:var(--green);transform:translateY(-2px);}
+  .foot .fsocial svg{width:18px;height:18px;fill:currentColor;}
+
+  /* ---- availability board ---- */
+  .avail-filter{display:flex;flex-wrap:wrap;gap:9px;margin:30px 0 24px;}
+  .avail-filter button{font-family:inherit;font-size:13px;font-weight:500;color:var(--ink-dim);background:var(--bg2);
+    border:1px solid var(--hair);border-radius:100px;padding:8px 16px;cursor:pointer;transition:.25s;}
+  .avail-filter button:hover{border-color:var(--green);color:var(--green-deep);}
+  .avail-filter button.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .avail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:20px;}
+  .unit-card{background:var(--bg2);border:1px solid var(--hair-soft);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;
+    box-shadow:0 1px 2px rgba(23,21,26,.04);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s;}
+  .unit-card:hover{transform:translateY(-5px);box-shadow:0 24px 46px -26px rgba(23,21,26,.32);}
+  .unit-img{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--char);}
+  .unit-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1);}
+  .unit-card:hover .unit-img img{transform:scale(1.06);}
+  .unit-sim{position:absolute;inset-block-end:9px;inset-inline-end:9px;font-size:10px;font-weight:600;letter-spacing:.04em;
+    color:#fff;background:rgba(23,21,26,.55);backdrop-filter:blur(3px);padding:3px 9px;border-radius:100px;pointer-events:none;}
+  .unit-badge{position:absolute;inset-block-start:10px;inset-inline-start:10px;font-size:11.5px;font-weight:700;
+    padding:5px 11px;border-radius:100px;backdrop-filter:blur(4px);}
+  .unit-badge.available{background:rgba(95,156,54,.92);color:#fff;}
+  .unit-badge.reserved{background:rgba(243,196,90,.95);color:#5b4410;}
+  .unit-badge.sold{background:rgba(120,116,124,.92);color:#fff;}
+  .unit-card.sold .unit-img img{filter:grayscale(.85) opacity(.7);}
+  .unit-body{padding:16px 17px 18px;display:flex;flex-direction:column;flex:1;}
+  .unit-title{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:.05em;}
+  .unit-proj{font-size:13px;color:var(--green-deep);font-weight:600;letter-spacing:.02em;margin-top:6px;}
+  .unit-price{margin-top:9px;font-size:12.5px;color:var(--ink-dim);font-weight:500;}
+  .unit-price b{font-weight:700;color:var(--ink);}
+  .unit-mail{display:block;margin-top:9px;text-align:center;font-size:12.5px;font-weight:600;color:var(--green-deep);}
+  .unit-mail:hover{text-decoration:underline;}
+  .unit-btn{margin-top:14px;width:100%;border:none;border-radius:9px;padding:11px;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;transition:.25s;}
+  .unit-btn.go{background:var(--green-deep);color:#fff;}
+  .unit-btn.go:hover{background:#2f5417;}
+  .unit-btn.off{background:#efece6;color:var(--ink-faint);cursor:default;}
+  .avail-note{margin-top:22px;font-size:12px;color:var(--ink-faint);}
+  @media(max-width:560px){.avail-grid{grid-template-columns:1fr 1fr;gap:12px;} .unit-title{font-size:17px;} .unit-body{padding:12px;}}
+
+  @media(max-width:980px){
+    .nav-links,.nav-cta{display:none;}
+    .nav-toggle{display:block;}
+    #nav .nav-cb:checked ~ .nav-links{display:flex;flex-direction:column;gap:0;z-index:2;
+      position:absolute;top:100%;inset-inline:0;background:#fff;
+      border-bottom:1px solid var(--hair);box-shadow:0 24px 40px -22px rgba(23,21,26,.34);padding:6px 0;}
+    #nav .nav-cb:checked ~ .nav-links a{color:var(--ink)!important;font-size:16px;padding:15px clamp(20px,5vw,40px);
+      border-bottom:1px solid var(--hair-soft);text-shadow:none!important;}
+    #nav .nav-cb:checked ~ .nav-links a::after{display:none;}
+    #nav .nav-cb:checked ~ .nav-cta{display:block;color:#fff;text-align:center;margin:14px clamp(20px,5vw,40px) 4px;}
+    #nav .nav-cb:checked ~ .nav-toggle{background:#fff;}
+    #nav .nav-cb:checked ~ .nav-toggle span:nth-child(1){top:16px;transform:rotate(45deg);}
+    #nav .nav-cb:checked ~ .nav-toggle span:nth-child(2){opacity:0;}
+    #nav .nav-cb:checked ~ .nav-toggle span:nth-child(3){top:16px;transform:rotate(-45deg);}
+    .nav-toggle span{transition:transform .3s,opacity .2s,top .3s;}
+    .cino-rail{inset-inline-end:14px;gap:10px;}
+    .bld{height:74vh;left:0;right:auto;bottom:-1vh;}
+    .cpanel{inset-inline:clamp(18px,6vw,40px);max-width:none;top:10vh;transform:none;}
+    .cino-count{display:none;}
+    .feat{grid-template-columns:1fr;min-height:0;}
+    .feat .feat-img{aspect-ratio:16/11;}
+    .grid,.exec-grid{grid-template-columns:1fr 1fr;}
+    .stat-grid{grid-template-columns:1fr 1fr;gap:34px 20px;}
+    .logos{grid-template-columns:repeat(3,1fr);}
+    .lb-card{max-height:92vh;}
+    .lb-card .lb-img{aspect-ratio:4/3;}
+    .lb-card .lb-body{width:auto;margin:-72px 14px 6px;padding:24px 22px;}
+    .contact-wrap{grid-template-columns:1fr;gap:44px;}
+  }
+  @media(max-width:560px){
+    .grid,.exec-grid{grid-template-columns:1fr;}
+    .logos{grid-template-columns:repeat(2,1fr);}
+    /* gentler, quicker reveals on phone */
+    .reveal{transform:translateY(12px);transition-duration:.42s;}
+    .d1{transition-delay:.07s}.d2{transition-delay:.14s}
+    /* comfortable spacing + readable heads */
+    #projects{padding-block:clamp(56px,14vw,120px);}
+    .scene-head{margin-bottom:clamp(28px,7vw,48px);}
+    .avail-grid{grid-template-columns:1fr;gap:14px;}
+    .avail-filter{margin:20px 0 16px;}
+    .unit-title{font-size:20px;}
+    .cta,.lead{border-radius:16px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .grain,.cino-cue span,.catanim.renewal::before,.catanim.sale .ca-dot{animation:none;}
+  }
+
+
+  /* FAQ */
+  .faq-list{max-width:820px;display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+  .faq-list details{background:var(--bg2);border:1px solid var(--hair-soft);border-radius:13px;padding:0 22px;transition:border-color .3s;}
+  .faq-list details[open]{border-color:rgba(95,156,54,.4);}
+  .faq-list summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:14px;
+    padding:17px 0;font-weight:600;font-size:16px;}
+  .faq-list summary::-webkit-details-marker{display:none;}
+  .faq-list summary::after{content:"+";font-family:var(--serif);font-size:22px;color:var(--green-deep);flex:none;transition:transform .3s;}
+  .faq-list details[open] summary::after{transform:rotate(45deg);}
+  .faq-list details p{padding-bottom:18px;color:var(--ink-dim);font-size:14.5px;line-height:1.8;max-width:70ch;}
+  .faq-more{margin-top:26px;font-size:14.5px;color:var(--ink-dim);}
+  .faq-more a{color:var(--green-deep);font-weight:600;}
+  .faq-more a:hover{text-decoration:underline;}
+
+  /* Legacy gallery — נבנה. נמסר. אוכלס. */
+  #legacy{background:linear-gradient(180deg,#232127 0%,#2c2a30 100%);color:#fff;padding-block:clamp(64px,10vw,120px);}
+  #availability,#faq{padding-top:clamp(48px,7vw,80px);}
+  #legacy .scene-num{color:rgba(255,255,255,.5);}
+  #legacy .eyebrow{color:var(--led);}
+  #legacy .scene-head h2{color:#fff;}
+  #legacy .scene-head h2 em{color:var(--green-bright);}
+  #legacy .lead{color:rgba(255,255,255,.62);}
+  .legacy-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);margin-top:clamp(28px,4vw,44px);}
+  .lg-card{position:relative;margin:0;border:1px solid rgba(243,214,160,.22);border-radius:14px;overflow:hidden;
+    background:#1c1a20;transition:border-color .45s,transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s;}
+  .lg-card:hover{border-color:rgba(243,214,160,.6);transform:translateY(-5px);box-shadow:0 22px 44px -20px rgba(0,0,0,.6);}
+  .lg-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;filter:grayscale(.7);
+    transition:filter .7s ease,transform .9s cubic-bezier(.2,.8,.2,1);}
+  .lg-card:hover img{filter:grayscale(0);transform:scale(1.045);}
+  .lg-card figcaption{padding:14px 16px 16px;}
+  .lg-card figcaption b{display:block;font-family:var(--serif);font-weight:500;font-size:19px;letter-spacing:.05em;color:#fff;}
+  .lg-card figcaption span{display:block;font-size:12.5px;color:rgba(255,255,255,.55);margin-top:2px;}
+  .lg-card figcaption i{display:inline-block;font-style:normal;margin-top:10px;font-size:10.5px;font-weight:700;letter-spacing:.1em;
+    color:var(--led);border:1px solid rgba(243,214,160,.4);border-radius:100px;padding:3px 11px;}
+  .legacy-note{margin-top:clamp(26px,3.5vw,40px);padding-top:18px;border-top:1px solid rgba(255,255,255,.12);
+    font-size:14px;color:rgba(255,255,255,.6);}
+  .legacy-note b{color:rgba(255,255,255,.85);font-weight:600;}
+  @media(max-width:760px){
+    .whatsapp-float{bottom:14px;inset-inline-end:14px;padding:12px;width:48px;height:48px;justify-content:center;font-size:0;}
+    .whatsapp-float::before{content:"WA";font-size:12px;letter-spacing:.04em;}
+    .lg-card img{filter:none;}
+    .legacy-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+      gap:12px;padding-bottom:8px;margin-inline:calc(-1*clamp(20px,7vw,140px));padding-inline:clamp(20px,7vw,140px);
+      scrollbar-width:none;}
+    .legacy-grid::-webkit-scrollbar{display:none;}
+    .lg-card{flex:0 0 76%;scroll-snap-align:center;}
+  }
+  /* Karantina headline tracking — הפונט דחוס, הריווח נותן את היוקרה */
+  .cpanel h1,.scene-head h2{letter-spacing:.045em;}
+  .cpanel h2,.cpanel .big,.feat .feat-copy h3,.lb-card .lb-body h3,.contact-l h2,.g5-band h3{letter-spacing:.05em;}
+  .pcard-ttl,.unit-title,.exec-card .xt,.lb-facts .fact b,.g5-val b{letter-spacing:.06em;}
+  .g5-g{letter-spacing:.04em;}
+  .stat .num{letter-spacing:.04em;}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["Organization", "GeneralContractor"],
+  "@id": "https://shellygroup.co.il/#organization",
+  "name": "שלי גרופ",
+  "alternateName": ["SHELLY GROUP", "שלי אורבן", "SHELLY URBAN"],
+  "legalName": "דני שלי מהנדסים בע\"מ",
+  "url": "https://shellygroup.co.il/",
+  "logo": "https://shellygroup.co.il/assets/logo-shelly-group.svg",
+  "image": "https://shellygroup.co.il/assets/har-avital/day-web.jpg",
+  "foundingDate": "1996",
+  "description": "חברת יזמות, התחדשות עירונית ובנייה. יזם שהוא גם הקבלן המבצע — קבלן רשום בסיווג ג'5, מהתכנון ועד מסירת המפתח תחת קורת גג אחת.",
+  "telephone": "+972-8-862-3366",
+  "email": "Office@shellyurban.co.il",
+  "sameAs": ["https://www.instagram.com/shellyurban2010/"],
+  "address": { "@type": "PostalAddress", "streetAddress": "הגדוד העברי 5", "addressLocality": "אשדוד", "addressCountry": "IL" },
+  "areaServed": [
+    { "@type": "City", "name": "אשדוד" },
+    { "@type": "City", "name": "יבנה" },
+    { "@type": "City", "name": "אשקלון" },
+    { "@type": "AdministrativeArea", "name": "השפלה" }
+  ],
+  "knowsAbout": ["התחדשות עירונית", "פינוי בינוי", "מחיר למשתכן", "ייזום נדל\"ן", "קבלנות בניין", "בנייה למגורים", "מרכזים מסחריים"],
+  "hasCredential": { "@type": "EducationalOccupationalCredential", "name": "קבלן רשום בסיווג ג'5 — פנקס הקבלנים, משרד הבינוי והשיכון" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "מה זה פינוי בינוי ומה הדיירים מקבלים?",
+      "acceptedAnswer": { "@type": "Answer", "text": "פינוי בינוי הוא תהליך שבו בניינים ישנים נהרסים ובמקומם נבנה מתחם מגורים חדש. הדיירים הוותיקים מקבלים דירה חדשה וגדולה יותר, בדרך כלל עם ממ\"ד, מרפסת, מעלית וחניה — ללא עלות מצידם, כולל מימון שכר דירה בתקופת הבנייה." } },
+    { "@type": "Question", "name": "מה ההבדל בין יזם לקבלן מבצע — ולמה זה חשוב?",
+      "acceptedAnswer": { "@type": "Answer", "text": "היזם מתכנן ומוכר את הפרויקט; הקבלן המבצע בונה אותו בפועל. כשמדובר בשתי חברות שונות נוצרים פערי אחריות. בשלי גרופ היזם והקבלן הם אותו גוף, בסיווג ג'5 — מי שמוכר את הדירה הוא גם מי שבונה אותה ואחראי עליה." } },
+    { "@type": "Question", "name": "איך נרשמים לדירה במסגרת מחיר למשתכן?",
+      "acceptedAnswer": { "@type": "Answer", "text": "נרשמים להגרלות באתר משרד הבינוי והשיכון עם תעודת זכאות. זכאים שעלו בהגרלה בוחרים דירה מהמלאי בפרויקט. שלי גרופ מלווה את הזוכים משלב בחירת הדירה ועד קבלת המפתח." } },
+    { "@type": "Question", "name": "באילו ערים פועלת שלי גרופ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "שלי גרופ פועלת בעיקר באשדוד, ביבנה, באשקלון ובאזור השפלה — פרויקטים של פינוי בינוי, מחיר למשתכן, בנייה חדשה ומרכזים מסחריים, בתכנון ובביצוע." } },
+    { "@type": "Question", "name": "כמה זמן לוקח פרויקט פינוי בינוי?",
+      "acceptedAnswer": { "@type": "Answer", "text": "משלב החתימות ועד האכלוס — בדרך כלל מספר שנים, בהתאם להליכי הרישוי. היתרון של שלי גרופ: הביצוע העצמי מקצר את התלות בגורמים חיצוניים. בכל פרויקט באתר מפורסם סטטוס מעודכן: רישוי, ביצוע או אכלוס." } }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "פרויקטים שנבנו ואוכלסו — שלי גרופ",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "item": { "@type": "ApartmentComplex", "name": "מגדלי אימרי", "image": "https://shellygroup.co.il/assets/legacy/imri-towers.jpg", "address": { "@type": "PostalAddress", "addressLocality": "אשדוד", "addressCountry": "IL" }, "developer": { "@id": "https://shellygroup.co.il/#organization" } } },
+    { "@type": "ListItem", "position": 2, "item": { "@type": "ApartmentComplex", "name": "לה דוויל", "image": "https://shellygroup.co.il/assets/legacy/la-deauville.jpg", "address": { "@type": "PostalAddress", "addressLocality": "אשדוד", "addressCountry": "IL" }, "developer": { "@id": "https://shellygroup.co.il/#organization" } } },
+    { "@type": "ListItem", "position": 3, "item": { "@type": "ApartmentComplex", "name": "סיטי דרים", "image": "https://shellygroup.co.il/assets/legacy/city-dream.jpg", "address": { "@type": "PostalAddress", "addressLocality": "אשדוד", "addressCountry": "IL" }, "developer": { "@id": "https://shellygroup.co.il/#organization" } } },
+    { "@type": "ListItem", "position": 4, "item": { "@type": "ApartmentComplex", "name": "גן העיר", "image": "https://shellygroup.co.il/assets/legacy/gan-hair.jpg", "address": { "@type": "PostalAddress", "addressLocality": "אשדוד", "addressCountry": "IL" }, "developer": { "@id": "https://shellygroup.co.il/#organization" } } },
+    { "@type": "ListItem", "position": 5, "item": { "@type": "ApartmentComplex", "name": "כתר דוד", "image": "https://shellygroup.co.il/assets/legacy/keter-david.jpg", "address": { "@type": "PostalAddress", "addressLocality": "אשדוד", "addressCountry": "IL" }, "developer": { "@id": "https://shellygroup.co.il/#organization" } } },
+    { "@type": "ListItem", "position": 6, "item": { "@type": "ApartmentComplex", "name": "מגדלי המפרש", "image": "https://shellygroup.co.il/assets/legacy/hamifras-towers.jpg", "address": { "@type": "PostalAddress", "addressLocality": "אשדוד", "addressCountry": "IL" }, "developer": { "@id": "https://shellygroup.co.il/#organization" } } },
+    { "@type": "ListItem", "position": 7, "item": { "@type": "ApartmentComplex", "name": "רוטשילד תל אביב", "image": "https://shellygroup.co.il/assets/legacy/rothschild-tlv.jpg", "address": { "@type": "PostalAddress", "addressLocality": "תל אביב", "addressCountry": "IL" }, "developer": { "@id": "https://shellygroup.co.il/#organization" } } },
+    { "@type": "ListItem", "position": 8, "item": { "@type": "ApartmentComplex", "name": "באר גנים", "image": "https://shellygroup.co.il/assets/legacy/beer-ganim.jpg", "address": { "@type": "PostalAddress", "addressLocality": "באר גנים", "addressCountry": "IL" }, "developer": { "@id": "https://shellygroup.co.il/#organization" } } }
+  ]
+}
+</script>
+</head>
+<body>
+
+<span id="top"></span>
+<div class="grain"></div>
+<div class="cur-ring" id="curRing"></div>
+<div class="cur-dot" id="curDot"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="load-word"><span class="logo-sg" role="img" aria-label="SHELLY GROUP" style="width:min(236px,64vw);height:66px;"></span></div>
+  <div class="load-bar"><div class="load-fill" id="loadFill"></div></div>
+</div>
+
+<!-- Nav -->
+<nav id="nav">
+  <input type="checkbox" id="navCb" class="nav-cb" aria-label="פתיחת תפריט ניווט" />
+  <a class="brand" href="#top"><span class="bw"><span class="logo-sg" role="img" aria-label="SHELLY GROUP"></span></span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#projects">פרויקטים</a>
+    <a href="#availability">דירות זמינות</a>
+    <a href="mishtaken.html">מחיר למשתכן</a>
+    <a href="about.html">אודות</a>
+    <a href="#execution">מהשטח</a>
+    <a href="#stats">ניסיון</a>
+    <a href="#contact">צור קשר</a>
+  </div>
+  <a class="nav-cta" data-hot href="#contact">דברו איתנו</a>
+  <label class="nav-toggle" for="navCb" aria-hidden="true"><span></span><span></span><span></span></label>
+</nav>
+
+<!-- ============ CINEMA — scroll-scrubbed video ============ -->
+<div class="cinema" id="cinema">
+  <div class="sky-bg" id="skyBg"></div>
+  <div class="sky-sun" id="skySun"></div>
+  <div class="sky-stars" id="skyStars"></div>
+  <div class="bld" id="bld">
+    <img class="bld-day" id="bldDay" src="assets/building/day.webp" alt="הר אביטל — הדמיה" fetchpriority="high" decoding="async" />
+    <img class="bld-night" id="bldNight" src="assets/building/night.webp" alt="" decoding="async" />
+  </div>
+  <video class="cino-video" id="cinoVideo" muted playsinline preload="auto"
+         poster="assets/scenes/entrance-poster.jpg" aria-hidden="true">
+    <source src="assets/scenes/entrance-scrub.mp4" type="video/mp4" />
+  </video>
+  <div class="cino-lobby" id="cinoLobby"></div>
+
+  <div class="cino-chapters" id="cinoChapters">
+    <!-- 1 · Day -->
+    <div class="cchap" data-ch="0">
+      <div class="cpanel">
+        <div class="eyebrow ce">שלי גרופ · ביצוע · יזמות · טכנולוגיה</div>
+        <h1>כאן ייבנה<br><em>הבית הבא שלכם.</em></h1>
+        <div class="csub ce">מסחרי · בנייה · מחיר למשתכן — בסיווג ג׳5, מאז 1996</div>
+        <a href="#projects" class="ccta" data-hot><span class="ln2"></span> גלו את הפרויקטים</a>
+      </div>
+    </div>
+    <!-- 2 · Golden hour -->
+    <div class="cchap" data-ch="1">
+      <div class="cpanel">
+        <div class="dnum">01 — היוקרה</div>
+        <h2><em>יוקרה</em> רואים.</h2>
+        <p class="ctext">ביצוע מוקפד, חומרים איכותיים וגימור ללא פשרות — בחזית, בלובי ובכל דירה.</p>
+      </div>
+    </div>
+    <!-- 3 · Sunset -->
+    <div class="cchap" data-ch="2">
+      <div class="cpanel">
+        <div class="dnum">02 — הביצוע</div>
+        <h2><em>מצוינות</em> ואיכות.</h2>
+        <p class="ctext">ביצוע עצמי בסיווג ג׳5 — ניסיון בנייה שחוסך בעיות.</p>
+      </div>
+    </div>
+    <!-- 4 · Dusk / approaching the entrance -->
+    <div class="cchap" data-ch="3">
+      <div class="cpanel">
+        <div class="dnum">03 — האחריות</div>
+        <h2><em>ביטחון</em> מרגישים.</h2>
+        <p class="ctext">יזם וקבלן באותו בית — אחריות אחת מלאה, מהחוזה ועד מסירת המפתח.</p>
+      </div>
+    </div>
+    <!-- 5 · Lobby (inside) -->
+    <div class="cchap" data-ch="4">
+      <div class="cpanel">
+        <div class="dnum">04 — הלובי</div>
+        <h2>ברוכים הבאים <em>הביתה.</em></h2>
+        <p class="ctext">כאן מתחילים החיים החדשים שלכם.</p>
+        <a href="#projects" class="ccta" data-hot><span class="ln2"></span> כנסו לפרויקטים</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="cino-rail" id="cinoRail"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="cino-count">פרק <b id="cinoCount">01</b> · 05</div>
+  <div class="cino-cue" id="cinoCue"><span></span>גלילה</div>
+</div>
+
+<!-- spacer providing the scrub scroll length (set by JS) -->
+<div class="cino-scroll" id="cinoScroll"></div>
+
+<!-- ============ CONTENT ============ -->
+<div id="content">
+
+  <section class="scene pad" id="projects">
+    <span class="scene-num">04 — העיר</span>
+    <div class="scene-head">
+      <div class="eyebrow reveal">הפרויקטים שלנו · ברחבי הארץ</div>
+      <h2 class="reveal d1">עיר שלמה <em>של אנשים</em><br>שכבר בנינו להם בית.</h2>
+      <p class="lead reveal d2">כל בניין הוא סיפור. לחצו על פרויקט כדי להתקרב — לראות את ההדמיה, המיקום והסטטוס.</p>
+    </div>
+    <a class="feat reveal" data-project="feat" data-hot href="projects/har-avital.html" aria-label="לפרטים נוספים על הר אביטל">
+      <div class="feat-img"><img src="assets/har-avital/day-web.jpg" alt="הר אביטל" /></div>
+      <div class="feat-copy">
+        <span class="badge">פרויקט הדגל · בתכנון</span>
+        <h3>הר אביטל</h3>
+        <div class="loc">מגדל מגורים בוטיק · שפה אדריכלית עכשווית</div>
+        <p>פרויקט מגורים על קו החוף — חזית בטון חשוף אלגנטית וסטנדרט יוצא דופן. שפה אדריכלית עכשווית שמדגישה את ההבדל, מהתכנון ועד המפתח.</p>
+        <span class="more"><span class="ln2"></span> לפרטים נוספים</span>
+      </div>
+    </a>
+    <div class="grid" id="projGrid"></div>
+  </section>
+
+  <!-- ============ AVAILABILITY — what's left ============ -->
+  <section class="scene pad" id="legacy">
+    <span class="scene-num">05 — ההוכחות</span>
+    <div class="scene-head">
+      <div class="eyebrow reveal">החברה המבצעת · סיווג ג׳5 · מאז 1996</div>
+      <h2 class="reveal d1">נבנה. נמסר. <em>אוכלס.</em></h2>
+      <p class="lead reveal d2">8 פרויקטים שנבנו ואוכלסו · אשדוד · תל אביב · באר גנים · מאז 2012</p>
+    </div>
+    <div class="legacy-grid reveal">
+      <figure class="lg-card">
+        <img src="assets/legacy/imri-towers.jpg" srcset="assets/legacy/imri-towers-800.jpg 800w, assets/legacy/imri-towers.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="מגדלי אימרי — פרויקט מגורים שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
+        <figcaption><b>מגדלי אימרי</b><span>אשדוד</span><i>אוכלס</i></figcaption>
+      </figure>
+      <figure class="lg-card">
+        <img src="assets/legacy/la-deauville.jpg" srcset="assets/legacy/la-deauville-800.jpg 800w, assets/legacy/la-deauville.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="לה דוויל — מגדל מגורים שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
+        <figcaption><b>לה דוויל</b><span>אשדוד</span><i>אוכלס</i></figcaption>
+      </figure>
+      <figure class="lg-card">
+        <img src="assets/legacy/city-dream.jpg" srcset="assets/legacy/city-dream-800.jpg 800w, assets/legacy/city-dream.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="סיטי דרים — פרויקט מגורים שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
+        <figcaption><b>סיטי דרים</b><span>אשדוד</span><i>אוכלס</i></figcaption>
+      </figure>
+      <figure class="lg-card">
+        <img src="assets/legacy/gan-hair.jpg" srcset="assets/legacy/gan-hair-800.jpg 800w, assets/legacy/gan-hair.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="גן העיר — פרויקט שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
+        <figcaption><b>גן העיר</b><span>אשדוד</span><i>אוכלס</i></figcaption>
+      </figure>
+      <figure class="lg-card">
+        <img src="assets/legacy/keter-david.jpg" srcset="assets/legacy/keter-david-800.jpg 800w, assets/legacy/keter-david.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="כתר דוד — מגדל מגורים שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
+        <figcaption><b>כתר דוד</b><span>אשדוד</span><i>אוכלס</i></figcaption>
+      </figure>
+      <figure class="lg-card">
+        <img src="assets/legacy/hamifras-towers.jpg" srcset="assets/legacy/hamifras-towers-800.jpg 800w, assets/legacy/hamifras-towers.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="מגדלי המפרש — פרויקט מגורים שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
+        <figcaption><b>מגדלי המפרש</b><span>אשדוד</span><i>אוכלס</i></figcaption>
+      </figure>
+      <figure class="lg-card">
+        <img src="assets/legacy/rothschild-tlv.jpg" srcset="assets/legacy/rothschild-tlv-800.jpg 800w, assets/legacy/rothschild-tlv.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="רוטשילד תל אביב — בניין מגורים שנבנה ואוכלס על ידי שלי גרופ בתל אביב" />
+        <figcaption><b>רוטשילד תל אביב</b><span>תל אביב</span><i>אוכלס 2012</i></figcaption>
+      </figure>
+      <figure class="lg-card">
+        <img src="assets/legacy/beer-ganim.jpg" srcset="assets/legacy/beer-ganim-800.jpg 800w, assets/legacy/beer-ganim.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="באר גנים — מרכז מסחרי שנבנה ונמסר על ידי שלי גרופ בבאר גנים" />
+        <figcaption><b>באר גנים</b><span>באר גנים</span><i>אוכלס</i></figcaption>
+      </figure>
+    </div>
+    <p class="legacy-note reveal">בין לקוחותינו: ביצוע פרויקט <b>דיור להשכרה עבור קבוצת אזורים</b></p>
+  </section>
+
+  <section class="scene pad" id="availability">
+    <span class="scene-num">06 — מה נותר</span>
+    <div class="scene-head">
+      <div class="eyebrow reveal">דירות אחרונות · זמינות מתעדכנת</div>
+      <h2 class="reveal d1">אילו דירות <em>עוד נשארו.</em></h2>
+      <p class="lead reveal d2">🟢 פנוי · 🟡 בהמתנה · 🔴 נמכר. מצאתם דירה שמתאימה? שריינו אותה — ונחזור אליכם עם כל הפרטים.</p>
+    </div>
+    <div class="avail-filter reveal" id="availFilter"></div>
+    <div class="avail-grid" id="availGrid"></div>
+    <p class="avail-note reveal" id="availNote"></p>
+  </section>
+
+  <section class="scene pad" id="execution">
+    <span class="scene-num">07 — הקבלן</span>
+
+    <!-- G5 — יזם שמבצע לעצמו -->
+    <div class="g5-band reveal">
+      <div class="g5-bg" aria-hidden="true">
+        <img src="assets/legacy/imri-towers-800.jpg" alt="" loading="lazy" />
+        <img src="assets/legacy/hamifras-towers-800.jpg" alt="" loading="lazy" />
+        <img src="assets/legacy/keter-david-800.jpg" alt="" loading="lazy" />
+        <img src="assets/legacy/la-deauville-800.jpg" alt="" loading="lazy" />
+      </div>
+      <div class="g5-in">
+        <div class="g5-seal" aria-hidden="true">
+          <div>
+            <div class="g5-g">ג׳5</div>
+            <div class="g5-t">קבלן רשום</div>
+            <div class="g5-b">פנקס הקבלנים · משרד הבינוי והשיכון</div>
+          </div>
+        </div>
+        <div>
+          <span class="g5-eyebrow">מאז 1996 · ביצוע עצמי</span>
+          <h3>אנחנו לא מזמינים קבלן. <em>אנחנו הקבלן.</em></h3>
+          <p class="g5-sub">לשלי גרופ זרוע ביצוע משלה, המחזיקה ברישיון קבלן בסיווג ג׳5 — הגבוה ביותר בפנקס הקבלנים: היקף ביצוע ללא הגבלה, שמגיע רק אחרי שנים של בנייה מוכחת בשטח ומסירת אלפי דירות לאורך השנים.</p>
+          <div class="g5-vals">
+            <div class="g5-val"><b>שליטה מלאה בכל תהליכי הייצור</b><span>מהתכנון, דרך השלד והגמר, ועד מסירת המפתח — הכל נשאר בידיים שלנו, בלי קבלן חיצוני באמצע.</span></div>
+            <div class="g5-val"><b>איכות מובטחת</b><span>כשמי שמוכר לכם את הבית הוא גם מי שבונה אותו — אין תירוצים, אין פשרות ואין פערי אחריות.</span></div>
+            <div class="g5-val"><b>שירות ואחריות בלי תלות באחרים</b><span>גורם אחד מולכם לאורך כל הדרך — לפני המסירה, ביום המסירה והרבה אחריה.</span></div>
+          </div>
+          <p class="g5-more">שלי גרופ מנהלת את כל שלבי הפרויקט תחת קורת גג אחת — מתכנון אדריכלי מוקפד, דרך ביצוע השלד והגמר בידי חברת הביצוע שלנו, ועד מסירת המפתח וליווי הדיירים גם אחריה. החברה פועלת בליווי פיננסי של הבנקים המובילים בישראל — ביטחון מלא ושקט נפשי לרוכשים.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene pad" id="stats">
+    <span class="scene-num">08 — מספרים</span>
+    <div class="scene-head">
+      <div class="eyebrow reveal">המספרים מאחורי המסע</div>
+      <h2 class="reveal d1">ניסיון שנמדד <em>בבתים מאוכלסים.</em></h2>
+    </div>
+    <div class="stat-grid">
+      <div class="stat reveal"><div class="num" data-count="30">0<em>+</em></div><div class="lab">שנות ניסיון · מאז 1996</div></div>
+      <div class="stat reveal d1"><div class="num" data-count="1200">0<em>+</em></div><div class="lab">יחידות דיור</div></div>
+      <div class="stat reveal d2"><div class="num" data-count="18">0</div><div class="lab">פרויקטים</div></div>
+      <div class="stat reveal d2"><div class="num" data-count="900">0<em>+</em></div><div class="lab">משפחות בבית חדש</div></div>
+    </div>
+  </section>
+
+  <section class="scene pad" id="partners">
+    <span class="scene-num">09 — שותפים</span>
+    <div class="scene-head">
+      <div class="eyebrow reveal">עובדים מול הגופים המובילים</div>
+      <h2 class="reveal d1">אמון <em>שנבנה לאורך שנים.</em></h2>
+    </div>
+    <div class="logos reveal">
+      <a href="#contact"><img src="assets/p-rmi.png" alt="רשות מקרקעי ישראל" /></a>
+      <a href="#contact"><img src="assets/p-shikun.png" alt="משרד הבינוי והשיכון" /></a>
+      <a href="#contact"><img src="assets/p-otzar.png" alt="משרד האוצר" /></a>
+      <a href="#contact"><img src="assets/p-mahir.png" alt="מחיר למשתכן" /></a>
+      <a href="#contact"><img src="assets/p-leumi.png" alt="בנק לאומי" /></a>
+      <a href="#contact"><img src="assets/p-mizrahi.png" alt="מזרחי טפחות" /></a>
+    </div>
+  </section>
+
+  <section class="scene pad" id="faq">
+    <span class="scene-num">10 — שאלות ותשובות</span>
+    <div class="scene-head">
+      <div class="eyebrow reveal">כל מה שרוכשים ודיירים שואלים</div>
+      <h2 class="reveal d1">שאלות <em>ותשובות.</em></h2>
+    </div>
+    <div class="faq-list reveal">
+      <details><summary>מה זה פינוי בינוי ומה הדיירים מקבלים?</summary><p>פינוי בינוי הוא תהליך שבו בניינים ישנים נהרסים ובמקומם נבנה מתחם מגורים חדש. הדיירים הוותיקים מקבלים דירה חדשה וגדולה יותר, בדרך כלל עם ממ״ד, מרפסת, מעלית וחניה — ללא עלות מצידם, כולל מימון שכר דירה בתקופת הבנייה.</p></details>
+      <details><summary>מה ההבדל בין יזם לקבלן מבצע — ולמה זה חשוב?</summary><p>היזם מתכנן ומוכר את הפרויקט; הקבלן המבצע בונה אותו בפועל. כשמדובר בשתי חברות שונות נוצרים פערי אחריות. בשלי גרופ היזם והקבלן הם אותו גוף, בסיווג ג׳5 — מי שמוכר לכם את הדירה הוא גם מי שבונה אותה ואחראי עליה.</p></details>
+      <details><summary>איך נרשמים לדירה במסגרת מחיר למשתכן?</summary><p>נרשמים להגרלות באתר משרד הבינוי והשיכון עם תעודת זכאות. זכאים שעלו בהגרלה בוחרים דירה מהמלאי בפרויקט. אנחנו מלווים את הזוכים משלב בחירת הדירה ועד קבלת המפתח — <a href="mishtaken.html" style="color:var(--green-deep);font-weight:600;">כל הפרטים בעמוד מחיר למשתכן</a>.</p></details>
+      <details><summary>באילו ערים פועלת שלי גרופ?</summary><p>בעיקר באשדוד, ביבנה, באשקלון ובאזור השפלה — פרויקטים של פינוי בינוי, מחיר למשתכן, בנייה חדשה ומרכזים מסחריים, בתכנון ובביצוע.</p></details>
+      <details><summary>כמה זמן לוקח פרויקט פינוי בינוי?</summary><p>משלב החתימות ועד האכלוס — בדרך כלל מספר שנים, בהתאם להליכי הרישוי. היתרון שלנו: הביצוע העצמי מקצר את התלות בגורמים חיצוניים. בכל פרויקט באתר מפורסם סטטוס מעודכן: רישוי, ביצוע או אכלוס.</p></details>
+    </div>
+    <p class="faq-more reveal">רוצים להעמיק? <a href="renewal.html">התחדשות עירונית ופינוי בינוי</a> · <a href="development.html">ייזום ובנייה</a> · <a href="mishtaken.html">מחיר למשתכן</a> · <a href="contracting.html">ביצוע בסיווג ג׳5</a></p>
+  </section>
+
+  <section class="scene pad" id="contact">
+    <span class="scene-num">11 — מסירת המפתח</span>
+    <div class="contact-wrap">
+      <div class="contact-l">
+        <div class="eyebrow reveal">בואו נתחיל</div>
+        <h2 class="reveal d1">יש לכם מגרש,<br>בניין או <em>חלום?</em></h2>
+        <p class="lead reveal d2">השאירו פרטים ונחזור אליכם — או דברו איתנו ישירות. כל פנייה מקבלת ליווי אישי.</p>
+        <div class="contact-ch reveal d2">
+          <a class="chan wa" href="mailto:Office@shellyurban.co.il" data-hot>שלחו מייל</a>
+          <a class="chan" href="tel:+97288623366" data-hot>08-862-3366</a>
+        </div>
+      </div>
+      <form class="contact-form reveal d1" id="leadForm" novalidate>
+        <div class="hp-field" aria-hidden="true">
+          <label for="lf-website">אתר</label>
+          <input id="lf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <label class="fl" for="lf-name">שם מלא</label>
+        <input id="lf-name" name="name" type="text" autocomplete="name" required minlength="2" aria-describedby="lf-name-error" />
+        <span class="field-error" id="lf-name-error" aria-live="polite"></span>
+        <label class="fl" for="lf-phone">טלפון</label>
+        <input id="lf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="lf-phone-error" />
+        <span class="field-error" id="lf-phone-error" aria-live="polite"></span>
+        <label class="fl" for="lf-email">דוא״ל <span style="color:var(--ink-faint);font-weight:400;">(לקבלת אישור)</span></label>
+        <input id="lf-email" name="email" type="email" autocomplete="email" aria-describedby="lf-email-error" />
+        <span class="field-error" id="lf-email-error" aria-live="polite"></span>
+        <label class="fl" for="lf-project">פרויקט מעניין</label>
+        <select id="lf-project" name="project">
+          <option value="">כללי / עדיין בודק</option>
+          <option>עצמאות · פינוי-בינוי, יבנה</option>
+          <option>קרן היסוד · מתחם הצעירים, אשדוד</option>
+          <option>הציונות 10 · סיטי פארק, אשדוד (מחיר למשתכן)</option>
+          <option>הלילך, יבנה</option>
+          <option>מיכאל</option>
+          <option>שערי העיר · רובע 9, אשדוד</option>
+          <option>הר אביטל</option>
+        </select>
+        <label class="fl" for="lf-rooms">מספר חדרים</label>
+        <select id="lf-rooms" name="rooms">
+          <option value="">גמיש / לא משנה</option>
+          <option>3 חדרים</option>
+          <option>4 חדרים</option>
+          <option>5 חדרים</option>
+          <option>5+ · פנטהאוז · דירת גן</option>
+        </select>
+        <label class="fl" for="lf-budget">טווח תקציב</label>
+        <select id="lf-budget" name="budget">
+          <option value="">להגדרה בשיחה</option>
+          <option>מחיר למשתכן (זכאי/ת)</option>
+          <option>עד 1.5 מ׳ ₪</option>
+          <option>1.5–2 מ׳ ₪</option>
+          <option>2–2.5 מ׳ ₪</option>
+          <option>מעל 2.5 מ׳ ₪</option>
+        </select>
+        <label class="fl" for="lf-timeline">מתי מתכננים לרכוש</label>
+        <select id="lf-timeline" name="timeline">
+          <option value="">עדיין בודק/ת</option>
+          <option>מיידי — מוכן/ה להתקדם</option>
+          <option>בתוך 3–6 חודשים</option>
+          <option>במהלך השנה</option>
+          <option>אוסף/ת מידע בלבד</option>
+        </select>
+        <label class="fl" for="lf-msg">הודעה (לא חובה)</label>
+        <textarea id="lf-msg" name="message" placeholder="ספרו לנו במה נוכל לעזור…"></textarea>
+        <button class="submit" type="submit" data-hot>יצירת קשר</button>
+        <div class="form-status" id="leadStatus" role="status" aria-live="polite" aria-atomic="true"></div>
+        <div class="note">הפרטים נשלחים באופן מאובטח לצוות שלי גרופ. במקרה של תקלה תוצג הודעה ברורה.</div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-top">
+      <div>
+        <div class="fbrand"><span class="logo-sg" role="img" aria-label="SHELLY GROUP" style="width:140px;height:39px;"></span></div>
+        <a class="g5-chip" href="contracting.html" title="קבלן רשום סיווג ג׳5"><span class="g">ג׳5</span> קבלן רשום בסיווג הגבוה ביותר · ביצוע עצמי מאז 1996</a>
+        <p style="margin-top:14px;max-width:34ch;font-size:14px;">נדל״ן · התחדשות עירונית · בנייה — מהתכנון ועד מסירת המפתח, תחת קורת גג אחת.</p>
+        <div class="fsocial">
+          <a href="https://www.instagram.com/shellyurban2010/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.8.72 1.47 1.38 2.13.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.8-.31 1.47-.72 2.13-1.38.66-.66 1.07-1.33 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.7 5.7 0 0 0-1.38-2.12A5.7 5.7 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-10.4a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg></a>
+        </div>
+      </div>
+      <div class="fcols">
+        <div><h5>ניווט</h5><a href="#projects">פרויקטים</a><a href="#availability">דירות זמינות</a><a href="about.html">אודות</a><a href="team.html">הצוות</a><a href="#contact">צור קשר</a></div>
+        <div><h5>תחומים</h5><a href="renewal.html">התחדשות עירונית</a><a href="development.html">ייזום ובנייה</a><a href="contracting.html">ביצוע קבלנות בניין</a><a href="mishtaken.html">מחיר למשתכן</a></div>
+        <div><h5>קשר</h5><a href="tel:+97288623366">08-862-3366</a><a href="mailto:Office@shellyurban.co.il">Office@shellyurban.co.il</a><!-- TODO: replace with the verified Facebook business URL when supplied. --><a href="https://www.instagram.com/shellyurban2010/" target="_blank" rel="noopener">Facebook</a><!-- TODO: add LinkedIn after the verified business profile URL is supplied. --><a href="accessibility.html">הצהרת נגישות</a></div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span id="yr"></span> שלי גרופ · דני שלי מהנדסים בע״מ · כל הזכויות שמורות</span>
+      <span>חוויה אימרסיבית בהשראת Active Theory × Obys</span>
+    </div>
+  </footer>
+  <a class="whatsapp-float" href="https://wa.me/972542025700" target="_blank" rel="noopener"
+     aria-label="יצירת קשר ב-WhatsApp">WhatsApp</a>
+
+</div><!-- /#content -->
+
+<!-- Lightbox -->
+<div class="lb" id="lb">
+  <div class="lb-card">
+    <button class="lb-close" id="lbClose" aria-label="סגירה">×</button>
+    <div class="lb-img"><img id="lbImg" alt="" /><div id="lbCatWrap"></div><div class="lb-thumbs" id="lbThumbs"></div></div>
+    <div class="lb-body">
+      <div class="lb-meta"><span class="st" id="lbCat"></span><span class="lb-sale" id="lbSale"></span></div>
+      <h3 id="lbTitle"></h3>
+      <div class="loc" id="lbLoc"></div>
+      <p id="lbDesc"></p>
+      <div class="lb-facts" id="lbFacts"></div>
+      <div class="lb-status">
+        <div class="lb-track"><i id="lbFill"></i></div>
+        <div class="lb-steps"><span data-s="1">רישוי</span><span data-s="2">ביצוע</span><span data-s="3">אכלוס</span></div>
+      </div>
+      <a class="lb-cta" href="#contact" id="lbCta" data-hot>תיאום סיור / פרטים</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ GLOBAL SYSTEMS ============ -->
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var touch  = matchMedia('(hover: none), (pointer: coarse)').matches;
+  if(touch) document.body.classList.add('touch');
+
+  if(!touch){
+    var dot=document.getElementById('curDot'), ring=document.getElementById('curRing');
+    var mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+    addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.transform='translate('+mx+'px,'+my+'px) translate(-50%,-50%)';},{passive:true});
+    (function loop(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();
+    document.querySelectorAll('a,button,[data-hot]').forEach(function(el){
+      el.addEventListener('mouseenter',function(){ring.classList.add('hot');});
+      el.addEventListener('mouseleave',function(){ring.classList.remove('hot');});
+    });
+  }
+
+  /* loader — gated on the image sequence preloading */
+  var loader=document.getElementById('loader'),fill=document.getElementById('loadFill'),pct=document.getElementById('loadPct');
+  var t0=Date.now(), done=false;
+  function finish(){if(done)return;done=true;loader.classList.add('done');document.body.classList.add('ready');startReveals();}
+  window.__loaderFinish=finish;
+  function tick(){
+    var sp = window.__seqProgress ? window.__seqProgress() : Math.min(1,(Date.now()-t0)/1500);
+    /* pace the bar against a calm clock — the logo deserves a beat of stillness */
+    var tp = Math.min(1,(Date.now()-t0)/2800);
+    var p = Math.round(Math.min(sp,tp)*100);
+    fill.style.width=p+'%'; if(pct) pct.textContent=p;
+    var mobile=matchMedia('(max-width:760px)').matches;
+    if(((window.__seqReady||!window.__seqProgress) && p>=100) || Date.now()-t0>(mobile?2500:8000)){ setTimeout(finish,mobile?180:450); }
+    else setTimeout(tick, 80);
+  }
+  addEventListener('load',function(){setTimeout(tick,150);});
+  setTimeout(function(){if(!done && Date.now()-t0>1000) tick();},1100);
+
+  var nav=document.getElementById('nav');
+  addEventListener('scroll',function(){nav.classList.toggle('shrunk',scrollY>40);},{passive:true});
+
+  /* mobile menu — pure-CSS checkbox toggle; JS only closes it after use */
+  var navCb=document.getElementById('navCb');
+  var navLinks=document.getElementById('navLinks');
+  if(navCb){
+    navLinks.addEventListener('click',function(e){if(e.target.closest('a'))navCb.checked=false;});
+    var navCta=document.querySelector('.nav-cta');
+    if(navCta)navCta.addEventListener('click',function(){navCb.checked=false;});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')navCb.checked=false;});
+  }
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},
+    {threshold:.14,rootMargin:'0px 0px -7% 0px'});
+  window.__observeReveal=function(el){if(reduce){el.classList.add('in');}else{io.observe(el);}};
+  function startReveals(){document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});}
+  if(reduce)document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+
+  if(!touch){document.querySelectorAll('[data-hot]').forEach(function(el){
+    el.addEventListener('mousemove',function(e){var r=el.getBoundingClientRect();
+      el.style.transform='translate('+((e.clientX-r.left-r.width/2)*.22)+'px,'+((e.clientY-r.top-r.height/2)*.3)+'px)';});
+    el.addEventListener('mouseleave',function(){el.style.transform='';});
+    el.style.transition='transform .3s cubic-bezier(.2,.8,.2,1)';
+  });}
+})();
+</script>
+
+<!-- ============ CINEMA ENGINE — constant building, sky changes with scroll ============ -->
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var skyBg=document.getElementById('skyBg');
+  var sun=document.getElementById('skySun');
+  var stars=document.getElementById('skyStars');
+  var bld=document.getElementById('bld');
+  var bldNight=document.getElementById('bldNight');
+  var bldDay=document.getElementById('bldDay');
+  var chapters=[].slice.call(document.querySelectorAll('.cchap'));
+  var rail=[].slice.call(document.querySelectorAll('#cinoRail i'));
+  var counter=document.getElementById('cinoCount');
+  var cue=document.getElementById('cinoCue');
+  var scrollEl=document.getElementById('cinoScroll');
+  var lobby=document.getElementById('cinoLobby');
+  var video=document.getElementById('cinoVideo');
+  var vidReady=false, vidDur=0, vidUnlocked=false;
+  if(video){
+    video.addEventListener('loadedmetadata',function(){ vidDur=video.duration||0; });
+    video.addEventListener('canplay',function(){ vidReady=true; requestRender(); });
+  }
+  /* iOS/Safari won't let us seek a video until it has been "activated" by a
+     gesture — unlock it on the first interaction so scroll-scrubbing works.
+     Low-power mode rejects play(): allow another attempt on a later gesture. */
+  function unlockVideo(){
+    if(vidUnlocked||!video) return; vidUnlocked=true;
+    var pr=video.play();
+    if(pr&&pr.then){ pr.then(function(){ video.pause(); }).catch(function(){ vidUnlocked=false; }); }
+    else { try{ video.pause(); }catch(e){} }
+  }
+  ['touchstart','pointerdown','wheel','keydown','scroll'].forEach(function(ev){
+    addEventListener(ev,unlockVideo,{passive:true});
+  });
+  var SCENES=chapters.length;            // 5 scenes
+  var SCREENS=4.5;                       // total scroll length, in viewport-heights (room to feel each beat)
+  /* per-chapter scroll boundaries (fractions of total). Each chapter holds one
+     clear, resolved image; the cross-fades happen across the boundaries so the
+     transitions are felt and never land mid-dissolve on a caption. */
+  var STOPS=[0, 0.14, 0.30, 0.50, 0.68, 1.0];
+
+  /* gate the loader on the two building images */
+  var need=2, ready=0;
+  function imgReady(im){ if(im.complete && im.naturalWidth){ready++;} else { im.addEventListener('load',function(){ready++;}); im.addEventListener('error',function(){ready++;}); } }
+  imgReady(bldDay); imgReady(bldNight);
+  window.__seqProgress=function(){return Math.min(1, ready/need);};
+  Object.defineProperty(window,'__seqReady',{get:function(){return ready>=1;}});
+
+  /* The scrub spacer must match the progress denominator (SCREENS*innerHeight)
+     exactly — using svh here broke on mobile, where svh ≠ innerHeight, so the
+     content slid up before progress hit 100%. We also add an end-hold (extra
+     screens, longer on mobile) so the final "ברוכים הבאים הביתה" scene lingers
+     fully before the galleries scroll in from below. */
+  function endHold(){ return innerWidth<760 ? 1.1 : 0.5; }
+  function layout(){ scrollEl.style.height=((SCREENS+endHold())*innerHeight)+'px'; }
+  layout();
+
+  /* time-of-day palettes: top / mid / horizon sky, sun colour+pos+opacity, stars */
+  var P=[
+    {t:[74,134,196],  m:[150,190,221], h:[226,237,242], sc:[255,250,235], sx:80, sy:18, so:.85, st:0},
+    {t:[96,138,186],  m:[198,198,196], h:[246,228,190], sc:[255,236,196], sx:68, sy:36, so:1,   st:0},
+    {t:[104,118,168], m:[227,176,120], h:[247,216,166], sc:[255,224,168], sx:60, sy:50, so:1,   st:.05},
+    {t:[66,58,104],   m:[214,116,84],  h:[244,162,96],  sc:[255,148,88],  sx:49, sy:70, so:.95, st:.25},
+    {t:[18,28,58],    m:[42,56,94],    h:[92,102,140],  sc:[255,140,92],  sx:43, sy:90, so:.35, st:1}
+  ];
+  function clamp(v,a,b){return v<a?a:v>b?b:v;}
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function mix(a,b,t){return [Math.round(lerp(a[0],b[0],t)),Math.round(lerp(a[1],b[1],t)),Math.round(lerp(a[2],b[2],t))];}
+  function rgb(c){return 'rgb('+c[0]+','+c[1]+','+c[2]+')';}
+  function smooth(e0,e1,x){var t=clamp((x-e0)/(e1-e0),0,1);return t*t*(3-2*t);}
+
+  var activeScene=-1;
+  function progress(){ var s=window.scrollY||window.pageYOffset||0; return clamp(s/(SCREENS*innerHeight),0,1); }
+  /* which chapter is p in, and how far through it (0..1) — honours STOPS */
+  function chapterAt(p){
+    var ci=0; while(ci<SCENES-1 && p>=STOPS[ci+1]) ci++;
+    var seg=STOPS[ci+1]-STOPS[ci];
+    return {ci:ci, k:seg>0?clamp((p-STOPS[ci])/seg,0,1):0};
+  }
+
+  function render(){
+    var p=progress();
+    /* time-of-day tracks the chapters: each palette stop is reached at its
+       chapter boundary, so the short day chapter means daylight passes quickly,
+       and night is fully set by the time we reach the lobby. */
+    var c=chapterAt(p), i=c.ci, k=c.k, a=P[i], b=P[Math.min(i+1,P.length-1)];
+    var top=mix(a.t,b.t,k), mid=mix(a.m,b.m,k), hor=mix(a.h,b.h,k), sclr=mix(a.sc,b.sc,k);
+    skyBg.style.background='linear-gradient(180deg,'+rgb(top)+' 0%,'+rgb(mid)+' 50%,'+rgb(hor)+' 100%)';
+    var sx=lerp(a.sx,b.sx,k), sy=lerp(a.sy,b.sy,k), so=lerp(a.so,b.so,k), starOp=lerp(a.st,b.st,k);
+    sun.style.left=sx+'vw'; sun.style.top=sy+'vh'; sun.style.opacity=so;
+    sun.style.background='radial-gradient(circle,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',.95) 0%,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',.45) 26%,rgba('+sclr[0]+','+sclr[1]+','+sclr[2]+',0) 62%)';
+    stars.style.opacity=starOp;
+    /* approach: nudge the exterior in, then cross-fade through the glass
+       entrance into the real lobby footage. Each shot holds fully before the
+       next dissolve begins, so no caption lands on a muddy 50% blend. */
+    var ap=smooth(0.06,0.34,p);
+    var panX=lerp(-52,-30,smooth(0,0.34,p));
+    var scale=1+ap*0.42;                          // gentle push toward the glass before the handoff
+    bld.style.transform='translateX('+panX+'%) scale('+scale+')';
+    bld.style.opacity=1-smooth(0.26,0.40,p);      // exterior holds, then fades by the entrance
+    /* building windows light up toward evening before we step inside */
+    bldNight.style.opacity=smooth(0.10,0.28,p);
+    /* live footage scrubs from the glass entrance into the lobby; it fades in
+       across the ch1→ch2 boundary and the scroll drives its playback head */
+    if(video){
+      video.style.opacity=smooth(0.30,0.44,p);
+      var vp=clamp((p-0.34)/(1-0.34),0,1);
+      if(vidReady && vidDur){
+        video.style.transform='';
+        var vt=vp*vidDur;
+        if(Math.abs(vt-video.currentTime)>0.02){ try{ video.currentTime=vt; }catch(e){} }
+      } else {
+        /* fallback walk-in: when playback is unavailable (low-power mode,
+           data-saver, decode failure) push into the poster frame instead,
+           so the entrance still feels like stepping inside */
+        video.style.transformOrigin='50% 58%';
+        video.style.transform='scale('+(1+vp*0.38)+')';
+      }
+    }
+    /* legibility scrim + vignette bloom once we're inside */
+    if(lobby) lobby.style.opacity=smooth(0.44,0.66,p);
+    /* captions POP in: only the active chapter is "live" */
+    var active=i;
+    if(active!==activeScene){
+      activeScene=active;
+      chapters.forEach(function(c,j){ c.classList.toggle('live', j===active); });
+      rail.forEach(function(d,j){ d.classList.toggle('on', j===active); });
+      if(counter) counter.textContent=('0'+(active+1)).slice(-2);
+    }
+    if(cue) cue.style.opacity=p<0.05?1:0;
+  }
+
+  var queued=false;
+  function requestRender(){ if(queued) return; queued=true; requestAnimationFrame(function(){queued=false; render();}); }
+
+  if(reduce){
+    scrollEl.style.height='0';
+    chapters.forEach(function(c,i){c.classList.toggle('live', i===0);});
+    render();
+    return;
+  }
+  addEventListener('scroll',requestRender,{passive:true});
+  addEventListener('resize',function(){ layout(); requestRender(); },{passive:true});
+  render();
+})();
+</script>
+
+<!-- ============ SCENE 04 DATA + INTERACTIONS (Base44-ready) ============ -->
+<script>
+(function(){
+  /* Projects data — shape matches the planned Base44 `Project` entity.
+     Go live by replacing PROJECTS with: await base44.entities.Project.list(); */
+  /* cat: renewal=התחדשות עירונית · sale=מחיר למשתכן · build=בנייה למגורים · commercial=מסחרי
+     stage: 1=רישוי · 2=ביצוע · 3=אכלוס.  Data sourced from the sales system */
+  var CAT={renewal:"התחדשות עירונית", sale:"מחיר למשתכן", build:"בנייה למגורים", commercial:"מסחרי"};
+  function tagClass(sale){
+    sale=sale||"";
+    if(sale.indexOf("שיווק")!==-1) return "t-mark";
+    if(sale.indexOf("תכנון")!==-1) return "t-plan";
+    if(sale.indexOf("אוכלס")!==-1||sale.indexOf("הושלם")!==-1||sale.indexOf("נמסר")!==-1) return "t-done";
+    return "";
+  }
+  var PROJECTS = [
+    { title:"עצמאות · פינוי-בינוי", location:"יבנה", cat:"renewal", sale:"בתכנון", stage:1,
+      image:"assets/uploads/render-independence.jpg",
+      gallery:["assets/uploads/render-independence.jpg","assets/uploads/render-interior.jpg"],
+      facts:[{k:"units",v:"192",l:"יח״ד חדשות"},{k:"build",v:"3",l:"מגדלי מגורים"},{k:"park",v:"מסחר",l:"קומת מסחר עירוני"}],
+      description:"פרויקט פינוי-בינוי בלב יבנה — מרכז מסחרי עירוני שמעליו שלושה מגדלי מגורים מודרניים, גינה לרווחת הדיירים וחניון תת-קרקעי רחב. 192 יחידות דיור חדשות מעל קומה מסחרית, בתמהיל מגוון של דירות 4–5–6 חד׳, פנטהאוזים ודירות גן — בנגישות נוחה לצירי תחבורה ולטיילת נחל יבנה." },
+    { title:"שפירא 12-20", location:"אשקלון", cat:"renewal", sale:"בתכנון", stage:1,
+      image:"assets/shapira/shapira-blvd.jpg",
+      gallery:["assets/shapira/shapira-blvd.jpg","assets/shapira/shapira-towers.jpg"],
+      facts:[{k:"units",v:"210",l:"יח״ד חדשות"},{k:"renew",v:"180",l:"יח״ד מתפנות"},{k:"key",v:"נוף לים",l:"מלא ומרהיב"}],
+      description:"פרויקט התחדשות עירונית בשכונת שפירא 12-20 באשקלון — 210 יחידות חדשות ומודרניות, עם נוף מלא לים. שכונה מתחדשת במרחק הליכה מהחוף — איכות חיים חדשה לדיירים הוותיקים ולמצטרפים החדשים." },
+    { title:"קרן היסוד · מתחם הצעירים", location:"אשדוד", cat:"renewal", sale:"בשיווק", stage:2,
+      image:"assets/proj-keren.jpg",
+      facts:[{k:"renew",v:"144",l:"דירות מתחדשות"},{k:"units",v:"138",l:"דירות חדשות"},{k:"build",v:"2",l:"שלבי ביצוע"}],
+      description:"מתחם התחדשות עירונית למשפחות צעירות בלב אשדוד, בשני שלבי ביצוע — שלב א׳: 72 דירות קיימות ו-66 דירות חדשות; שלב ב׳: 72 קיימות ו-72 חדשות. דירות 3–4 חדרים ודירות גג בעיצוב מודרני ובסטנדרט בנייה גבוה, בקרבת פארק אשדוד-ים, האמפי תיאטרון וחופי העיר." },
+    { title:"קרן היסוד · שלב ב׳", location:"קרן היסוד 17-23, אשדוד", cat:"renewal", sale:"בתכנון", stage:1,
+      image:"assets/keren-hayesod/keren-b-night.jpg",
+      facts:[{k:"renew",v:"72",l:"דירות מתחדשות"},{k:"units",v:"72",l:"דירות חדשות"},{k:"key",v:"אבן",l:"חזית ירושלמית"}],
+      description:"שלב ב׳ של מתחם הצעירים באשדוד — קרן היסוד 17-23: 72 דירות קיימות מפנות את מקומן ל-72 דירות חדשות ומודרניות. בשלבי תכנון ורישוי — ההמשך הישיר להצלחת שלב א׳ שכבר בביצוע." },
+    { title:"הציונות 10 · סיטי פארק", location:"אשדוד", cat:"sale", sale:"בשיווק", stage:2,
+      image:"assets/proj-142.jpg",
+      facts:[{k:"floors",v:"9",l:"קומות"},{k:"build",v:"3",l:"בנייני מגורים"},{k:"park",v:"2",l:"מפלסי חניה"}],
+      description:"פרויקט 'מחיר למשתכן' ייחודי בלב אשדוד, בפריים-לוקיישן מול פארק ירוק ומרהיב — שלושה בנייני מגורים בני 9 קומות מעל שני מפלסי חניון תת-קרקעי. דירות מרווחות בתכנון ייחודי עם מפרט מפנק ומתקדם, בסטנדרט בנייה גבוה במיוחד, לזוגות צעירים ולמשפחות." },
+    { title:"הלילך", location:"יבנה", cat:"renewal", sale:"הושלם", stage:3,
+      image:"assets/proj-lilac.jpg",
+      facts:[{k:"build",v:"6",l:"בניינים ברחוב"},{k:"renew",v:"3+3",l:"תמ״א 38 ופינוי-בינוי"},{k:"key",v:"בוטיק",l:"בנייני מגורים"}],
+      description:"התחדשות של רחוב שלם בלב יבנה — שישה בניינים מודרניים שישנו את פני הרחוב והשכונה: שלושה בתמ״א 38 ושלושה בפינוי-בינוי שבמקומם יוקמו שלושה מגדלי מגורים. בנייני בוטיק בעיצוב נקי ואורבני, סביב גינה ציבורית מטופחת — שילוב מנצח של קהילה, שקט וחיים עירוניים תוססים." },
+    { title:"מרכז מסחרי עיר היין", location:"אשקלון · מגרש 404-444", cat:"commercial", sale:"בביצוע", stage:2,
+      image:"assets/shelly-center/imall-ir-hayayin.jpg",
+      facts:[{k:"build",v:"מסחר",l:"מרכז מסחרי"},{k:"park",v:"404-444",l:"מגרשים"},{k:"key",v:"2026",l:"בבנייה כעת"}],
+      description:"מרכז מסחרי חדש בשכונת עיר היין באשקלון, במגרשים 404 ו-444 — שטחי מסחר מודרניים בנקודה מסחרית מתפתחת. הפרויקט בבנייה פעילה — ביצוע עצמי מלא של שלי גרופ, ברישיון קבלן ג׳5." },
     { title:"באר גנים · מרכז מסחרי", location:"באר גנים · הסביון 1", cat:"commercial", sale:"הושלם", stage:3,
       image:"assets/shelly-center/beer-ganim-front.jpg",
       gallery:["assets/shelly-center/beer-ganim-front.jpg","assets/shelly-center/beer-ganim-dusk.jpg","assets/shelly-center/beer-ganim-day.jpg","assets/shelly-center/beer-ganim-plaza.jpg"],
