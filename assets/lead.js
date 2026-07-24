@@ -52,14 +52,6 @@
     return parts.join(". ") + ".";
   }
 
-  function queueBackup(payload, status) {
-    try {
-      var q = JSON.parse(localStorage.getItem("pendingLeads") || "[]");
-      q.push({ payload: payload, at: Date.now(), status: status, attempts: 0 });
-      localStorage.setItem("pendingLeads", JSON.stringify(q.slice(-20)));
-    } catch (e) { /* localStorage unavailable */ }
-  }
-
   function isOk(statusCode) { return statusCode === 201 || statusCode === 409; }
 
   function postLead(payload) {
@@ -74,32 +66,9 @@
   function recordLead(payload) {
     return postLead(payload).then(function (r) {
       if (!isOk(r.status)) {
-        queueBackup(payload, r.status);
         throw new Error("Lead endpoint returned " + r.status);
       }
       return r.status;
-    }).catch(function (e) {
-      if (!/returned/.test(e.message || "")) queueBackup(payload, "network");
-      throw e;
-    });
-  }
-
-  function flushQueue() {
-    var q;
-    try { q = JSON.parse(localStorage.getItem("pendingLeads") || "[]"); }
-    catch (e) { return; }
-    if (!q.length || !navigator.onLine) return;
-
-    Promise.all(q.map(function (item) {
-      return postLead(item.payload)
-        .then(function (r) { return isOk(r.status) ? null : item; })
-        .catch(function () {
-          item.attempts = (item.attempts || 0) + 1;
-          return item.attempts < 5 ? item : null;
-        });
-    })).then(function (items) {
-      var left = items.filter(Boolean);
-      try { localStorage.setItem("pendingLeads", JSON.stringify(left)); } catch (e) {}
     });
   }
 
@@ -144,10 +113,20 @@
     var status = form.querySelector("[data-lead-status]");
     var submit = form.querySelector('[type="submit"]');
 
-    function say(msg, ok) {
+    function say(msg, ok, whatsappUrl) {
       if (status) {
         status.textContent = msg;
         status.dataset.ok = ok ? "1" : "0";
+        if (whatsappUrl) {
+          var separator = document.createTextNode(" ");
+          var link = document.createElement("a");
+          link.href = whatsappUrl;
+          link.target = "_blank";
+          link.rel = "noopener";
+          link.textContent = "אפשר לפנות אלינו ב-WhatsApp.";
+          status.appendChild(separator);
+          status.appendChild(link);
+        }
       }
     }
 
@@ -187,18 +166,20 @@
 
       recordLead(payload).then(function () {
         say("מעולה! הפרטים נשמרו — פותחים וואטסאפ.", true);
-      }).catch(function () {
-        say("הפרטים נשמרו לגיבוי מקומי — פותחים וואטסאפ.", true);
-      }).finally(function () {
         var waUrl = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(waMessage(payload, variant));
         setTimeout(function () { location.href = waUrl; }, 120);
+      }).catch(function () {
+        var waUrl = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(waMessage(payload, variant));
+        say("שליחת הפרטים נכשלה. לא נוצר ליד במערכת. אפשר לנסות שוב או לפנות אלינו ישירות.", false, waUrl);
+        if (submit) submit.disabled = false;
       });
     });
   }
 
   function init() {
-    flushQueue();
-    window.addEventListener("online", flushQueue);
+    // Remove legacy queued PII. Failed submissions are now reported explicitly
+    // and are never represented as successfully stored.
+    try { localStorage.removeItem("pendingLeads"); } catch (e) {}
     attachCloudinaryVideo();
     var forms = document.querySelectorAll("form[data-lead]");
     for (var i = 0; i < forms.length; i++) attach(forms[i]);
