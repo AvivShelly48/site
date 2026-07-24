@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>קרן היסוד · מתחם הצעירים באשדוד</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="דירות 2.5–4 חדרים בקרן היסוד, אשדוד. החל מ־1,650,000 ₪ ובתנאי 20/80.">
+  <style>html,body{height:100%;margin:0}body{display:grid;place-items:center;background:#26242b;color:#fff;font-family:Arial,sans-serif}.loader{opacity:.8}</style>
+</head>
+<body>
+  <div class="loader" role="status">מעבירים אתכם לפרויקט קרן היסוד…</div>
+  <script>
+  (function () {
+    "use strict";
+    var KEY = "kh_ab_variant_v1";
+    var variants = {
+      b: "keren-hayesod-b-clear.html",
+      c: "keren-hayesod-c-direct.html"
+    };
+    var query = new URLSearchParams(location.search);
+    var forced = (query.get("variant") || "").toLowerCase();
+    var chosen = variants[forced] ? forced : null;
+
+    if (!chosen) {
+      try { chosen = localStorage.getItem(KEY); } catch (e) {}
+    }
+    if (!variants[chosen]) chosen = Math.random() < 0.5 ? "b" : "c";
+    try { localStorage.setItem(KEY, chosen); } catch (e) {}
+
+    query.delete("variant");
+    if (!query.get("utm_content")) query.set("utm_content", "ab-entry-" + chosen);
+    query.set("ab_variant", chosen);
+
+    var target = variants[chosen] + (query.toString() ? "?" + query.toString() : "");
+    location.replace(target);
+  })();
+  </script>
+</body>
+</html>
