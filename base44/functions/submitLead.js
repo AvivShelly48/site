@@ -1,6 +1,6 @@
 // Base44 backend function: POST submitLead
 // Public — receives lead-form submissions from the static site, stores a Lead record.
-// Body: { name, phone, email?, project?, rooms?, budget?, timeline?, message?, source? }
+// Body: { name, phone, email?, project?, rooms?, budget?, timeline?, message?, source?, website? }
 import { createClientFromRequest } from 'npm:@base44/sdk';
 
 const CORS = {
@@ -15,6 +15,11 @@ Deno.serve(async (req) => {
   if (req.method !== 'POST') return new Response(JSON.stringify({ error: 'POST only' }), { status: 405, headers: CORS });
   try {
     const b = await req.json();
+    // Honeypot: bots commonly fill this visually hidden field. Return a neutral
+    // success response without creating a Lead so the protection is not disclosed.
+    if (b && b.website) {
+      return new Response(JSON.stringify({ ok: true }), { status: 201, headers: CORS });
+    }
     if (!b || !b.name || !b.phone) {
       return new Response(JSON.stringify({ error: 'name and phone are required' }), { status: 400, headers: CORS });
     }
