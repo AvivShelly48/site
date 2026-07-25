@@ -9,7 +9,7 @@
   var CONFIG = {
     whatsapp: "972542025700",
     project: "קרן היסוד · מתחם הצעירים",
-    leadEndpoint: "https://app.base44.com/api/apps/6a621a13ad33551ddd2b220c/functions/receiveLead",
+    leadEndpoint: "https://leadflow.base44.app/api/apps/6a621a13ad33551ddd2b220c/functions/receiveLead",
     videoUrl: "https://res.cloudinary.com/qwjrim41/video/upload/f_auto,q_auto/v1784870055/%D7%99%D7%A9_%D7%A8%D7%92%D7%A2%D7%99%D7%9D_%D7%A9%D7%97%D7%95%D7%95%D7%99%D7%9D_%D7%A8%D7%A7_%D7%A9%D7%92%D7%A8%D7%99%D7%9D_%D7%A7%D7%A8%D7%95%D7%91_ss59uq.mp4",
     allowedRooms: [2.5, 3, 3.5, 4, 4.5, 5]
   };
