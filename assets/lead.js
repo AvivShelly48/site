@@ -128,7 +128,7 @@
         message: "ליד מדף נחיתה — קרן היסוד · " + location.pathname
       };
       if (email) payload.email = email;
-      var roomsNum = parseInt(rooms, 10);           // "5+" → 5 · "" → NaN (מושמט)
+      var roomsNum = parseFloat(rooms);             // "3.5" → 3.5 (parseInt היה מוחק את החצי) · "" → NaN (מושמט)
       if (!isNaN(roomsNum)) payload.rooms = roomsNum;
       if (timeline) payload.purchase_horizon = timeline;
 
