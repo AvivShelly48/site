@@ -21,6 +21,7 @@
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="שלי גרופ — פרויקט מגורים" />
 <script>window.SHELLY_BASE44_API = "https://app.base44.com/api/apps/6a2ff9d8f0f6cef4ef4c3d65/functions";</script>
+<link rel="preload" as="image" href="assets/building/day.webp" fetchpriority="high" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -389,7 +390,20 @@
   .contact-form textarea{resize:vertical;min-height:84px;}
   .contact-form .submit{width:100%;margin-top:26px;background:var(--green);color:#fff;border:none;padding:15px;border-radius:3px;font-size:15px;letter-spacing:.04em;transition:background .3s;}
   .contact-form .submit:hover{background:var(--green-deep);}
+  .contact-form .submit:disabled{cursor:wait;opacity:.7;}
   .contact-form .note{margin-top:14px;font-size:11.5px;color:var(--ink-faint);text-align:center;}
+  .contact-form .field-error{display:block;min-height:18px;margin-top:5px;color:#9d2727;font-size:12px;font-weight:500;}
+  .contact-form [aria-invalid="true"]{border-color:#9d2727;}
+  .contact-form .form-status{margin-top:14px;padding:11px 13px;border-radius:3px;font-size:13px;font-weight:600;}
+  .contact-form .form-status:empty{display:none;}
+  .contact-form .form-status[data-state="success"]{color:#315a1d;background:#edf6e7;}
+  .contact-form .form-status[data-state="error"]{color:#842020;background:#faecec;}
+  .contact-form .hp-field{position:absolute!important;inline-size:1px!important;block-size:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;}
+  :focus-visible{outline:3px solid var(--green-bright);outline-offset:3px;}
+  .whatsapp-float{position:fixed;z-index:80;inset-inline-end:20px;bottom:20px;display:flex;align-items:center;gap:9px;
+    padding:12px 16px;border-radius:999px;background:#176b3a;color:#fff;font-weight:700;font-size:13px;
+    box-shadow:0 14px 34px rgba(23,107,58,.32);transition:transform .25s,background .25s;}
+  .whatsapp-float:hover{transform:translateY(-3px);background:#12572f;}
 
   /* FOOTER */
   .foot{position:relative;z-index:11;background:var(--char);color:rgba(255,255,255,.6);padding:clamp(48px,7vw,80px) clamp(20px,7vw,140px) 40px;}
@@ -481,7 +495,7 @@
     .grid,.exec-grid{grid-template-columns:1fr;}
     .logos{grid-template-columns:repeat(2,1fr);}
     /* gentler, quicker reveals on phone */
-    .reveal{transform:translateY(16px);transition-duration:.7s;}
+    .reveal{transform:translateY(12px);transition-duration:.42s;}
     .d1{transition-delay:.07s}.d2{transition-delay:.14s}
     /* comfortable spacing + readable heads */
     #projects{padding-block:clamp(56px,14vw,120px);}
@@ -536,6 +550,9 @@
     font-size:14px;color:rgba(255,255,255,.6);}
   .legacy-note b{color:rgba(255,255,255,.85);font-weight:600;}
   @media(max-width:760px){
+    .whatsapp-float{bottom:14px;inset-inline-end:14px;padding:12px;width:48px;height:48px;justify-content:center;font-size:0;}
+    .whatsapp-float::before{content:"WA";font-size:12px;letter-spacing:.04em;}
+    .lg-card img{filter:none;}
     .legacy-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
       gap:12px;padding-bottom:8px;margin-inline:calc(-1*clamp(20px,7vw,140px));padding-inline:clamp(20px,7vw,140px);
       scrollbar-width:none;}
@@ -648,8 +665,8 @@
   <div class="sky-sun" id="skySun"></div>
   <div class="sky-stars" id="skyStars"></div>
   <div class="bld" id="bld">
-    <img class="bld-day" id="bldDay" src="assets/building/day.webp" alt="הר אביטל — הדמיה" />
-    <img class="bld-night" id="bldNight" src="assets/building/night.webp" alt="" />
+    <img class="bld-day" id="bldDay" src="assets/building/day.webp" alt="הר אביטל — הדמיה" fetchpriority="high" decoding="async" />
+    <img class="bld-night" id="bldNight" src="assets/building/night.webp" alt="" decoding="async" />
   </div>
   <video class="cino-video" id="cinoVideo" muted playsinline preload="auto"
          poster="assets/scenes/entrance-poster.jpg" aria-hidden="true">
@@ -720,16 +737,16 @@
       <h2 class="reveal d1">עיר שלמה <em>של אנשים</em><br>שכבר בנינו להם בית.</h2>
       <p class="lead reveal d2">כל בניין הוא סיפור. לחצו על פרויקט כדי להתקרב — לראות את ההדמיה, המיקום והסטטוס.</p>
     </div>
-    <article class="feat reveal" data-project="feat" data-hot>
+    <a class="feat reveal" data-project="feat" data-hot href="projects/har-avital.html" aria-label="לפרטים נוספים על הר אביטל">
       <div class="feat-img"><img src="assets/har-avital/day-web.jpg" alt="הר אביטל" /></div>
       <div class="feat-copy">
         <span class="badge">פרויקט הדגל · בתכנון</span>
         <h3>הר אביטל</h3>
         <div class="loc">מגדל מגורים בוטיק · שפה אדריכלית עכשווית</div>
         <p>פרויקט מגורים על קו החוף — חזית בטון חשוף אלגנטית וסטנדרט יוצא דופן. שפה אדריכלית עכשווית שמדגישה את ההבדל, מהתכנון ועד המפתח.</p>
-        <span class="more"><span class="ln2"></span> צפו בפרויקט</span>
+        <span class="more"><span class="ln2"></span> לפרטים נוספים</span>
       </div>
-    </article>
+    </a>
     <div class="grid" id="projGrid"></div>
   </section>
 
@@ -744,27 +761,27 @@
     <div class="legacy-grid reveal">
       <figure class="lg-card">
         <img src="assets/legacy/imri-towers.jpg" srcset="assets/legacy/imri-towers-800.jpg 800w, assets/legacy/imri-towers.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="מגדלי אימרי — פרויקט מגורים שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
-        <figcaption><b>מגדלי אימרי</b><span>אשדוד</span><i>אוכלס [שנה]</i></figcaption>
+        <figcaption><b>מגדלי אימרי</b><span>אשדוד</span><i>אוכלס</i></figcaption>
       </figure>
       <figure class="lg-card">
         <img src="assets/legacy/la-deauville.jpg" srcset="assets/legacy/la-deauville-800.jpg 800w, assets/legacy/la-deauville.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="לה דוויל — מגדל מגורים שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
-        <figcaption><b>לה דוויל</b><span>אשדוד</span><i>אוכלס [שנה]</i></figcaption>
+        <figcaption><b>לה דוויל</b><span>אשדוד</span><i>אוכלס</i></figcaption>
       </figure>
       <figure class="lg-card">
         <img src="assets/legacy/city-dream.jpg" srcset="assets/legacy/city-dream-800.jpg 800w, assets/legacy/city-dream.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="סיטי דרים — פרויקט מגורים שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
-        <figcaption><b>סיטי דרים</b><span>אשדוד</span><i>אוכלס [שנה]</i></figcaption>
+        <figcaption><b>סיטי דרים</b><span>אשדוד</span><i>אוכלס</i></figcaption>
       </figure>
       <figure class="lg-card">
         <img src="assets/legacy/gan-hair.jpg" srcset="assets/legacy/gan-hair-800.jpg 800w, assets/legacy/gan-hair.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="גן העיר — פרויקט שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
-        <figcaption><b>גן העיר</b><span>אשדוד</span><i>אוכלס [שנה]</i></figcaption>
+        <figcaption><b>גן העיר</b><span>אשדוד</span><i>אוכלס</i></figcaption>
       </figure>
       <figure class="lg-card">
         <img src="assets/legacy/keter-david.jpg" srcset="assets/legacy/keter-david-800.jpg 800w, assets/legacy/keter-david.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="כתר דוד — מגדל מגורים שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
-        <figcaption><b>כתר דוד</b><span>אשדוד</span><i>אוכלס [שנה]</i></figcaption>
+        <figcaption><b>כתר דוד</b><span>אשדוד</span><i>אוכלס</i></figcaption>
       </figure>
       <figure class="lg-card">
         <img src="assets/legacy/hamifras-towers.jpg" srcset="assets/legacy/hamifras-towers-800.jpg 800w, assets/legacy/hamifras-towers.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="מגדלי המפרש — פרויקט מגורים שנבנה ואוכלס על ידי שלי גרופ באשדוד" />
-        <figcaption><b>מגדלי המפרש</b><span>אשדוד</span><i>אוכלס [שנה]</i></figcaption>
+        <figcaption><b>מגדלי המפרש</b><span>אשדוד</span><i>אוכלס</i></figcaption>
       </figure>
       <figure class="lg-card">
         <img src="assets/legacy/rothschild-tlv.jpg" srcset="assets/legacy/rothschild-tlv-800.jpg 800w, assets/legacy/rothschild-tlv.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="רוטשילד תל אביב — בניין מגורים שנבנה ואוכלס על ידי שלי גרופ בתל אביב" />
@@ -772,7 +789,7 @@
       </figure>
       <figure class="lg-card">
         <img src="assets/legacy/beer-ganim.jpg" srcset="assets/legacy/beer-ganim-800.jpg 800w, assets/legacy/beer-ganim.jpg 1600w" sizes="(max-width:760px) 76vw, 24vw" loading="lazy" alt="באר גנים — מרכז מסחרי שנבנה ונמסר על ידי שלי גרופ בבאר גנים" />
-        <figcaption><b>באר גנים</b><span>באר גנים</span><i>אוכלס [שנה]</i></figcaption>
+        <figcaption><b>באר גנים</b><span>באר גנים</span><i>אוכלס</i></figcaption>
       </figure>
     </div>
     <p class="legacy-note reveal">בין לקוחותינו: ביצוע פרויקט <b>דיור להשכרה עבור קבוצת אזורים</b></p>
@@ -882,13 +899,20 @@
           <a class="chan" href="tel:+97288623366" data-hot>08-862-3366</a>
         </div>
       </div>
-      <form class="contact-form reveal d1" id="leadForm">
+      <form class="contact-form reveal d1" id="leadForm" novalidate>
+        <div class="hp-field" aria-hidden="true">
+          <label for="lf-website">אתר</label>
+          <input id="lf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
         <label class="fl" for="lf-name">שם מלא</label>
-        <input id="lf-name" name="name" type="text" autocomplete="name" required placeholder="ישראל ישראלי" />
+        <input id="lf-name" name="name" type="text" autocomplete="name" required minlength="2" aria-describedby="lf-name-error" />
+        <span class="field-error" id="lf-name-error" aria-live="polite"></span>
         <label class="fl" for="lf-phone">טלפון</label>
-        <input id="lf-phone" name="phone" type="tel" autocomplete="tel" required placeholder="050-000-0000" />
-        <label class="fl" for="lf-email">דוא״ל <span style="color:var(--ink-faint);font-weight:400;">(לקבלת אישור)</span></label>
-        <input id="lf-email" name="email" type="email" autocomplete="email" placeholder="name@example.com" />
+        <input id="lf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="lf-phone-error" />
+        <span class="field-error" id="lf-phone-error" aria-live="polite"></span>
+        <label class="fl" for="lf-email">דוא״ל <span style="color:var(--ink-faint);font-weight:400;">(לא חובה)</span></label>
+        <input id="lf-email" name="email" type="email" autocomplete="email" aria-describedby="lf-email-error" />
+        <span class="field-error" id="lf-email-error" aria-live="polite"></span>
         <label class="fl" for="lf-project">פרויקט מעניין</label>
         <select id="lf-project" name="project">
           <option value="">כללי / עדיין בודק</option>
@@ -927,8 +951,9 @@
         </select>
         <label class="fl" for="lf-msg">הודעה (לא חובה)</label>
         <textarea id="lf-msg" name="message" placeholder="ספרו לנו במה נוכל לעזור…"></textarea>
-        <button class="submit" type="submit" data-hot>שליחה</button>
-        <div class="note">השליחה פותחת את תוכנת המייל עם הפרטים, מוכנים לשליחה ל-Office@shellyurban.co.il</div>
+        <button class="submit" type="submit" data-hot>יצירת קשר</button>
+        <div class="form-status" id="leadStatus" role="status" aria-live="polite" aria-atomic="true"></div>
+        <div class="note">הפרטים נשלחים באופן מאובטח לצוות שלי גרופ. במקרה של תקלה תוצג הודעה ברורה.</div>
       </form>
     </div>
   </section>
@@ -946,7 +971,7 @@
       <div class="fcols">
         <div><h5>ניווט</h5><a href="#projects">פרויקטים</a><a href="#availability">דירות זמינות</a><a href="about.html">אודות</a><a href="team.html">הצוות</a><a href="#contact">צור קשר</a></div>
         <div><h5>תחומים</h5><a href="renewal.html">התחדשות עירונית</a><a href="development.html">ייזום ובנייה</a><a href="contracting.html">ביצוע קבלנות בניין</a><a href="mishtaken.html">מחיר למשתכן</a></div>
-        <div><h5>קשר</h5><a href="tel:+97288623366">08-862-3366</a><a href="mailto:Office@shellyurban.co.il">Office@shellyurban.co.il</a><a href="accessibility.html">הצהרת נגישות</a></div>
+        <div><h5>קשר</h5><a href="tel:+97288623366">08-862-3366</a><a href="mailto:Office@shellyurban.co.il">Office@shellyurban.co.il</a><!-- TODO: replace with the verified Facebook business URL when supplied. --><a href="https://www.instagram.com/shellyurban2010/" target="_blank" rel="noopener">Facebook</a><!-- TODO: add LinkedIn after the verified business profile URL is supplied. --><a href="accessibility.html">הצהרת נגישות</a></div>
       </div>
     </div>
     <div class="foot-bot">
@@ -954,6 +979,8 @@
       <span>חוויה אימרסיבית בהשראת Active Theory × Obys</span>
     </div>
   </footer>
+  <a class="whatsapp-float" href="https://wa.me/972542025700" target="_blank" rel="noopener"
+     aria-label="יצירת קשר ב-WhatsApp">WhatsApp</a>
 
 </div><!-- /#content -->
 
@@ -1006,7 +1033,8 @@
     var tp = Math.min(1,(Date.now()-t0)/2800);
     var p = Math.round(Math.min(sp,tp)*100);
     fill.style.width=p+'%'; if(pct) pct.textContent=p;
-    if(((window.__seqReady||!window.__seqProgress) && p>=100) || Date.now()-t0>8000){ setTimeout(finish,450); }
+    var mobile=matchMedia('(max-width:760px)').matches;
+    if(((window.__seqReady||!window.__seqProgress) && p>=100) || Date.now()-t0>(mobile?2500:8000)){ setTimeout(finish,mobile?180:450); }
     else setTimeout(tick, 80);
   }
   addEventListener('load',function(){setTimeout(tick,150);});
@@ -1245,6 +1273,17 @@
     description:"פרויקט הדגל שלנו — פרויקט מגורים על קו החוף עם חזית בטון חשוף אלגנטית וסטנדרט יוצא דופן. מביאים אליכם שפה אדריכלית עכשווית, ומדגישים את ההבדל בבית." };
 
   var grid=document.getElementById('projGrid');
+  var PROJECT_URLS={
+    "עצמאות · פינוי-בינוי":"projects/atzmaut-yavne.html",
+    "שפירא 12-20":"projects/shapira-ashkelon.html",
+    "קרן היסוד · מתחם הצעירים":"projects/keren-hayesod.html",
+    "קרן היסוד · שלב ב׳":"projects/keren-hayesod-stage-b.html",
+    "הציונות 10 · סיטי פארק":"projects/hatzionut-city-park.html",
+    "הלילך":"projects/halilach-yavne.html",
+    "מרכז מסחרי עיר היין":"projects/ir-hayayin-commercial.html",
+    "באר גנים · מרכז מסחרי":"projects/beer-ganim-commercial.html",
+    "הר אביטל":"projects/har-avital.html"
+  };
   function chips(p){
     return (p.facts||[]).slice(0,2).map(function(f){
       return '<span>'+f.v+' '+f.l+'</span>'; }).join('');
@@ -1252,18 +1291,17 @@
   function renderProjects(list){
     grid.innerHTML=list.map(function(p,i){
       var d=i%3===1?'d1':(i%3===2?'d2':'');
-      return '<article class="pcard reveal '+d+'" data-hot tabindex="0" aria-label="'+p.title+'">'+
+      var url=PROJECT_URLS[p.title]||'#contact';
+      return '<a class="pcard reveal '+d+'" data-hot href="'+url+'" aria-label="לפרטים נוספים על '+p.title+'">'+
         '<div class="pcard-img"><img src="'+p.image+'" alt="'+('הדמיית '+p.title+(p.location?' — '+p.location:''))+'" loading="lazy" />'+
         '<span class="pcard-tag '+tagClass(p.sale)+'">'+(p.sale||CAT[p.cat]||'')+'</span></div>'+
         '<div class="pcard-body"><div class="pcard-ttl">'+p.title+'</div>'+
         '<div class="pcard-loc">'+p.location+'</div>'+
         '<div class="pcard-facts">'+chips(p)+'</div>'+
-        '<div class="pcard-cta"><b>לצפייה בפרויקט</b><i>←</i></div></div></article>';
+        '<div class="pcard-cta"><b>לפרטים נוספים</b><i>←</i></div></div></a>';
     }).join('');
     grid.querySelectorAll('.pcard').forEach(function(el,i){
       if(window.__observeReveal) window.__observeReveal(el);
-      el.addEventListener('click',function(){openLB(list[i]);});
-      el.addEventListener('keydown',function(e){if(e.key==='Enter')openLB(list[i]);});
     });
   }
   var lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbTitle=document.getElementById('lbTitle'),
@@ -1368,7 +1406,6 @@
     loadProjects().then(function(data){
       if(data){ if(data.featured) FEATURED=data.featured; renderProjects(data.list.length?data.list:PROJECTS); }
       else { renderProjects(PROJECTS); }
-      if(featEl) featEl.onclick=function(){openLB(FEATURED);};
     });
   }
   initProjects();
@@ -1385,26 +1422,33 @@
   var stepEl=document.querySelector('.exec-steps');
   if(stepEl){var sIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');sIO.unobserve(e.target);}});},{threshold:.5});sIO.observe(stepEl);}
 
-  var MAIL_TO="Office@shellyurban.co.il";
   var form=document.getElementById('leadForm');
   function v(id){var el=document.getElementById(id);return el?el.value.trim():"";}
-  function mailtoLead(d){
-    var subject=encodeURIComponent("ליד מהאתר — "+(d.project||"כללי")+(d.name?(" · "+d.name):""));
-    var body=encodeURIComponent(
-      "שם: "+d.name+"\nטלפון: "+d.phone+(d.email?("\nדוא״ל: "+d.email):"")+
-      "\nפרויקט: "+(d.project||"כללי / עדיין בודק")+
-      "\nחדרים: "+(d.rooms||"גמיש")+
-      "\nתקציב: "+(d.budget||"להגדרה")+
-      "\nאופק רכישה: "+(d.timeline||"בודק")+
-      "\n\nהודעה:\n"+d.message);
-    window.location.href="mailto:"+MAIL_TO+"?subject="+subject+"&body="+body;
+  function setError(id,message){
+    var input=document.getElementById(id), error=document.getElementById(id+'-error');
+    if(input) input.setAttribute('aria-invalid',message?'true':'false');
+    if(error) error.textContent=message||'';
+  }
+  function validPhone(phone){return /^(?:\+?972|0)(?:-?5\d){1}(?:-?\d){7}$/.test(phone.replace(/\s/g,''));}
+  function setStatus(message,state){
+    var status=document.getElementById('leadStatus');
+    if(status){status.textContent=message;status.setAttribute('data-state',state||'');}
   }
   if(form) form.addEventListener('submit',function(e){
     e.preventDefault();
+    setError('lf-name','');setError('lf-phone','');setError('lf-email','');setStatus('','');
+    if(v('lf-website')) return;
     var d={name:v('lf-name'),phone:v('lf-phone'),email:v('lf-email'),project:v('lf-project'),
            rooms:v('lf-rooms'),budget:v('lf-budget'),timeline:v('lf-timeline'),message:v('lf-msg'),source:"website"};
     var btn=form.querySelector('.submit');
-    /* Lead delivery: 1) Base44 submitLead function · 2) Base44 SDK · 3) mailto fallback */
+    var invalid=null;
+    if(d.name.length<2){setError('lf-name','נא להזין שם מלא.');invalid=document.getElementById('lf-name');}
+    if(!validPhone(d.phone)){setError('lf-phone','נא להזין מספר טלפון ישראלי תקין.');invalid=invalid||document.getElementById('lf-phone');}
+    if(d.email && !document.getElementById('lf-email').checkValidity()){setError('lf-email','נא להזין כתובת דוא״ל תקינה.');invalid=invalid||document.getElementById('lf-email');}
+    if(invalid){invalid.focus();setStatus('יש לתקן את השדות המסומנים.','error');return;}
+    var last=Number(sessionStorage.getItem('shellyLeadSubmittedAt')||0);
+    if(Date.now()-last<30000){setStatus('הפנייה האחרונה כבר נשלחה. אפשר לנסות שוב בעוד כמה שניות.','error');return;}
+    /* Lead delivery: public Base44 submitLead function, with SDK only when embedded in Base44. */
     function sendLead(d){
       var api=(window.SHELLY_BASE44_API||"").replace(/\/+$/,"");
       if(api){
@@ -1417,30 +1461,30 @@
       return Promise.reject(new Error("no-backend"));
     }
     if(btn){btn.disabled=true;btn.textContent="שולח…";}
+    setStatus('הפנייה נשלחת…','');
     sendLead(d)
-      .then(function(){ if(btn){btn.textContent="נשלח ✓";} form.reset(); setTimeout(function(){if(btn){btn.disabled=false;btn.textContent="שליחה";}},2600); })
-      .catch(function(){ if(btn){btn.disabled=false;btn.textContent="שליחה";} mailtoLead(d); });
+      .then(function(){
+        sessionStorage.setItem('shellyLeadSubmittedAt',String(Date.now()));
+        setStatus('תודה, הפנייה התקבלה בהצלחה. נחזור אליכם בהקדם.','success');
+        if(btn) btn.textContent="נשלח ✓";
+        form.reset();
+      })
+      .catch(function(){
+        setStatus('לא הצלחנו לשלוח את הפנייה. נסו שוב או צרו קשר בטלפון 08-862-3366.','error');
+        if(btn){btn.disabled=false;btn.textContent="יצירת קשר";}
+      });
   });
   document.getElementById('yr').textContent=new Date().getFullYear();
 })();
 </script>
-<!-- ============ AVAILABILITY board (Base44 Unit entity, sample fallback) ============ -->
+<!-- ============ AVAILABILITY board (Base44 Unit entity) ============ -->
 <script>
 (function(){
-  var SAMPLE=[
-    {project:"עצמאות · פינוי-בינוי", location:"יבנה", rooms:5, status:"available", image:"assets/uploads/render-independence.jpg"},
-    {project:"עצמאות · פינוי-בינוי", location:"יבנה", rooms:4, status:"available", image:"assets/uploads/render-interior.jpg"},
-    {project:"הלילך", location:"יבנה", rooms:4, status:"available", image:"assets/proj-lilac.jpg"},
-    {project:"הלילך", location:"יבנה", rooms:5, status:"reserved", image:"assets/proj-lilac3.jpg"},
-    {project:"קרן היסוד · מתחם הצעירים", location:"אשדוד", rooms:3, status:"available", image:"assets/proj-keren.jpg"},
-    {project:"קרן היסוד · מתחם הצעירים", location:"אשדוד", rooms:4, status:"reserved", image:"assets/proj-independence3.jpg"},
-    {project:"הציונות 10 · סיטי פארק", location:"אשדוד", rooms:4, status:"available", image:"assets/proj-142.jpg"}
-  ];
   var BADGE={available:["available","🟢 פנוי"],reserved:["reserved","🟡 בהמתנה"],sold:["sold","🔴 נמכר"]};
   var grid=document.getElementById('availGrid'), filt=document.getElementById('availFilter'), note=document.getElementById('availNote');
   if(!grid) return;
   function nis(n){try{return "₪"+Number(n).toLocaleString("he-IL");}catch(e){return "₪"+n;}}
-  /* normalize a unit from either SAMPLE or Base44 (which may use price/sqm/unit) */
+  /* Normalize a public Base44 unit record. */
   function loc(u){ return u.location || ((u.project||'').split(',')[1]||'').trim(); }
   function priceOf(u){ return u.priceFrom || u.price || 0; }
   function reserve(u){
@@ -1475,7 +1519,7 @@
       ml.textContent='או צרו קשר במייל ›';el.querySelector('.unit-body').appendChild(ml);}
     return el;
   }
-  function render(list, sample){
+  function render(list){
     grid.innerHTML='';
     var projects=[]; list.forEach(function(u){if(projects.indexOf(u.project)===-1)projects.push(u.project);});
     filt.innerHTML=''; var current='__all';
@@ -1490,19 +1534,24 @@
     chip('הכל','__all'); projects.forEach(function(p){chip(p.split(' · ')[0].split(',')[0],p);});
     paint();
     var avail=list.filter(function(u){return u.status==='available';}).length;
-    note.textContent='כעת '+avail+' דירות פנויות. כל התמונות הן הדמיות אדריכליות להמחשה בלבד ואינן מהוות מצג מחייב. '+(sample?'נתוני המלאי להמחשה — יתעדכנו אוטומטית ממערכת המכירות.':'');
+    note.textContent='כעת '+avail+' דירות פנויות. כל התמונות הן הדמיות אדריכליות להמחשה בלבד ואינן מהוות מצג מחייב.';
+  }
+  function renderEmpty(){
+    grid.innerHTML='<div class="unit-empty" role="status"><strong>אין כרגע דירות להצגה</strong><p>לקבלת מידע עדכני על זמינות, צרו איתנו קשר.</p><a class="unit-btn go" href="#contact">יצירת קשר</a></div>';
+    filt.innerHTML='';
+    note.textContent='המלאי החי אינו זמין כרגע. לא מוצגים נתוני הדגמה.';
   }
   var API=(window.SHELLY_BASE44_API||"").replace(/\/+$/,"");
   if(API){
     fetch(API+"/getPublicUnits",{headers:{Accept:"application/json"}})
       .then(function(r){return r.ok?r.json():null;})
-      .then(function(d){ var rows=d&&(d.units||d.items||d); (rows&&rows.length)?render(rows,false):render(SAMPLE,true); })
-      .catch(function(){ render(SAMPLE,true); });
+      .then(function(d){ var rows=d&&(d.units||d.items||d); (rows&&rows.length)?render(rows):renderEmpty(); })
+      .catch(renderEmpty);
   } else if(window.base44 && base44.entities && base44.entities.Unit){
     base44.entities.Unit.list().then(function(rows){
-      if(rows && rows.length) render(rows, false); else render(SAMPLE, true);
-    }).catch(function(){ render(SAMPLE, true); });
-  } else { render(SAMPLE, true); }
+      if(rows && rows.length) render(rows); else renderEmpty();
+    }).catch(renderEmpty);
+  } else { renderEmpty(); }
 })();
 </script>
 <script src="assets/a11y.js" defer></script>
