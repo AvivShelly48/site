@@ -22,44 +22,81 @@
   var rig    = document.getElementById('rig');
   var stateEl= document.getElementById('state');
   var pctEl  = document.getElementById('pct');
+  var stpEl  = document.getElementById('stp');
 
-  /* Per-layer travel from the exploded position to the assembled one, along
-     the diagram's depth axis. The six layers do not collapse onto one point —
-     each lands flush on the back of the previous, so the build-up closes into
-     a real section and the ventilated cavity survives to 100%.
-     Order follows catalogue page 05: wall · waterproofing · insulation ·
-     sub-construction · cavity · panels. Generated with the geometry, not by
-     hand — see scratchpad/gen/iso.py. */
-  var TX = [0.0, -72.5, -162.2, -236.5, -314.4, -395.0];
-  var TY = [0.0, -33.8,  -75.7, -110.4, -146.8, -184.4];
-  var CAVITY = 4;                  /* the airflow rides this layer */
+  /* Geometry order is by depth: 0 wall · 1 waterproofing · 2 insulation ·
+     3 sub-construction · 4 cavity · 5 panels. That is the cross-section, and
+     it is what the assembled state must look like.
 
-  /* The stack converges onto layer 0, which parks the finished wall hard
-     against one corner of the frame. The rig drifts the opposite way as it
-     closes so the assembled section lands centred instead. */
+     ORDER is something else: the sequence the trades actually work in, taken
+     from the installation film — the aluminium goes up on a bare wall and the
+     wool is then fitted into the bays between the profiles. So step 3 is the
+     sub-construction and step 4 is the insulation, even though the insulation
+     ends up behind it. Section order and installation order are two different
+     true statements about the same wall; the hero animates the second.        */
+  var TX    = [0.0, -72.5, -162.2, -236.5, -314.4, -395.0];
+  var TY    = [0.0, -33.8,  -75.7, -110.4, -146.8, -184.4];
+  var ORDER = [0, 1, 3, 2, 4, 5];        /* geometry index per install step */
+  var CAVITY = 4;
+
+  /* The stack assembles onto layer 0, which sits in a corner of the frame.
+     A fixed rig offset centres the finished wall; it no longer animates,
+     because the composition is anchored on the wall the whole way through. */
   var RIGX = 197, RIGY = 63;
 
-  var ticking = false, lastState = '', lastPct = -1;
+  /* Layers wait off-frame down the depth axis and fly in on their turn, the
+     way the installation film shows them arriving — rather than sitting in a
+     queue inside the frame, where a parked layer lands exactly on top of the
+     spot the next one is being fixed to. */
+  var WAITX = 489, WAITY = 228;
+
+  /* Step 0 is the substrate — it is already standing. The other five arrive
+     one at a time, each over its own slice of the scroll, slightly overlapped
+     so the sequence reads as continuous rather than as five separate jumps. */
+  var SLOT0 = 0.02, SLOTGAP = 0.1845, SLOTLEN = 0.24;
+
+  var stepOf = [];
+  for (var q = 0; q < ORDER.length; q++) stepOf[ORDER[q]] = q;
+
+  function ease(t) { return t * t * (3 - 2 * t); }
+
+  function arrival(step, p) {
+    if (step === 0) return 1;
+    var t = (p - (SLOT0 + (step - 1) * SLOTGAP)) / SLOTLEN;
+    return ease(Math.min(1, Math.max(0, t)));
+  }
+
+  var ticking = false, lastState = '', lastPct = -1, lastStep = -1;
 
   function apply(p) {
     for (var i = 0; i < layers.length; i++) {
-      var k = +layers[i].getAttribute('data-i');
-      layers[i].setAttribute('transform', 'translate(' + (TX[k] * p) + ',' + (TY[k] * p) + ')');
+      var g = +layers[i].getAttribute('data-i');
+      var e = arrival(stepOf[g], p);
+      var w = 1 - e;
+      layers[i].setAttribute('transform',
+        'translate(' + (TX[g] + WAITX * w) + ',' + (TY[g] + WAITY * w) + ')');
+      layers[i].style.opacity = Math.min(1, e * 3);
     }
 
-    /* the airflow belongs to the cavity but must paint above the panels to
-       stay legible, so it is moved by hand rather than parented into it */
+    /* the airflow belongs to the cavity but paints last so it stays legible
+       over the panels — and it only means anything once they have closed it */
     if (air) {
-      air.setAttribute('transform', 'translate(' + (TX[CAVITY] * p) + ',' + (TY[CAVITY] * p) + ')');
-      air.style.opacity = p > 0.84 ? '1' : '0';
+      var cav = arrival(stepOf[CAVITY], p);
+      air.setAttribute('transform',
+        'translate(' + (TX[CAVITY] + WAITX * (1 - cav)) + ',' + (TY[CAVITY] + WAITY * (1 - cav)) + ')');
+      air.style.opacity = arrival(stepOf[5], p) > 0.5 ? '1' : '0';
     }
 
-    if (rig) rig.setAttribute('transform', 'translate(' + (RIGX * p) + ',' + (RIGY * p) + ')');
+    /* at rest the whole legend is readable; once assembly starts it lights
+       step by step, so the system is learned in the order it is built */
+    var atRest = p < 0.03;
+    for (var j = 0; j < legs.length; j++) legs[j].classList.toggle('on', atRest || arrival(j, p) > 0);
 
-    var lit = Math.floor(p * (legs.length + 1));
-    for (var j = 0; j < legs.length; j++) legs[j].classList.toggle('on', p < 0.05 || j < lit);
+    var step = 1;
+    for (var k = 1; k < ORDER.length; k++) if (arrival(k, p) > 0) step = k + 1;
+    if (step !== lastStep) { stpEl.textContent = ('0' + step).slice(-2); lastStep = step; }
 
-    var s = p > 0.93 ? 'מורכב' : (p > 0.05 ? 'מתכנס' : 'מפורק');
+    var s = p > 0.97 ? 'מורכב' : (p > 0.03 ? 'מתכנס' : 'מפורק');
     if (s !== lastState) { stateEl.textContent = s; lastState = s; }
 
     var n = Math.round(p * 100);
