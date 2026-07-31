@@ -172,11 +172,17 @@ h3{font-size:clamp(18px,1.6vw,21px);font-weight:400;line-height:1.35}
   letter-spacing:.16em;color:var(--soft-text)}
 .readout b{color:var(--tan-deep);font-weight:400}
 .hero-figure{position:relative}
-/* the rendered hero replaces the vector one only once WebGL is actually up —
-   the SVG stays the fallback for reduced-motion and for anything without it */
+/* Three renderers stacked by fidelity: the pre-rendered film, then the WebGL
+   scene, then the vector section. Each one hides the ones under it, and only
+   once it has actually proven it works — a film that will not decode must not
+   leave a hole where the hero should be. */
+.hero-vid{display:none;inline-size:100%;aspect-ratio:16/9;object-fit:contain}
 .hero-gl{display:none;inline-size:100%;aspect-ratio:74/62}
 .hero-figure.gl .hero-gl{display:block}
 .hero-figure.gl .hero-svg{display:none}
+.hero-figure.film .hero-vid{display:block}
+.hero-figure.film .hero-gl,
+.hero-figure.film .hero-svg{display:none}
 
 .legend{
   position:absolute;inset-block-end:30px;inset-inline:0;
@@ -184,12 +190,28 @@ h3{font-size:clamp(18px,1.6vw,21px);font-weight:400;line-height:1.35}
   display:grid;grid-template-columns:repeat(6,1fr);gap:8px;
   border-block-start:var(--hair) solid var(--rule);padding-block-start:14px;
 }
+/* the legend doubles as the chapter rail — .on is "this layer has landed",
+   .now is "this is the chapter the scroll is sitting inside" */
 .lg{text-align:center;opacity:.3;transition:opacity .55s ease}
 .lg.on{opacity:1}
 .lg .n{inline-size:22px;block-size:22px;line-height:20px;margin-inline:auto;margin-block-end:8px;
   border:var(--hair) solid var(--tan);color:var(--tan-deep);
-  font-family:var(--mono);font-size:10.5px}
-.lg .t{font-size:11px;color:var(--mid);line-height:1.45}
+  font-family:var(--mono);font-size:10.5px;
+  transition:background-color .4s ease,color .4s ease}
+.lg .t{font-size:11px;color:var(--mid);line-height:1.45;transition:color .4s ease}
+.lg.now .n{background:var(--tan);color:var(--raise)}
+.lg.now .t{color:var(--ink)}
+
+/* the cue has one job, and it is over the moment the page has been scrolled */
+.scroll-cue{position:absolute;inset-block-end:126px;inset-inline:0;
+  inline-size:var(--wrap);margin-inline:auto;
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--soft-text);
+  transition:opacity .5s ease}
+.scroll-cue.gone{opacity:0;pointer-events:none}
+.scroll-cue i{display:block;inline-size:1px;block-size:26px;background:var(--tan);
+  transform-origin:top;animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:scaleY(.3);opacity:.3}50%{transform:scaleY(1);opacity:1}}
 .hero-tag{position:absolute;inset-block-start:104px;inset-inline-start:0;
   inline-size:var(--wrap);margin-inline:auto;
   font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--soft-text);
@@ -354,6 +376,8 @@ footer :focus-visible{outline-color:#E6D6B8}
   .burger{display:flex}
   .hero{block-size:240vh}
   .hero-in{grid-template-columns:1fr;gap:26px}
+  /* nothing to cue on a touch device, and the legend needs the room */
+  .scroll-cue{display:none}
   .two,.bipv-grid,.prod,.form-wrap{grid-template-columns:1fr}
   .range,.argue,.proj{grid-template-columns:1fr}
   .step{grid-template-columns:44px 1fr}
@@ -383,4 +407,7 @@ footer :focus-visible{outline-color:#E6D6B8}
   .hero-stick{position:static;block-size:100vh}
   .rev{opacity:1;transform:none}
   .lg{opacity:1}
+  /* no scroll range to scrub against, so the film would sit on one frame —
+     the vector section is the better still */
+  .scroll-cue{display:none}
 }

@@ -25,7 +25,20 @@
   var stpEl  = document.getElementById('stp');
   var figure = document.getElementById('heroFig');
   var glCv   = document.getElementById('heroGL');
+  var vid    = document.getElementById('heroVid');
+  var cue    = document.getElementById('cue');
   var gl3d   = null;
+
+  /* The film is the hero when it is available: a pre-rendered assembly the
+     scroll scrubs through, frame by frame. The WebGL scene and the vector
+     section stay in the page as the two fallbacks under it. */
+  var film = false, filmDur = 0;
+
+  /* The film is cut as five equal transitions between the six states, so the
+     chapter a given scroll position sits in is just the fifth it falls in —
+     unlike the vector path, whose layers arrive on the overlapping slots
+     below. Both express the same six steps; only their timing differs. */
+  var CHAPTERS = 6;
 
   /* Geometry order is by depth: 0 wall · 1 waterproofing · 2 insulation ·
      3 sub-construction · 4 cavity · 5 panels. That is the cross-section, and
@@ -71,7 +84,9 @@
 
   var ticking = false, lastState = '', lastPct = -1, lastStep = -1;
 
-  function apply(p) {
+  /* The vector rig — also what drives the WebGL scene, since both are staged
+     on the same overlapping arrival slots. Returns the step now under way. */
+  function drawVector(p) {
     for (var i = 0; i < layers.length; i++) {
       var g = +layers[i].getAttribute('data-i');
       var e = arrival(stepOf[g], p);
@@ -90,15 +105,32 @@
       air.style.opacity = arrival(stepOf[5], p) > 0.5 ? '1' : '0';
     }
 
-    /* at rest the whole legend is readable; once assembly starts it lights
-       step by step, so the system is learned in the order it is built */
     if (gl3d) gl3d.render(p, function (step) { return arrival(step, p); });
-
-    var atRest = p < 0.03;
-    for (var j = 0; j < legs.length; j++) legs[j].classList.toggle('on', atRest || arrival(j, p) > 0);
 
     var step = 1;
     for (var k = 1; k < ORDER.length; k++) if (arrival(k, p) > 0) step = k + 1;
+    return step;
+  }
+
+  /* One seek per frame at most. The tolerance keeps us off the decoder while
+     the scroll has barely moved, which is most frames. */
+  function scrubFilm(p) {
+    var t = p * filmDur;
+    if (Math.abs(t - vid.currentTime) > 0.02) { try { vid.currentTime = t; } catch (e) {} }
+    return p > 0 ? Math.min(CHAPTERS, Math.ceil(p * (CHAPTERS - 1)) + 1) : 1;
+  }
+
+  function apply(p) {
+    var step = film ? scrubFilm(p) : drawVector(p);
+
+    /* at rest the whole legend is readable; once assembly starts it lights
+       step by step, so the system is learned in the order it is built */
+    var atRest = p < 0.03;
+    for (var j = 0; j < legs.length; j++) {
+      legs[j].classList.toggle('on', atRest || j < step);
+      legs[j].classList.toggle('now', !atRest && j === step - 1);
+    }
+
     if (step !== lastStep) { stpEl.textContent = ('0' + step).slice(-2); lastStep = step; }
 
     var s = p > 0.97 ? 'מורכב' : (p > 0.03 ? 'מתכנס' : 'מפורק');
@@ -106,6 +138,8 @@
 
     var n = Math.round(p * 100);
     if (n !== lastPct) { pctEl.textContent = ('00' + n).slice(-3); lastPct = n; }
+
+    if (cue && p > 0.01) cue.classList.add('gone');
   }
 
   function frame() {
@@ -126,6 +160,41 @@
 
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
 
+  function useFilm() {
+    if (film || !vid || !vid.duration || !isFinite(vid.duration)) return;
+    film = true;
+    filmDur = vid.duration;
+    figure.classList.add('film');
+    figure.classList.remove('gl');
+    gl3d = null;                       /* nothing left to draw into it */
+    onScroll();
+  }
+
+  /* The rendered scene, second choice. The class goes on first — the canvas is
+     display:none until it does, and a hidden canvas measures itself as zero
+     and comes up 1x1. */
+  function useGL() {
+    if (film || gl3d || !glCv || !window.SELA_HERO3D) return;
+    figure.classList.add('gl');
+    var up = false;
+    try { up = window.SELA_HERO3D.init(glCv); } catch (err) { up = false; }
+    if (up) { gl3d = window.SELA_HERO3D; gl3d.resize(); onScroll(); }
+    else { figure.classList.remove('gl'); }
+  }
+
+  /* iOS will not seek a video that has never played, and it will not play one
+     without a gesture — so the first gesture of any kind buys us a play/pause
+     round trip, and scrubbing works from then on. */
+  var unlocked = false;
+  function unlock() {
+    if (unlocked || !vid) return;
+    unlocked = true;
+    var pr = vid.play();
+    if (pr && pr.then) pr.then(function () { vid.pause(); })
+                         .catch(function () { unlocked = false; });
+    else { try { vid.pause(); } catch (e) {} }
+  }
+
   if (reduce) {
     /* the assembled section is the more informative still — it is the finished
        wall, and the air arrow only reads once the cavity has closed */
@@ -133,16 +202,21 @@
     legs.forEach(function (l) { l.classList.add('on'); });
     nav.classList.add('solid');
   } else {
-    /* Try the rendered hero; the vector one stays in place if this fails.
-       The class goes on first — the canvas is display:none until it does, and
-       a hidden canvas measures itself as zero and comes up 1x1. */
-    if (glCv && window.SELA_HERO3D) {
-      figure.classList.add('gl');
-      var up = false;
-      try { up = window.SELA_HERO3D.init(glCv); } catch (err) { up = false; }
-      if (up) { gl3d = window.SELA_HERO3D; gl3d.resize(); }
-      else { figure.classList.remove('gl'); }
+    /* The vector section is already painted, so nothing here can leave a hole:
+       the film upgrades it when it decodes, and the rendered scene takes over
+       if the file is missing, undecodable, or simply too slow to arrive. */
+    if (vid && vid.canPlayType && vid.canPlayType('video/mp4; codecs="avc1.42E01E"')) {
+      vid.addEventListener('loadedmetadata', useFilm);
+      vid.addEventListener('error', useGL);
+      setTimeout(useGL, 2500);
+      ['touchstart', 'pointerdown', 'wheel', 'keydown', 'scroll'].forEach(function (ev) {
+        addEventListener(ev, unlock, { passive: true });
+      });
+      if (vid.readyState >= 1) useFilm();
+    } else {
+      useGL();
     }
+
     frame();
     addEventListener('scroll', onScroll, { passive: true });
     addEventListener('resize', function () { if (gl3d) gl3d.resize(); onScroll(); });
