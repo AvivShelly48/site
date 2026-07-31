@@ -172,6 +172,11 @@ h3{font-size:clamp(18px,1.6vw,21px);font-weight:400;line-height:1.35}
   letter-spacing:.16em;color:var(--soft-text)}
 .readout b{color:var(--tan-deep);font-weight:400}
 .hero-figure{position:relative}
+/* the rendered hero replaces the vector one only once WebGL is actually up —
+   the SVG stays the fallback for reduced-motion and for anything without it */
+.hero-gl{display:none;inline-size:100%;aspect-ratio:74/62}
+.hero-figure.gl .hero-gl{display:block}
+.hero-figure.gl .hero-svg{display:none}
 
 .legend{
   position:absolute;inset-block-end:30px;inset-inline:0;

@@ -23,6 +23,9 @@
   var stateEl= document.getElementById('state');
   var pctEl  = document.getElementById('pct');
   var stpEl  = document.getElementById('stp');
+  var figure = document.getElementById('heroFig');
+  var glCv   = document.getElementById('heroGL');
+  var gl3d   = null;
 
   /* Geometry order is by depth: 0 wall · 1 waterproofing · 2 insulation ·
      3 sub-construction · 4 cavity · 5 panels. That is the cross-section, and
@@ -89,6 +92,8 @@
 
     /* at rest the whole legend is readable; once assembly starts it lights
        step by step, so the system is learned in the order it is built */
+    if (gl3d) gl3d.render(p, function (step) { return arrival(step, p); });
+
     var atRest = p < 0.03;
     for (var j = 0; j < legs.length; j++) legs[j].classList.toggle('on', atRest || arrival(j, p) > 0);
 
@@ -128,9 +133,19 @@
     legs.forEach(function (l) { l.classList.add('on'); });
     nav.classList.add('solid');
   } else {
+    /* Try the rendered hero; the vector one stays in place if this fails.
+       The class goes on first — the canvas is display:none until it does, and
+       a hidden canvas measures itself as zero and comes up 1x1. */
+    if (glCv && window.SELA_HERO3D) {
+      figure.classList.add('gl');
+      var up = false;
+      try { up = window.SELA_HERO3D.init(glCv); } catch (err) { up = false; }
+      if (up) { gl3d = window.SELA_HERO3D; gl3d.resize(); }
+      else { figure.classList.remove('gl'); }
+    }
     frame();
     addEventListener('scroll', onScroll, { passive: true });
-    addEventListener('resize', onScroll);
+    addEventListener('resize', function () { if (gl3d) gl3d.resize(); onScroll(); });
   }
 
   /* --------------------------------------------------------- reveal ----- */
