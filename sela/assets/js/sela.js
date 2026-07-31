@@ -19,36 +19,42 @@
   var layers = [].slice.call(document.querySelectorAll('.ly'));
   var legs   = [].slice.call(document.querySelectorAll('.lg'));
   var air    = document.getElementById('airflow');
+  var rig    = document.getElementById('rig');
   var stateEl= document.getElementById('state');
   var pctEl  = document.getElementById('pct');
-  var bg     = document.getElementById('heroBg');
 
-  /* Per-layer travel from the exploded position to the assembled one.
-     The six layers do not collapse onto a single point — they stack into a
-     real cross-section, each one landing flush on the back of the previous.
-     dy is (cumulative thickness before the layer) minus (its exploded y
-     offset), so the section closes with no gaps and no overlap. That is what
-     keeps the ventilated cavity, and therefore the air arrow, meaningful at
-     100%. */
-  var DX = [0, -30, -60, -90, -120, -150];
-  var DY = [0,  -2, -14, -18,  -24,  -32];
+  /* Per-layer travel from the exploded position to the assembled one, along
+     the diagram's depth axis. The six layers do not collapse onto one point —
+     each lands flush on the back of the previous, so the build-up closes into
+     a real section and the ventilated cavity survives to 100%.
+     Order follows catalogue page 05: wall · waterproofing · insulation ·
+     sub-construction · cavity · panels. Generated with the geometry, not by
+     hand — see scratchpad/gen/iso.py. */
+  var TX = [0.0, -72.5, -162.2, -236.5, -314.4, -395.0];
+  var TY = [0.0, -33.8,  -75.7, -110.4, -146.8, -184.4];
+  var CAVITY = 4;                  /* the airflow rides this layer */
+
+  /* The stack converges onto layer 0, which parks the finished wall hard
+     against one corner of the frame. The rig drifts the opposite way as it
+     closes so the assembled section lands centred instead. */
+  var RIGX = 197, RIGY = 63;
 
   var ticking = false, lastState = '', lastPct = -1;
 
   function apply(p) {
     for (var i = 0; i < layers.length; i++) {
       var k = +layers[i].getAttribute('data-i');
-      layers[i].setAttribute('transform', 'translate(' + (DX[k] * p) + ',' + (DY[k] * p) + ')');
+      layers[i].setAttribute('transform', 'translate(' + (TX[k] * p) + ',' + (TY[k] * p) + ')');
     }
 
-    /* the airflow marker belongs to the cavity (layer 3) but paints last, so
-       it has to be moved by hand rather than parented into that group */
+    /* the airflow belongs to the cavity but must paint above the panels to
+       stay legible, so it is moved by hand rather than parented into it */
     if (air) {
-      air.setAttribute('transform', 'translate(' + (DX[3] * p) + ',' + (DY[3] * p) + ')');
+      air.setAttribute('transform', 'translate(' + (TX[CAVITY] * p) + ',' + (TY[CAVITY] * p) + ')');
       air.style.opacity = p > 0.84 ? '1' : '0';
     }
 
-    if (bg) bg.style.transform = 'scale(' + (1 + p * 0.06) + ')';
+    if (rig) rig.setAttribute('transform', 'translate(' + (RIGX * p) + ',' + (RIGY * p) + ')');
 
     var lit = Math.floor(p * (legs.length + 1));
     for (var j = 0; j < legs.length; j++) legs[j].classList.toggle('on', p < 0.05 || j < lit);
@@ -69,7 +75,7 @@
     var p    = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
 
     apply(p);
-    nav.classList.toggle('solid', -top > span * 0.62);
+    nav.classList.toggle('solid', -r.top > span * 0.62);
 
     var d = document.documentElement;
     prog.style.width = (scrollY / (d.scrollHeight - innerHeight) * 100) + '%';
