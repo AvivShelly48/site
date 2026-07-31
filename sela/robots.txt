@@ -1,0 +1,9 @@
+# SELA FAÇADE — for the standalone domain.
+# While the site lives under shellygroup.co.il/sela/ this file is inert:
+# the root robots.txt disallows /sela/ and the page carries a noindex meta.
+# On the split, this becomes the live robots.txt at the domain root.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://selafacade.co.il/sitemap.xml

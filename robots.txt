@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+# מותג נפרד בפיתוח — לא לאנדקס תחת הדומיין של שלי גרופ
+Disallow: /sela/
 
 User-agent: GPTBot
 Allow: /
