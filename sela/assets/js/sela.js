@@ -40,6 +40,22 @@
      below. Both express the same six steps; only their timing differs. */
   var CHAPTERS = 6;
 
+  /* The copy runs on its own clock. Six states is the wall's count, not the
+     story's: the titles are cut to four, and the one the film gives to the
+     open cavity — a gap you look through rather than a layer you can point
+     at — is folded into the insulation that creates it.
+
+       0.00  bare wall, then the waterproofing over it
+       0.20  brackets and rails going up
+       0.50  insulation into the bays, and the cavity it leaves
+       0.80  the porcelain going on
+
+     Each number is where a title takes over, so they are also the four
+     places the copy must be legible against — all of them cream. */
+  var SCENES = [0, 0.20, 0.50, 0.80];
+  var scenes = [].slice.call(document.querySelectorAll('.scene'));
+  var lastScene = -1;
+
   /* Geometry order is by depth: 0 wall · 1 waterproofing · 2 insulation ·
      3 sub-construction · 4 cavity · 5 panels. That is the cross-section, and
      it is what the assembled state must look like.
@@ -132,6 +148,15 @@
     }
 
     if (step !== lastStep) { stpEl.textContent = ('0' + step).slice(-2); lastStep = step; }
+
+    /* the title only changes when the scene does, so scrubbing does not
+       restart the fade on every frame it holds still */
+    var sc = 0;
+    for (var i = SCENES.length - 1; i > 0; i--) if (p >= SCENES[i]) { sc = i; break; }
+    if (sc !== lastScene) {
+      for (var j2 = 0; j2 < scenes.length; j2++) scenes[j2].classList.toggle('on', j2 === sc);
+      lastScene = sc;
+    }
 
     var s = p > 0.97 ? 'מורכב' : (p > 0.03 ? 'מתכנס' : 'מפורק');
     if (s !== lastState) { stateEl.textContent = s; lastState = s; }

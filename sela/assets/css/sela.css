@@ -153,7 +153,10 @@ h3{font-size:clamp(18px,1.6vw,21px);font-weight:400;line-height:1.35}
 .menu .nav-cta{margin-block-start:22px;font-size:13px;padding:12px 26px}
 
 /* ------------------------------------------------------------------ hero */
-.hero{position:relative;block-size:300vh;background:var(--canvas);
+/* 480vh over four titles is about a screen and a quarter of scroll each —
+   the film was running through six states in three screens, which read as a
+   flick rather than an assembly. */
+.hero{position:relative;block-size:480vh;background:var(--canvas);
   /* the copy column and its inset from the edge — the renderers measure
      themselves against these so the two never have to be kept in step by
      hand */
@@ -174,7 +177,19 @@ h3{font-size:clamp(18px,1.6vw,21px);font-weight:400;line-height:1.35}
    ~45% of the frame, so the outer quarter is the clear ground to stand on. */
 .hero-in{position:relative;z-index:2;inline-size:var(--hero-copy);
   margin-inline-start:var(--hero-gap);margin-inline-end:auto}
-.hero-copy h1{font-size:clamp(34px,3.5vw,52px)}
+/* The four titles occupy one grid cell, so the block is as tall as the
+   longest of them and nothing below it moves when they hand over. */
+.scenes{display:grid}
+.scene{grid-area:1/1;opacity:0;transform:translateY(9px);pointer-events:none;
+  transition:opacity .5s ease,transform .5s ease}
+.scene.on{opacity:1;transform:none}
+.scene-t{font-family:var(--serif);font-weight:300;line-height:1.12;
+  letter-spacing:-.018em;color:var(--ink);margin-block-start:20px;
+  font-size:clamp(30px,2.9vw,44px)}
+/* the accented phrase is the one that carries the line, so it breaks around
+   it rather than through it — that is what puts "חזית הבנייה" on its own
+   line without a hard break that only suits one column width */
+.scene-t .em{color:var(--tan-deep);white-space:nowrap}
 .hero-lede{margin-block-start:22px;font-size:15.5px;line-height:1.95;color:var(--soft-text);max-width:34ch}
 /* base direction stays RTL — forcing ltr reorders the Hebrew state word */
 .readout{margin-block-start:28px;font-family:var(--mono);font-size:11px;
@@ -401,7 +416,7 @@ footer :focus-visible{outline-color:#E6D6B8}
 @media(max-width:960px){
   .nav-links{display:none}
   .burger{display:flex}
-  .hero{block-size:240vh}
+  .hero{block-size:400vh}
   /* Nothing beside the film on a narrow screen — the copy takes the top of
      the frame and the film sits under it. Cropping a 16:9 render to fill a
      portrait viewport would cut the very edges of the wall, which is the one
@@ -410,7 +425,7 @@ footer :focus-visible{outline-color:#E6D6B8}
   .hero-stick{align-items:start}
   .hero-in{flex:1;inline-size:auto;margin-block-start:clamp(78px,10vh,108px);
     margin-inline:clamp(18px,6vw,40px)}
-  .hero-copy h1{font-size:clamp(34px,6.2vw,46px)}
+  .scene-t{font-size:clamp(28px,5.2vw,38px)}
   /* the copy has to clear the film's top edge, and it is the leading between
      these three that pays for it */
   .hero-copy .hair-rule{margin-block:18px}
