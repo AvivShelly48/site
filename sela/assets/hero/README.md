@@ -1,9 +1,17 @@
 # hero-scrub.mp4
 
 The film the hero scrubs through: six chapters, one per assembly step, in
-installation order — concrete wall, waterproofing, brackets and rails,
-insulation, ventilated cavity, porcelain panels. The stills in `keyframes/`
-are the six chapter openings, and `kf-a.jpg` doubles as the video poster.
+installation order — concrete wall, waterproofing, black vertical profiles on
+stainless brackets, insulation, the clip plates and their screws, porcelain.
+The stills in `keyframes/` are our own geometry at those six states, and
+`kf-a.jpg` doubles as the video poster.
+
+The system this has to be true to: the vertical profiles are the only linear
+members. There are no horizontal rails. Tiles are carried on flat stainless
+plates screwed to the verticals, with two tongues punched out and bent
+forward to make ledges the tile's lower edge sits on. The ventilated cavity
+is open air — an earlier cut of this film showed it as a translucent plane,
+which is not a thing that exists in the product.
 
 It is committed rather than fetched at build time, so a clone is the whole
 site. If it ever goes missing the hero does not break — the film only takes
