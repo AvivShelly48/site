@@ -237,8 +237,10 @@ h3{font-size:clamp(18px,1.6vw,21px);font-weight:400;line-height:1.35}
 .scroll-cue i{display:block;inline-size:1px;block-size:26px;background:var(--tan);
   transform-origin:top;animation:cue 2.4s ease-in-out infinite}
 @keyframes cue{0%,100%{transform:scaleY(.3);opacity:.3}50%{transform:scaleY(1);opacity:1}}
-.hero-tag{position:absolute;z-index:2;inset-block-start:104px;inset-inline-start:0;
-  inline-size:var(--wrap);margin-inline:auto;
+/* the tag belongs to the copy column, not to the stage — hung off the same
+   edge so it stops floating over the middle of the figure */
+.hero-tag{position:absolute;z-index:2;inset-block-start:104px;
+  inset-inline-start:var(--hero-gap);inset-inline-end:auto;inline-size:auto;
   font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--soft-text);
   direction:ltr;unicode-bidi:isolate}
 
