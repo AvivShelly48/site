@@ -728,6 +728,7 @@
         <div class="loc">מגדל מגורים בוטיק · שפה אדריכלית עכשווית</div>
         <p>פרויקט מגורים על קו החוף — חזית בטון חשוף אלגנטית וסטנדרט יוצא דופן. שפה אדריכלית עכשווית שמדגישה את ההבדל, מהתכנון ועד המפתח.</p>
         <span class="more"><span class="ln2"></span> צפו בפרויקט</span>
+        <a href="projects/har-avital.html" style="display:inline-block;margin-top:10px;font-weight:600;color:var(--green-deep);">לעמוד הפרויקט המלא ←</a>
       </div>
     </article>
     <div class="grid" id="projGrid"></div>
@@ -896,8 +897,6 @@
           <option>קרן היסוד · מתחם הצעירים, אשדוד</option>
           <option>הציונות 10 · סיטי פארק, אשדוד (מחיר למשתכן)</option>
           <option>הלילך, יבנה</option>
-          <option>מיכאל</option>
-          <option>שערי העיר · רובע 9, אשדוד</option>
           <option>הר אביטל</option>
         </select>
         <label class="fl" for="lf-rooms">מספר חדרים</label>
@@ -946,6 +945,7 @@
       <div class="fcols">
         <div><h5>ניווט</h5><a href="#projects">פרויקטים</a><a href="#availability">דירות זמינות</a><a href="about.html">אודות</a><a href="team.html">הצוות</a><a href="#contact">צור קשר</a></div>
         <div><h5>תחומים</h5><a href="renewal.html">התחדשות עירונית</a><a href="development.html">ייזום ובנייה</a><a href="contracting.html">ביצוע קבלנות בניין</a><a href="mishtaken.html">מחיר למשתכן</a></div>
+        <div><h5>פרויקטים</h5><a href="projects/keren-hayesod.html">קרן היסוד · אשדוד</a><a href="projects/haatzmaut-28-32.html">העצמאות 28–32 · יבנה</a><a href="projects/hatzionut-10.html">הציונות 10 · אשדוד</a><a href="projects/halilach.html">הלילך · יבנה</a><a href="projects/har-avital.html">הר אביטל</a></div>
         <div><h5>קשר</h5><a href="tel:+97288623366">08-862-3366</a><a href="mailto:Office@shellyurban.co.il">Office@shellyurban.co.il</a><a href="accessibility.html">הצהרת נגישות</a></div>
       </div>
     </div>
@@ -967,6 +967,7 @@
       <h3 id="lbTitle"></h3>
       <div class="loc" id="lbLoc"></div>
       <p id="lbDesc"></p>
+      <a id="lbPage" href="#" style="display:none;margin-top:14px;font-weight:600;color:var(--green-deep);">לעמוד הפרויקט המלא ←</a>
       <div class="lb-facts" id="lbFacts"></div>
       <div class="lb-status">
         <div class="lb-track"><i id="lbFill"></i></div>
@@ -1203,7 +1204,7 @@
     return "";
   }
   var PROJECTS = [
-    { title:"עצמאות · פינוי-בינוי", location:"יבנה", cat:"renewal", sale:"בתכנון", stage:1,
+    { title:"עצמאות · פינוי-בינוי", location:"יבנה", url:"projects/haatzmaut-28-32.html", cat:"renewal", sale:"בתכנון", stage:1,
       image:"assets/uploads/render-independence.jpg",
       gallery:["assets/uploads/render-independence.jpg","assets/uploads/render-interior.jpg"],
       facts:[{k:"units",v:"192",l:"יח״ד חדשות"},{k:"build",v:"3",l:"מגדלי מגורים"},{k:"park",v:"מסחר",l:"קומת מסחר עירוני"}],
@@ -1213,7 +1214,7 @@
       gallery:["assets/shapira/shapira-blvd.jpg","assets/shapira/shapira-towers.jpg"],
       facts:[{k:"units",v:"210",l:"יח״ד חדשות"},{k:"renew",v:"180",l:"יח״ד מתפנות"},{k:"key",v:"נוף לים",l:"מלא ומרהיב"}],
       description:"פרויקט התחדשות עירונית בשכונת שפירא 12-20 באשקלון — 210 יחידות חדשות ומודרניות, עם נוף מלא לים. שכונה מתחדשת במרחק הליכה מהחוף — איכות חיים חדשה לדיירים הוותיקים ולמצטרפים החדשים." },
-    { title:"קרן היסוד · מתחם הצעירים", location:"אשדוד", cat:"renewal", sale:"בשיווק", stage:2,
+    { title:"קרן היסוד · מתחם הצעירים", location:"אשדוד", url:"projects/keren-hayesod.html", cat:"renewal", sale:"בשיווק", stage:2,
       image:"assets/proj-keren.jpg",
       facts:[{k:"renew",v:"144",l:"דירות מתחדשות"},{k:"units",v:"138",l:"דירות חדשות"},{k:"build",v:"2",l:"שלבי ביצוע"}],
       description:"מתחם התחדשות עירונית למשפחות צעירות בלב אשדוד, בשני שלבי ביצוע — שלב א׳: 72 דירות קיימות ו-66 דירות חדשות; שלב ב׳: 72 קיימות ו-72 חדשות. דירות 3–4 חדרים ודירות גג בעיצוב מודרני ובסטנדרט בנייה גבוה, בקרבת פארק אשדוד-ים, האמפי תיאטרון וחופי העיר." },
@@ -1221,11 +1222,11 @@
       image:"assets/keren-hayesod/keren-b-night.jpg",
       facts:[{k:"renew",v:"72",l:"דירות מתחדשות"},{k:"units",v:"72",l:"דירות חדשות"},{k:"key",v:"אבן",l:"חזית ירושלמית"}],
       description:"שלב ב׳ של מתחם הצעירים באשדוד — קרן היסוד 17-23: 72 דירות קיימות מפנות את מקומן ל-72 דירות חדשות ומודרניות. בשלבי תכנון ורישוי — ההמשך הישיר להצלחת שלב א׳ שכבר בביצוע." },
-    { title:"הציונות 10 · סיטי פארק", location:"אשדוד", cat:"sale", sale:"בשיווק", stage:2,
+    { title:"הציונות 10 · סיטי פארק", location:"אשדוד", url:"projects/hatzionut-10.html", cat:"sale", sale:"בשיווק", stage:2,
       image:"assets/proj-142.jpg",
       facts:[{k:"floors",v:"9",l:"קומות"},{k:"build",v:"3",l:"בנייני מגורים"},{k:"park",v:"2",l:"מפלסי חניה"}],
       description:"פרויקט 'מחיר למשתכן' ייחודי בלב אשדוד, בפריים-לוקיישן מול פארק ירוק ומרהיב — שלושה בנייני מגורים בני 9 קומות מעל שני מפלסי חניון תת-קרקעי. דירות מרווחות בתכנון ייחודי עם מפרט מפנק ומתקדם, בסטנדרט בנייה גבוה במיוחד, לזוגות צעירים ולמשפחות." },
-    { title:"הלילך", location:"יבנה", cat:"renewal", sale:"הושלם", stage:3,
+    { title:"הלילך", location:"יבנה", url:"projects/halilach.html", cat:"renewal", sale:"הושלם", stage:3,
       image:"assets/proj-lilac.jpg",
       facts:[{k:"build",v:"6",l:"בניינים ברחוב"},{k:"renew",v:"3+3",l:"תמ״א 38 ופינוי-בינוי"},{k:"key",v:"בוטיק",l:"בנייני מגורים"}],
       description:"התחדשות של רחוב שלם בלב יבנה — שישה בניינים מודרניים שישנו את פני הרחוב והשכונה: שלושה בתמ״א 38 ושלושה בפינוי-בינוי שבמקומם יוקמו שלושה מגדלי מגורים. בנייני בוטיק בעיצוב נקי ואורבני, סביב גינה ציבורית מטופחת — שילוב מנצח של קהילה, שקט וחיים עירוניים תוססים." },
@@ -1239,7 +1240,7 @@
       facts:[{k:"build",v:"SHELLY",l:"CENTER · מרכז מסחרי"},{k:"key",v:"נמסר",l:"הושלם ופעיל"},{k:"park",v:"באר גנים",l:"הסביון 1"}],
       description:"מרכז מסחרי בלב באר גנים — הסביון 1, תחת מותג SHELLY CENTER. רחוב מסחרי מודרני עם רחבת ישיבה מוצלת, בתי קפה וחנויות. הפרויקט הושלם, נמסר ופעיל — דוגמה חיה ליכולת הביצוע העצמי של שלי גרופ, מהתכנון ועד המסירה." }
   ];
-  var FEATURED = { title:"הר אביטל", location:"מגדל מגורים בוטיק", cat:"build", sale:"בתכנון", stage:1,
+  var FEATURED = { title:"הר אביטל", url:"projects/har-avital.html", location:"מגדל מגורים בוטיק", cat:"build", sale:"בתכנון", stage:1,
     image:"assets/har-avital/day-web.jpg",
     facts:[{k:"floors",v:"9",l:"קומות"},{k:"build",v:"בוטיק",l:"מגדל מגורים"},{k:"key",v:"בטון חשוף",l:"חזית אדריכלית"}],
     description:"פרויקט הדגל שלנו — פרויקט מגורים על קו החוף עם חזית בטון חשוף אלגנטית וסטנדרט יוצא דופן. מביאים אליכם שפה אדריכלית עכשווית, ומדגישים את ההבדל בבית." };
@@ -1252,17 +1253,18 @@
   function renderProjects(list){
     grid.innerHTML=list.map(function(p,i){
       var d=i%3===1?'d1':(i%3===2?'d2':'');
-      return '<article class="pcard reveal '+d+'" data-hot tabindex="0" aria-label="'+p.title+'">'+
+      var tag=p.url?'a':'article', href=p.url?' href="'+p.url+'"':' tabindex="0"';
+      return '<'+tag+' class="pcard reveal '+d+'" data-hot'+href+' aria-label="'+p.title+'">'+
         '<div class="pcard-img"><img src="'+p.image+'" alt="'+('הדמיית '+p.title+(p.location?' — '+p.location:''))+'" loading="lazy" />'+
         '<span class="pcard-tag '+tagClass(p.sale)+'">'+(p.sale||CAT[p.cat]||'')+'</span></div>'+
         '<div class="pcard-body"><div class="pcard-ttl">'+p.title+'</div>'+
         '<div class="pcard-loc">'+p.location+'</div>'+
         '<div class="pcard-facts">'+chips(p)+'</div>'+
-        '<div class="pcard-cta"><b>לצפייה בפרויקט</b><i>←</i></div></div></article>';
+        '<div class="pcard-cta"><b>לצפייה בפרויקט</b><i>←</i></div></div></'+tag+'>';
     }).join('');
     grid.querySelectorAll('.pcard').forEach(function(el,i){
       if(window.__observeReveal) window.__observeReveal(el);
-      el.addEventListener('click',function(){openLB(list[i]);});
+      el.addEventListener('click',function(e){e.preventDefault();openLB(list[i]);});
       el.addEventListener('keydown',function(e){if(e.key==='Enter')openLB(list[i]);});
     });
   }
@@ -1284,6 +1286,8 @@
   var curCat='', curTitle='';
   function openLB(p){
     lbImg.src=p.image;lbImg.alt=p.title;lbTitle.textContent=p.title;lbLoc.textContent=p.location;lbDesc.textContent=p.description;
+    var lbPage=document.getElementById('lbPage');
+    if(lbPage){ if(p.url){lbPage.href=p.url;lbPage.style.display='inline-block';} else {lbPage.style.display='none';} }
     /* image gallery: show thumbnails when a project has more than one render */
     var imgs=(p.gallery&&p.gallery.length>1)?p.gallery:[];
     lbThumbs.innerHTML=imgs.map(function(src,i){
@@ -1386,6 +1390,17 @@
   if(stepEl){var sIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');sIO.unobserve(e.target);}});},{threshold:.5});sIO.observe(stepEl);}
 
   var MAIL_TO="Office@shellyurban.co.il";
+  /* preselect project from ?project= (used by project pages CTA) */
+  (function(){
+    try{
+      var want=new URLSearchParams(location.search).get('project');
+      if(!want) return;
+      var sel=document.getElementById('lf-project'); if(!sel) return;
+      for(var o=0;o<sel.options.length;o++){
+        if(sel.options[o].text.indexOf(want)!==-1){ sel.selectedIndex=o; break; }
+      }
+    }catch(e){}
+  })();
   var form=document.getElementById('leadForm');
   function v(id){var el=document.getElementById(id);return el?el.value.trim():"";}
   function mailtoLead(d){
