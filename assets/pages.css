@@ -88,6 +88,7 @@ h2 em{font-style:normal;color:var(--green-deep);}
 /* feature / info cards */
 .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:36px;}
 .icard{background:var(--bg2);border:1px solid var(--hair-soft);border-radius:16px;padding:28px;}
+.icard .ico svg{width:26px;height:26px;color:var(--green-deep);}
 .icard .ico{width:44px;height:44px;border-radius:11px;background:rgba(95,156,54,.12);display:grid;place-items:center;color:var(--green-deep);font-size:21px;}
 .icard h4{font-size:19px;font-weight:600;margin-top:16px;}
 .icard p{font-size:14.5px;color:var(--ink-dim);margin-top:8px;line-height:1.7;}
