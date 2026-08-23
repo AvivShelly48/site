@@ -27,7 +27,7 @@
 
 <!-- ⚙️ Base44 data source: set this to the public functions base URL to pull projects/units live.
      Leave empty to use embedded data. Example:
-     window.SHELLY_BASE44_API = "https://app.base44.com/api/apps/<APP_ID>/functions"; -->
+     window.SHELLY_BASE44_API = "https://app.base44.com/api/apps/APP_ID/functions"; -->
 
 <style>
   :root{
@@ -549,29 +549,89 @@
 </style>
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": ["Organization", "GeneralContractor"],
-  "@id": "https://shellygroup.co.il/#organization",
-  "name": "שלי גרופ",
-  "alternateName": ["SHELLY GROUP", "שלי אורבן", "SHELLY URBAN"],
-  "legalName": "דני שלי מהנדסים בע\"מ",
-  "url": "https://shellygroup.co.il/",
-  "logo": "https://shellygroup.co.il/assets/logo-shelly-group.svg",
-  "image": "https://shellygroup.co.il/assets/har-avital/day-web.jpg",
-  "foundingDate": "1996",
-  "description": "חברת יזמות, התחדשות עירונית ובנייה. יזם שהוא גם הקבלן המבצע — קבלן רשום בסיווג ג'5, מהתכנון ועד מסירת המפתח תחת קורת גג אחת.",
-  "telephone": "+972-8-862-3373",
-  "email": "Office@shellyurban.co.il",
-  "sameAs": ["https://www.instagram.com/shellyurban2010/"],
-  "address": { "@type": "PostalAddress", "streetAddress": "הגדוד העברי 5", "addressLocality": "אשדוד", "addressCountry": "IL" },
-  "areaServed": [
-    { "@type": "City", "name": "אשדוד" },
-    { "@type": "City", "name": "יבנה" },
-    { "@type": "City", "name": "אשקלון" },
-    { "@type": "AdministrativeArea", "name": "השפלה" }
-  ],
-  "knowsAbout": ["התחדשות עירונית", "פינוי בינוי", "מחיר למשתכן", "ייזום נדל\"ן", "קבלנות בניין", "בנייה למגורים", "מרכזים מסחריים"],
-  "hasCredential": { "@type": "EducationalOccupationalCredential", "name": "קבלן רשום בסיווג ג'5 — פנקס הקבלנים, משרד הבינוי והשיכון" }
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": [
+    "Organization",
+    "GeneralContractor"
+   ],
+   "@id": "https://shellygroup.co.il/#organization",
+   "name": "שלי גרופ",
+   "alternateName": [
+    "Shelly Group",
+    "שלי אורבן",
+    "דני שלי מהנדסים"
+   ],
+   "legalName": "דני שלי מהנדסים בע״מ",
+   "taxID": "512412073",
+   "foundingDate": "1996",
+   "url": "https://shellygroup.co.il/",
+   "logo": "https://shellygroup.co.il/assets/logo-shelly-group.svg",
+   "image": "https://shellygroup.co.il/assets/har-avital/day-web.jpg",
+   "telephone": "+972-8-862-3373",
+   "email": "Office@shellyurban.co.il",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "הגדוד העברי 5",
+    "addressLocality": "אשדוד",
+    "addressCountry": "IL"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "אשדוד"
+    },
+    {
+     "@type": "City",
+     "name": "יבנה"
+    },
+    {
+     "@type": "City",
+     "name": "אשקלון"
+    },
+    {
+     "@type": "City",
+     "name": "גן יבנה"
+    },
+    {
+     "@type": "City",
+     "name": "באר טוביה"
+    }
+   ],
+   "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "רישיון קבלן",
+    "name": "סיווג ג׳5 — פנקס הקבלנים",
+    "identifier": "26887",
+    "recognizedBy": {
+     "@type": "GovernmentOrganization",
+     "name": "רשם הקבלנים, משרד הבינוי והשיכון"
+    }
+   },
+   "knowsAbout": [
+    "התחדשות עירונית",
+    "פינוי בינוי",
+    "תמ״א 38",
+    "מחיר למשתכן",
+    "בנייה רוויה",
+    "קבלנות בניין"
+   ],
+   "sameAs": [
+    "https://www.instagram.com/shellyurban2010/"
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://shellygroup.co.il/#website",
+   "url": "https://shellygroup.co.il/",
+   "name": "שלי גרופ",
+   "inLanguage": "he-IL",
+   "publisher": {
+    "@id": "https://shellygroup.co.il/#organization"
+   }
+  }
+ ]
 }
 </script>
 <script type="application/ld+json">
